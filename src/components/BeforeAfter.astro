@@ -1,0 +1,98 @@
+---
+---
+
+<section style="padding: 96px 0; background: var(--color-warm-white);">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
+    <div style="text-align: center; margin-bottom: 56px;" data-reveal>
+      <span class="eyebrow" style="display: block; margin-bottom: 12px;">Transformations</span>
+      <h2 class="font-heading">Before & After</h2>
+    </div>
+
+    <div
+      id="before-after-container"
+      style="position: relative; max-width: 900px; margin: 0 auto; overflow: hidden; cursor: ew-resize; user-select: none; aspect-ratio: 16/10; background: var(--color-charcoal);"
+      data-reveal
+      role="img"
+      aria-label="Before and after comparison slider showing a kitchen renovation. Drag the slider to compare."
+    >
+      <!-- After image (background) -->
+      <img
+        src="/images/projects/after.svg"
+        alt=""
+        width="900"
+        height="563"
+        loading="lazy"
+        style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;"
+        aria-hidden="true"
+      />
+
+      <!-- Before image (clipped) -->
+      <div id="before-clip" style="position: absolute; inset: 0; width: 50%; overflow: hidden;">
+        <img
+          src="/images/projects/before.svg"
+          alt=""
+          width="900"
+          height="563"
+          loading="lazy"
+          style="width: 900px; max-width: none; height: 100%; object-fit: cover;"
+          aria-hidden="true"
+        />
+      </div>
+
+      <!-- Slider handle -->
+      <div id="slider-handle" style="position: absolute; top: 0; bottom: 0; left: 50%; transform: translateX(-50%); width: 3px; background: var(--color-brass); z-index: 2; pointer-events: none;">
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 44px; height: 44px; background: var(--color-brass); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.3);">
+          <span style="color: var(--color-warm-white); font-size: 1rem; font-weight: 700;">⟷</span>
+        </div>
+      </div>
+
+      <!-- Labels -->
+      <span style="position: absolute; top: 16px; left: 16px; background: rgba(26,29,35,0.8); color: var(--color-text-light); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 14px; z-index: 3;" aria-hidden="true">Before</span>
+      <span style="position: absolute; top: 16px; right: 16px; background: rgba(184,134,11,0.9); color: var(--color-warm-white); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 14px; z-index: 3;" aria-hidden="true">After</span>
+    </div>
+  </div>
+</section>
+
+<script>
+  const container = document.getElementById('before-after-container');
+  const beforeClip = document.getElementById('before-clip');
+  const handle = document.getElementById('slider-handle');
+
+  if (container && beforeClip && handle) {
+    let isDragging = false;
+
+    function setPosition(x: number) {
+      const rect = container!.getBoundingClientRect();
+      let pct = ((x - rect.left) / rect.width) * 100;
+      pct = Math.max(5, Math.min(95, pct));
+      beforeClip!.style.width = pct + '%';
+      handle!.style.left = pct + '%';
+    }
+
+    container.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      setPosition(e.clientX);
+    }, { passive: true });
+
+    document.addEventListener('mousemove', (e) => {
+      if (isDragging) setPosition(e.clientX);
+    }, { passive: true });
+
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+    }, { passive: true });
+
+    container.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      setPosition(e.touches[0].clientX);
+    }, { passive: true });
+
+    document.addEventListener('touchmove', (e) => {
+      if (isDragging) setPosition(e.touches[0].clientX);
+    }, { passive: true });
+
+    document.addEventListener('touchend', () => {
+      isDragging = false;
+    }, { passive: true });
+  }
+</script>

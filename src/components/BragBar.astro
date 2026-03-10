@@ -1,0 +1,22 @@
+---
+const badges = [
+  { name: 'FMB', label: 'Federation of Master Builders' },
+  { name: 'TrustMark', label: 'Government Endorsed Quality' },
+  { name: 'Checkatrade', label: 'Vetted & Reviewed' },
+  { name: 'LABC', label: 'Building Control Partner' },
+  { name: 'Which?', label: 'Trusted Trader' },
+];
+---
+
+<section style="background: var(--color-stone); border-top: 1px solid rgba(184,134,11,0.15); border-bottom: 1px solid rgba(184,134,11,0.15);">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 32px clamp(24px, 4vw, 48px);">
+    <div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 32px 48px;" data-reveal>
+      {badges.map((badge) => (
+        <div style="text-align: center; opacity: 0.7;">
+          <span style="font-size: 0.85rem; font-weight: 600; color: var(--color-text-dark); letter-spacing: 0.05em; display: block;">{badge.name}</span>
+          <span style="font-size: 0.68rem; color: rgba(44,44,46,0.6); display: block; margin-top: 2px;">{badge.label}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

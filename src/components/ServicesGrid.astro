@@ -1,0 +1,73 @@
+---
+const services = [
+  {
+    title: 'Extensions',
+    description: 'Single, double, rear, side and wrap-around extensions that seamlessly blend with your existing home.',
+    icon: '⊞',
+    href: '/services/#extensions',
+  },
+  {
+    title: 'Loft Conversions',
+    description: 'Dormer, hip-to-gable, Velux and L-shaped conversions to maximise your living space.',
+    icon: '△',
+    href: '/services/#lofts',
+  },
+  {
+    title: 'Renovations',
+    description: 'Complete home transformations, from period property restoration to contemporary refurbishments.',
+    icon: '◈',
+    href: '/services/#renovations',
+  },
+  {
+    title: 'New Builds',
+    description: 'Bespoke new-build homes designed and constructed to the highest standards.',
+    icon: '⬡',
+    href: '/services/#new-builds',
+  },
+  {
+    title: 'Kitchens',
+    description: 'Luxury kitchen installations, from structural work to the final finishing touches.',
+    icon: '▣',
+    href: '/services/#kitchens',
+  },
+  {
+    title: 'Bathrooms',
+    description: 'Premium bathroom design and fitting, including plumbing, tiling and fixtures.',
+    icon: '◉',
+    href: '/services/#bathrooms',
+  },
+];
+---
+
+<section style="padding: 96px 0; background: var(--color-warm-white);">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
+    <div style="text-align: center; margin-bottom: 56px;" data-reveal>
+      <span class="eyebrow" style="display: block; margin-bottom: 12px;">What We Do</span>
+      <h2 class="font-heading">Our Services</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style="gap: 24px;" data-stagger-parent>
+      {services.map((service) => (
+        <a
+          href={service.href}
+          class="group"
+          style="display: block; padding: 36px 28px; background: var(--color-stone); border: 1px solid transparent; transition: all 0.3s ease; text-decoration: none;"
+          data-stagger-child
+        >
+          <span style="font-size: 1.8rem; display: block; margin-bottom: 16px; color: var(--color-brass);" aria-hidden="true">
+            {service.icon}
+          </span>
+          <h3 class="font-heading" style="font-size: 1.35rem; margin-bottom: 10px; color: var(--color-charcoal);">
+            {service.title}
+          </h3>
+          <p style="font-size: 0.9rem; color: rgba(44,44,46,0.7); line-height: 1.7;">
+            {service.description}
+          </p>
+          <span style="display: inline-block; margin-top: 16px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brass); transition: color 0.3s ease;">
+            Learn More →
+          </span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

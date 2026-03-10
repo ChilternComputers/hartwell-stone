@@ -1,0 +1,55 @@
+---
+const steps = [
+  {
+    number: '01',
+    title: 'Consultation',
+    description: 'Free site visit to discuss your vision, assess feasibility and provide initial guidance.',
+  },
+  {
+    number: '02',
+    title: 'Design',
+    description: 'Detailed plans and 3D visualisations. We work with architects to perfect every detail.',
+  },
+  {
+    number: '03',
+    title: 'Planning',
+    description: 'We handle all planning applications, building regulations and party wall agreements.',
+  },
+  {
+    number: '04',
+    title: 'Build',
+    description: 'Expert construction by our in-house team. Regular updates and a dedicated project manager.',
+  },
+  {
+    number: '05',
+    title: 'Handover',
+    description: 'Final snagging, deep clean and handover. Your project backed by our 10-year guarantee.',
+  },
+];
+---
+
+<section style="padding: 96px 0; background: var(--color-charcoal);">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
+    <div style="text-align: center; margin-bottom: 64px;" data-reveal>
+      <span class="eyebrow eyebrow-light" style="display: block; margin-bottom: 12px;">Our Process</span>
+      <h2 class="font-heading" style="color: var(--color-text-light);">How We Work</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-5" style="gap: 32px;" data-stagger-parent>
+      {steps.map((step) => (
+        <div style="text-align: center;" data-stagger-child>
+          <span class="font-heading" style="font-size: 2.5rem; color: var(--color-brass); display: block; line-height: 1; margin-bottom: 12px;">
+            {step.number}
+          </span>
+          <div class="line-accent" style="margin: 0 auto 16px;" aria-hidden="true"></div>
+          <h3 class="font-heading" style="font-size: 1.15rem; color: var(--color-text-light); margin-bottom: 10px;">
+            {step.title}
+          </h3>
+          <p style="font-size: 0.85rem; color: rgba(240,237,232,0.6); line-height: 1.7;">
+            {step.description}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

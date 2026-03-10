@@ -1,0 +1,76 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { SITE } from '@/config';
+import Hero from '@/components/Hero.astro';
+import BragBar from '@/components/BragBar.astro';
+import ServicesGrid from '@/components/ServicesGrid.astro';
+import FeaturedProjects from '@/components/FeaturedProjects.astro';
+import BeforeAfter from '@/components/BeforeAfter.astro';
+import ProcessTimeline from '@/components/ProcessTimeline.astro';
+import StatsCounter from '@/components/StatsCounter.astro';
+import TestimonialCarousel from '@/components/TestimonialCarousel.astro';
+import CostGuideTeaser from '@/components/CostGuideTeaser.astro';
+import ServiceAreas from '@/components/ServiceAreas.astro';
+import CTABanner from '@/components/CTABanner.astro';
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'HomeAndConstructionBusiness',
+    name: SITE.name,
+    description: SITE.description,
+    url: SITE.url,
+    telephone: SITE.phone,
+    email: SITE.email,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: SITE.address.street,
+      addressLocality: SITE.address.area,
+      addressRegion: SITE.address.city,
+      postalCode: SITE.address.postcode,
+      addressCountry: SITE.address.country,
+    },
+    foundingDate: '1987',
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: SITE.reviews.rating,
+      reviewCount: SITE.reviews.count,
+      bestRating: 5,
+    },
+    areaServed: {
+      '@type': 'State',
+      name: 'Essex',
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: SITE.url,
+      },
+    ],
+  },
+];
+---
+
+<Layout
+  title={`${SITE.name} | Premium Residential Construction in Essex`}
+  description={SITE.description}
+  schema={schema}
+>
+  <Hero />
+  <BragBar />
+  <ServicesGrid />
+  <FeaturedProjects />
+  <BeforeAfter />
+  <ProcessTimeline />
+  <StatsCounter />
+  <TestimonialCarousel />
+  <CostGuideTeaser />
+  <ServiceAreas />
+  <CTABanner />
+</Layout>

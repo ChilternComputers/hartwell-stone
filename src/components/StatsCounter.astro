@@ -1,0 +1,73 @@
+---
+import { SITE } from '@/config';
+
+const stats = [
+  { value: SITE.yearsExperience, suffix: '', label: 'Years of Excellence' },
+  { value: 500, suffix: '+', label: 'Projects Completed' },
+  { value: 50, suffix: '+', label: 'Industry Awards' },
+  { value: 98, suffix: '%', label: 'Client Satisfaction' },
+];
+---
+
+<section style="padding: 80px 0; background: var(--color-stone);">
+  <div style="max-width: 1000px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
+    <div class="grid grid-cols-2 md:grid-cols-4" style="gap: 32px;" data-stagger-parent>
+      {stats.map((stat) => (
+        <div style="text-align: center;" data-stagger-child>
+          <span
+            class="font-heading stat-number"
+            style="font-size: clamp(2.5rem, 5vw, 3.5rem); color: var(--color-brass); display: block; line-height: 1;"
+            data-count-to={stat.value}
+            data-suffix={stat.suffix}
+          >
+            0{stat.suffix}
+          </span>
+          <span style="font-size: 0.78rem; font-weight: 500; color: rgba(44,44,46,0.6); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 8px; display: block;">
+            {stat.label}
+          </span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function animateCounters() {
+    document.querySelectorAll('.stat-number').forEach((el) => {
+      const target = parseInt(el.getAttribute('data-count-to') || '0');
+      const suffix = el.getAttribute('data-suffix') || '';
+
+      if (prefersReducedMotion) {
+        el.textContent = target + suffix;
+        return;
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            let current = 0;
+            const duration = 2000;
+            const step = target / (duration / 16);
+            const counter = () => {
+              current += step;
+              if (current >= target) {
+                el.textContent = target + suffix;
+              } else {
+                el.textContent = Math.floor(current) + suffix;
+                requestAnimationFrame(counter);
+              }
+            };
+            requestAnimationFrame(counter);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+
+      observer.observe(el);
+    });
+  }
+
+  animateCounters();
+</script>

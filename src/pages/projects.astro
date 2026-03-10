@@ -1,0 +1,106 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { SITE } from '@/config';
+import { projects } from '@/data/projects';
+import ProjectCard from '@/components/ProjectCard.astro';
+import CTABanner from '@/components/CTABanner.astro';
+
+const types = [...new Set(projects.map((p) => p.type))];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url },
+    { '@type': 'ListItem', position: 2, name: 'Projects', item: `${SITE.url}/projects/` },
+  ],
+};
+---
+
+<Layout
+  title={`Our Projects | ${SITE.name}`}
+  description="Browse our portfolio of extensions, loft conversions, renovations and new builds across Essex. See the quality of our work."
+  schema={schema}
+>
+  <!-- Page Header -->
+  <section style="padding: 140px 0 64px; background: var(--color-charcoal);">
+    <div style="max-width: 900px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px); text-align: center;">
+      <span class="eyebrow eyebrow-light" style="display: block; margin-bottom: 12px;">Portfolio</span>
+      <h1 class="font-heading" style="color: var(--color-text-light);">Our Projects</h1>
+      <p style="font-size: 1rem; color: rgba(240,237,232,0.7); line-height: 1.8; margin-top: 16px; max-width: 600px; margin-left: auto; margin-right: auto;">
+        Explore our portfolio of completed projects across Essex. Each one built to the highest standards.
+      </p>
+    </div>
+  </section>
+
+  <!-- Filter + Grid -->
+  <section style="padding: 64px 0 96px; background: var(--color-warm-white);">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
+      <!-- Filter buttons -->
+      <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 48px;" id="project-filters">
+        <button
+          class="filter-btn active"
+          data-filter="all"
+          style="padding: 10px 22px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; border: 2px solid var(--color-brass); background: var(--color-brass); color: var(--color-warm-white); cursor: pointer; transition: all 0.3s ease;"
+        >
+          All
+        </button>
+        {types.map((type) => (
+          <button
+            class="filter-btn"
+            data-filter={type}
+            style="padding: 10px 22px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; border: 2px solid var(--color-border); background: transparent; color: var(--color-text-dark); cursor: pointer; transition: all 0.3s ease;"
+          >
+            {type}
+          </button>
+        ))}
+      </div>
+
+      <!-- Project grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style="gap: 24px;" id="project-grid" data-stagger-parent>
+        {projects.map((project) => (
+          <div data-project-type={project.type} data-stagger-child>
+            <ProjectCard {...project} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTABanner />
+</Layout>
+
+<script>
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const projectCards = document.querySelectorAll('[data-project-type]');
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const filter = btn.getAttribute('data-filter');
+
+      // Update active button
+      filterBtns.forEach((b) => {
+        const el = b as HTMLElement;
+        if (b === btn) {
+          el.style.background = 'var(--color-brass)';
+          el.style.borderColor = 'var(--color-brass)';
+          el.style.color = 'var(--color-warm-white)';
+        } else {
+          el.style.background = 'transparent';
+          el.style.borderColor = 'var(--color-border)';
+          el.style.color = 'var(--color-text-dark)';
+        }
+      });
+
+      // Filter cards
+      projectCards.forEach((card) => {
+        const el = card as HTMLElement;
+        if (filter === 'all' || card.getAttribute('data-project-type') === filter) {
+          el.style.display = 'block';
+        } else {
+          el.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>

@@ -1,0 +1,68 @@
+---
+const testimonials = [
+  {
+    name: 'Sarah & James Mitchell',
+    location: 'Chelmsford',
+    project: 'Rear Extension',
+    rating: 5,
+    text: 'Hartwell & Stone transformed our home beyond anything we imagined. The team were professional, tidy and communicated brilliantly throughout. Our new kitchen-diner is the heart of our home.',
+  },
+  {
+    name: 'David Thompson',
+    location: 'Brentwood',
+    project: 'Loft Conversion',
+    rating: 5,
+    text: 'From the initial consultation to handover, the entire experience was first class. The quality of craftsmanship is outstanding — our loft conversion looks like it was always part of the original house.',
+  },
+  {
+    name: 'Emma & Richard Clarke',
+    location: 'Billericay',
+    project: 'Full Renovation',
+    rating: 5,
+    text: 'We entrusted Hartwell & Stone with a complete renovation of our 1930s property. They exceeded every expectation. Incredible attention to detail and a genuine passion for quality.',
+  },
+];
+
+function stars(count: number) {
+  return '★'.repeat(count) + '☆'.repeat(5 - count);
+}
+---
+
+<section style="padding: 96px 0; background: var(--color-warm-white);">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
+    <div style="text-align: center; margin-bottom: 56px;" data-reveal>
+      <span class="eyebrow" style="display: block; margin-bottom: 12px;">Testimonials</span>
+      <h2 class="font-heading">What Our Clients Say</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3" style="gap: 24px;" data-stagger-parent>
+      {testimonials.map((t) => (
+        <div
+          style="padding: 36px 28px; background: var(--color-stone); border-left: 3px solid var(--color-brass);"
+          data-stagger-child
+        >
+          <div style="color: var(--color-brass); font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 16px;" aria-label={`${t.rating} out of 5 stars`}>
+            {stars(t.rating)}
+          </div>
+          <p style="font-size: 0.92rem; color: var(--color-text-dark); line-height: 1.8; margin-bottom: 20px; font-style: italic;">
+            "{t.text}"
+          </p>
+          <div>
+            <span style="font-weight: 600; color: var(--color-charcoal); display: block; font-size: 0.9rem;">
+              {t.name}
+            </span>
+            <span style="font-size: 0.78rem; color: rgba(44,44,46,0.6);">
+              {t.project} — {t.location}
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div style="text-align: center; margin-top: 40px;" data-reveal>
+      <a href="/testimonials/" class="btn-primary btn-outline" style="padding: 14px 32px;">
+        Read More Reviews
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,95 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { SITE } from '@/config';
+import { testimonials } from '@/data/testimonials';
+import CTABanner from '@/components/CTABanner.astro';
+
+function stars(count: number) {
+  return '★'.repeat(count) + '☆'.repeat(5 - count);
+}
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url },
+      { '@type': 'ListItem', position: 2, name: 'Testimonials', item: `${SITE.url}/testimonials/` },
+    ],
+  },
+  ...testimonials.map((t) => ({
+    '@context': 'https://schema.org',
+    '@type': 'Review',
+    author: { '@type': 'Person', name: t.name },
+    reviewRating: { '@type': 'Rating', ratingValue: t.rating, bestRating: 5 },
+    reviewBody: t.text,
+    itemReviewed: { '@type': 'HomeAndConstructionBusiness', name: SITE.name },
+  })),
+];
+---
+
+<Layout
+  title={`Client Testimonials | ${SITE.name}`}
+  description="Read what our clients say about working with Hartwell & Stone. 4.9/5 average rating from 127+ verified reviews."
+  schema={schema}
+>
+  <!-- Page Header -->
+  <section style="padding: 140px 0 64px; background: var(--color-charcoal);">
+    <div style="max-width: 900px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px); text-align: center;">
+      <span class="eyebrow eyebrow-light" style="display: block; margin-bottom: 12px;">Reviews</span>
+      <h1 class="font-heading" style="color: var(--color-text-light);">Client Testimonials</h1>
+
+      <!-- Aggregate rating -->
+      <div style="margin-top: 24px; display: flex; justify-content: center; align-items: center; gap: 16px; flex-wrap: wrap;">
+        <span style="font-size: 2rem; color: var(--color-brass-light); letter-spacing: 3px;">★★★★★</span>
+        <div>
+          <span class="font-heading" style="font-size: 2rem; color: var(--color-text-light);">{SITE.reviews.rating}</span>
+          <span style="font-size: 0.85rem; color: rgba(240,237,232,0.6);">/5 from {SITE.reviews.count} reviews</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Grid -->
+  <section style="padding: 80px 0; background: var(--color-warm-white);">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
+      <div class="grid grid-cols-1 md:grid-cols-2" style="gap: 24px;" data-stagger-parent>
+        {testimonials.map((t) => (
+          <div
+            style="padding: 36px; background: var(--color-stone); border-left: 3px solid var(--color-brass); display: flex; flex-direction: column;"
+            data-stagger-child
+          >
+            <div style="color: var(--color-brass); font-size: 1rem; letter-spacing: 2px; margin-bottom: 16px;" aria-label={`${t.rating} out of 5 stars`}>
+              {stars(t.rating)}
+            </div>
+            <p style="font-size: 0.92rem; color: var(--color-text-dark); line-height: 1.8; margin-bottom: 20px; font-style: italic; flex: 1;">
+              "{t.text}"
+            </p>
+            <div>
+              <span style="font-weight: 600; color: var(--color-charcoal); display: block; font-size: 0.9rem;">
+                {t.name}
+              </span>
+              <span style="font-size: 0.78rem; color: rgba(44,44,46,0.6);">
+                {t.project} — {t.location}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Review platform links -->
+      <div style="text-align: center; margin-top: 56px; padding: 32px; background: var(--color-stone);" data-reveal>
+        <p style="font-size: 0.95rem; color: var(--color-text-dark); margin-bottom: 20px;">
+          Read more reviews on these platforms:
+        </p>
+        <div style="display: flex; justify-content: center; gap: 24px; flex-wrap: wrap;">
+          <span style="font-size: 0.85rem; font-weight: 600; color: var(--color-brass); letter-spacing: 0.05em;">Google Reviews</span>
+          <span style="font-size: 0.85rem; font-weight: 600; color: var(--color-brass); letter-spacing: 0.05em;">Checkatrade</span>
+          <span style="font-size: 0.85rem; font-weight: 600; color: var(--color-brass); letter-spacing: 0.05em;">Trustpilot</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTABanner />
+</Layout>

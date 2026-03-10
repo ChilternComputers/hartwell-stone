@@ -1,0 +1,76 @@
+---
+import { SITE } from '@/config';
+---
+
+<section
+  style="position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; background: var(--color-charcoal); overflow: hidden;"
+>
+  <!-- Background image placeholder -->
+  <div style="position: absolute; inset: 0; background: linear-gradient(135deg, #1A1D23 0%, #2a2d33 50%, #1A1D23 100%);" aria-hidden="true">
+    <picture>
+      <source media="(max-width: 768px)" srcset="/images/hero-mobile.svg" />
+      <img
+        src="/images/hero.svg"
+        alt=""
+        width="1500"
+        height="900"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        style="width: 100%; height: 100%; object-fit: cover; opacity: 0.5;"
+      />
+    </picture>
+  </div>
+
+  <!-- Overlay gradient -->
+  <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(26,29,35,0.4) 0%, rgba(26,29,35,0.7) 100%);" aria-hidden="true"></div>
+
+  <!-- Content -->
+  <div style="position: relative; z-index: 2; text-align: center; max-width: 900px; padding: 120px 24px 80px;">
+    <div class="eyebrow-light" style="margin-bottom: 20px; color: var(--color-brass-light);" data-reveal>
+      Premium Residential Construction
+    </div>
+
+    <h1 class="font-heading" style="color: var(--color-text-light); margin-bottom: 20px; line-height: 1.1;" data-reveal>
+      {SITE.name}
+    </h1>
+
+    <p style="font-size: clamp(1rem, 2vw, 1.25rem); color: rgba(240,237,232,0.8); margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.7;" data-reveal>
+      {SITE.tagline}. Trusted by homeowners across Essex for extensions, loft conversions, renovations and new builds.
+    </p>
+
+    <!-- Stats strip -->
+    <div
+      style="display: flex; justify-content: center; gap: 40px; margin-bottom: 40px; flex-wrap: wrap;"
+      data-reveal
+    >
+      <div style="text-align: center;">
+        <span class="font-heading" style="font-size: 2rem; color: var(--color-brass-light); display: block; line-height: 1.2;">{SITE.yearsExperience}</span>
+        <span style="font-size: 0.75rem; color: rgba(240,237,232,0.6); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500;">Years</span>
+      </div>
+      <div style="text-align: center;">
+        <span class="font-heading" style="font-size: 2rem; color: var(--color-brass-light); display: block; line-height: 1.2;">{SITE.projects}</span>
+        <span style="font-size: 0.75rem; color: rgba(240,237,232,0.6); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500;">Projects</span>
+      </div>
+      <div style="text-align: center;">
+        <span class="font-heading" style="font-size: 2rem; color: var(--color-brass-light); display: block; line-height: 1.2;">{SITE.satisfaction}</span>
+        <span style="font-size: 0.75rem; color: rgba(240,237,232,0.6); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500;">Satisfaction</span>
+      </div>
+    </div>
+
+    <!-- CTAs -->
+    <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;" data-reveal>
+      <a href="/contact/" class="btn-primary btn-fill" style="padding: 16px 36px;">
+        Get a Free Quote
+      </a>
+      <a href="/projects/" class="btn-primary btn-outline-light" style="padding: 16px 36px;">
+        View Our Work
+      </a>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div style="position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); text-align: center;" aria-hidden="true">
+    <div style="width: 1px; height: 48px; background: linear-gradient(to bottom, transparent, var(--color-brass-light)); margin: 0 auto;"></div>
+  </div>
+</section>
