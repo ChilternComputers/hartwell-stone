@@ -1,7 +1,8 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import { SITE } from '@/config';
-import { services, faqs } from '@/data/services';
+import { services } from '@/data/services';
+import { faqs } from '@/data/faqs';
 import CTABanner from '@/components/CTABanner.astro';
 
 const schema = [
@@ -111,7 +112,7 @@ const schema = [
     </section>
   ))}
 
-  <!-- FAQ -->
+  <!-- FAQ Preview -->
   <section style="padding: 96px 0; background: var(--color-warm-white);">
     <div style="max-width: 800px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
       <div style="text-align: center; margin-bottom: 48px;" data-reveal>
@@ -120,7 +121,7 @@ const schema = [
       </div>
 
       <div style="display: flex; flex-direction: column; gap: 16px;" data-stagger-parent>
-        {faqs.map((faq) => (
+        {faqs.slice(0, 3).map((faq) => (
           <details style="border: 1px solid var(--color-border); background: var(--color-stone);" data-stagger-child>
             <summary style="padding: 20px 24px; cursor: pointer; font-weight: 500; font-size: 0.95rem; color: var(--color-charcoal); list-style: none; display: flex; justify-content: space-between; align-items: center;">
               {faq.question}
@@ -133,6 +134,10 @@ const schema = [
             </div>
           </details>
         ))}
+      </div>
+
+      <div style="text-align: center; margin-top: 32px;" data-reveal>
+        <a href="/faq/" class="btn-primary btn-outline" style="padding: 14px 32px;">View All FAQs &rarr;</a>
       </div>
     </div>
   </section>

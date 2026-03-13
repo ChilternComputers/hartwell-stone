@@ -28,16 +28,22 @@ export const SITE = {
   companyNumber: '02841967',
   vatNumber: 'GB 421 7839 12',
   numberOfEmployees: '45+',
-  accreditations: {
-    fmb: 'FMB Member No. 48291',
-    trustmark: 'TrustMark Reg. TM39841',
-    checkatrade: 'Checkatrade Verified',
-    labc: 'LABC Registered Partner',
-    trustedTrader: 'Which? Trusted Trader',
-    nhbc: 'NHBC Registered Builder',
-  },
+  accreditations: [
+    { key: 'fmb', name: 'Federation of Master Builders', shortName: 'FMB', detail: 'Member No. 48291', footerDetail: 'No. 48291' },
+    { key: 'trustmark', name: 'TrustMark', shortName: 'TrustMark', detail: 'Reg. TM39841', footerDetail: 'TM39841' },
+    { key: 'checkatrade', name: 'Checkatrade', shortName: 'Checkatrade', detail: '9.8/10 Average', footerDetail: '9.8/10' },
+    { key: 'labc', name: 'LABC Warranty', shortName: 'LABC', detail: 'Registered Partner', footerDetail: 'Partner' },
+    { key: 'nhbc', name: 'NHBC', shortName: 'NHBC', detail: 'Registered Builder', footerDetail: 'Registered' },
+    { key: 'trustedTrader', name: 'Which? Trusted Trader', shortName: 'Which?', detail: 'Trusted Trader', footerDetail: 'Trusted Trader' },
+  ] as const,
   social: {
     facebook: 'https://facebook.com/hartwellandstone',
     instagram: 'https://instagram.com/hartwellandstone',
   },
 };
+
+/** Look up a single accreditation by key, returns `"ShortName Detail"` string */
+export function getAccreditation(key: string): string {
+  const a = SITE.accreditations.find((item) => item.key === key);
+  return a ? `${a.shortName} ${a.detail}` : '';
+}

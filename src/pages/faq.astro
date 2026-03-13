@@ -1,7 +1,7 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import { SITE } from '@/config';
-import { faqs } from '@/data/services';
+import { faqs } from '@/data/faqs';
 import CTABanner from '@/components/CTABanner.astro';
 
 const schema = [
@@ -118,7 +118,8 @@ const schema = [
     btn.addEventListener('click', () => {
       const expanded = btn.getAttribute('aria-expanded') === 'true';
       const contentId = btn.getAttribute('aria-controls');
-      const content = document.getElementById(contentId!) as HTMLElement;
+      if (!contentId) return;
+      const content = document.getElementById(contentId) as HTMLElement;
       const icon = btn.querySelector('.faq-icon') as HTMLElement;
 
       if (expanded) {

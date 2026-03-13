@@ -1,6 +1,6 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import { SITE } from '@/config';
+import { SITE, getAccreditation } from '@/config';
 import { team } from '@/data/team';
 import StatsCounter from '@/components/StatsCounter.astro';
 import CTABanner from '@/components/CTABanner.astro';
@@ -184,11 +184,11 @@ const schema = {
       <div class="grid grid-cols-1 md:grid-cols-2" style="gap: 20px;" data-stagger-parent>
         <div style="padding: 28px; background: var(--color-warm-white); border: 1px solid var(--color-border);" data-stagger-child>
           <h3 style="font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; color: var(--color-charcoal); margin-bottom: 8px;">Federation of Master Builders</h3>
-          <p style="font-size: 0.85rem; color: var(--color-text-secondary); line-height: 1.7;">{SITE.accreditations.fmb}. Independently vetted and bound by a strict code of practice, with insurance-backed warranty protection.</p>
+          <p style="font-size: 0.85rem; color: var(--color-text-secondary); line-height: 1.7;">{getAccreditation('fmb')}. Independently vetted and bound by a strict code of practice, with insurance-backed warranty protection.</p>
         </div>
         <div style="padding: 28px; background: var(--color-warm-white); border: 1px solid var(--color-border);" data-stagger-child>
           <h3 style="font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; color: var(--color-charcoal); margin-bottom: 8px;">TrustMark</h3>
-          <p style="font-size: 0.85rem; color: var(--color-text-secondary); line-height: 1.7;">{SITE.accreditations.trustmark}. Government-endorsed quality scheme with financial protection for consumers.</p>
+          <p style="font-size: 0.85rem; color: var(--color-text-secondary); line-height: 1.7;">{getAccreditation('trustmark')}. Government-endorsed quality scheme with financial protection for consumers.</p>
         </div>
         <div style="padding: 28px; background: var(--color-warm-white); border: 1px solid var(--color-border);" data-stagger-child>
           <h3 style="font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; color: var(--color-charcoal); margin-bottom: 8px;">NHBC</h3>

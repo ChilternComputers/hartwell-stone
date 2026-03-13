@@ -72,30 +72,12 @@ import { SITE } from '@/config';
     <!-- Accreditations — styled badges -->
     <div style="border-top: 1px solid rgba(240,237,232,0.08); padding-top: 28px; margin-bottom: 24px;">
       <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 20px 32px; align-items: center;">
-        <div style="text-align: center;">
-          <span style="font-size: 0.72rem; color: rgba(240,237,232,0.85); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; display: block;">FMB</span>
-          <span style="font-size: 0.6rem; color: rgba(240,237,232,0.85);">No. 48291</span>
-        </div>
-        <div style="text-align: center;">
-          <span style="font-size: 0.72rem; color: rgba(240,237,232,0.85); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; display: block;">TrustMark</span>
-          <span style="font-size: 0.6rem; color: rgba(240,237,232,0.85);">TM39841</span>
-        </div>
-        <div style="text-align: center;">
-          <span style="font-size: 0.72rem; color: rgba(240,237,232,0.85); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; display: block;">Checkatrade</span>
-          <span style="font-size: 0.6rem; color: rgba(240,237,232,0.85);">9.8/10</span>
-        </div>
-        <div style="text-align: center;">
-          <span style="font-size: 0.72rem; color: rgba(240,237,232,0.85); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; display: block;">LABC</span>
-          <span style="font-size: 0.6rem; color: rgba(240,237,232,0.85);">Partner</span>
-        </div>
-        <div style="text-align: center;">
-          <span style="font-size: 0.72rem; color: rgba(240,237,232,0.85); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; display: block;">NHBC</span>
-          <span style="font-size: 0.6rem; color: rgba(240,237,232,0.85);">Registered</span>
-        </div>
-        <div style="text-align: center;">
-          <span style="font-size: 0.72rem; color: rgba(240,237,232,0.85); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; display: block;">Which?</span>
-          <span style="font-size: 0.6rem; color: rgba(240,237,232,0.85);">Trusted Trader</span>
-        </div>
+        {SITE.accreditations.map((a) => (
+          <div style="text-align: center;">
+            <span style="font-size: 0.72rem; color: rgba(240,237,232,0.85); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; display: block;">{a.shortName}</span>
+            <span style="font-size: 0.6rem; color: rgba(240,237,232,0.85);">{a.footerDetail}</span>
+          </div>
+        ))}
       </div>
     </div>
 

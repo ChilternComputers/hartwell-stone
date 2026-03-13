@@ -1,22 +1,15 @@
 ---
-const badges = [
-  { name: 'FMB', label: 'Member No. 48291' },
-  { name: 'TrustMark', label: 'Reg. TM39841' },
-  { name: 'Checkatrade', label: '9.8/10 Average' },
-  { name: 'LABC', label: 'Registered Partner' },
-  { name: 'NHBC', label: 'Registered Builder' },
-  { name: 'Which?', label: 'Trusted Trader' },
-];
+import { SITE } from '@/config';
 ---
 
 <section class="brag-bar" style="background: var(--color-stone); border-top: 1px solid rgba(184,134,11,0.15); border-bottom: 1px solid rgba(184,134,11,0.15); position: relative; overflow: hidden;">
   <div class="brag-sweep"></div>
   <div style="max-width: 1200px; margin: 0 auto; padding: 32px clamp(24px, 4vw, 48px); position: relative; z-index: 1;">
     <div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 32px 48px;" data-stagger-parent>
-      {badges.map((badge) => (
+      {SITE.accreditations.map((a) => (
         <div style="text-align: center;" data-stagger-child>
-          <span style="font-size: 0.85rem; font-weight: 600; color: var(--color-text-dark); letter-spacing: 0.05em; display: block; transition: color 0.3s ease;">{badge.name}</span>
-          <span style="font-size: 0.68rem; color: var(--color-text-muted); display: block; margin-top: 2px;">{badge.label}</span>
+          <span style="font-size: 0.85rem; font-weight: 600; color: var(--color-text-dark); letter-spacing: 0.05em; display: block; transition: color 0.3s ease;">{a.shortName}</span>
+          <span style="font-size: 0.68rem; color: var(--color-text-muted); display: block; margin-top: 2px;">{a.detail}</span>
         </div>
       ))}
     </div>

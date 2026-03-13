@@ -73,19 +73,22 @@
   const handle = document.getElementById('slider-handle');
 
   if (container && beforeClip && handle) {
+    const c = container;
+    const bc = beforeClip;
+    const h = handle;
     let isDragging = false;
     let currentPct = 50;
 
     function setPositionPct(pct: number) {
       pct = Math.max(5, Math.min(95, pct));
       currentPct = pct;
-      beforeClip!.style.width = pct + '%';
-      handle!.style.left = pct + '%';
-      handle!.setAttribute('aria-valuenow', String(Math.round(pct)));
+      bc.style.width = pct + '%';
+      h.style.left = pct + '%';
+      h.setAttribute('aria-valuenow', String(Math.round(pct)));
     }
 
     function setPosition(x: number) {
-      const rect = container!.getBoundingClientRect();
+      const rect = c.getBoundingClientRect();
       const pct = ((x - rect.left) / rect.width) * 100;
       setPositionPct(pct);
     }
