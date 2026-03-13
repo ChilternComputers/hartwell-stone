@@ -39,10 +39,10 @@ import { SITE } from '@/config';
       <div style="text-align: center;">
         <h3 style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(240,237,232,0.85); margin-bottom: 20px; font-family: var(--font-body);">Contact</h3>
         <div style="display: flex; flex-direction: column; gap: 10px;">
-          <a href={`tel:${SITE.phone.replace(/\s/g, '')}`} style="font-size: 0.95rem; color: var(--color-brass-light); font-weight: 500;">
+          <a href={`tel:${SITE.phone.replace(/\s/g, '')}`} style="font-size: 0.95rem; color: var(--color-brass-light); font-weight: 500; display: inline-flex; align-items: center; min-height: 44px;">
             {SITE.phone}
           </a>
-          <a href={`mailto:${SITE.email}`} style="font-size: 0.88rem; color: rgba(240,237,232,0.85); transition: color 0.3s ease;" class="hover:text-text-light">
+          <a href={`mailto:${SITE.email}`} style="font-size: 0.88rem; color: rgba(240,237,232,0.85); transition: color 0.3s ease; display: inline-flex; align-items: center; min-height: 44px;" class="hover:text-text-light">
             {SITE.email}
           </a>
           <p style="font-size: 0.85rem; color: rgba(240,237,232,0.85); line-height: 1.6;">
@@ -56,13 +56,13 @@ import { SITE } from '@/config';
       <div style="text-align: center;">
         <h3 style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(240,237,232,0.85); margin-bottom: 20px; font-family: var(--font-body);">Connect</h3>
         <div style="display: flex; flex-direction: column; gap: 10px;">
-          <a href={SITE.social.facebook} target="_blank" rel="noopener noreferrer" style="font-size: 0.88rem; color: rgba(240,237,232,0.85); transition: color 0.3s ease;" class="hover:text-text-light">
+          <a href={SITE.social.facebook} target="_blank" rel="noopener noreferrer" style="font-size: 0.88rem; color: rgba(240,237,232,0.85); transition: color 0.3s ease; display: inline-flex; align-items: center; min-height: 44px;" class="hover:text-text-light">
             Facebook
           </a>
-          <a href={SITE.social.instagram} target="_blank" rel="noopener noreferrer" style="font-size: 0.88rem; color: rgba(240,237,232,0.85); transition: color 0.3s ease;" class="hover:text-text-light">
+          <a href={SITE.social.instagram} target="_blank" rel="noopener noreferrer" style="font-size: 0.88rem; color: rgba(240,237,232,0.85); transition: color 0.3s ease; display: inline-flex; align-items: center; min-height: 44px;" class="hover:text-text-light">
             Instagram
           </a>
-          <a href={`https://wa.me/${SITE.whatsapp}`} target="_blank" rel="noopener noreferrer" style="font-size: 0.88rem; color: rgba(240,237,232,0.85); transition: color 0.3s ease;" class="hover:text-text-light">
+          <a href={`https://wa.me/${SITE.whatsapp}`} target="_blank" rel="noopener noreferrer" style="font-size: 0.88rem; color: rgba(240,237,232,0.85); transition: color 0.3s ease; display: inline-flex; align-items: center; min-height: 44px;" class="hover:text-text-light">
             WhatsApp
           </a>
         </div>

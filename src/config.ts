@@ -2,7 +2,7 @@ export const SITE = {
   name: 'Hartwell & Stone',
   legalName: 'Hartwell & Stone Construction Ltd',
   tagline: 'Building Britain\'s Finest Homes Since 1987',
-  description: 'Award-winning residential construction and heritage restoration across Essex and the South East. Bespoke new builds, extensions and listed building specialists since 1987.',
+  description: 'Award-winning construction and heritage restoration across Essex and the South East. Bespoke builds, extensions and listed building specialists since 1987.',
   url: 'https://hartwell-stone.pages.dev',
   phone: '01245 267 891',
   email: 'info@hartwellandstone.co.uk',
