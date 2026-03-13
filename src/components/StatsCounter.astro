@@ -16,13 +16,13 @@ const stats = [
         <div style="text-align: center;" data-stagger-child>
           <span
             class="font-heading stat-number"
-            style="font-size: clamp(2.5rem, 5vw, 3.5rem); color: var(--color-brass); display: block; line-height: 1;"
+            style="font-size: clamp(2.5rem, 5vw, 3.5rem); color: var(--color-brass-dark); display: block; line-height: 1;"
             data-count-to={stat.value}
             data-suffix={stat.suffix}
           >
             0{stat.suffix}
           </span>
-          <span style="font-size: 0.78rem; font-weight: 500; color: rgba(44,44,46,0.6); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 8px; display: block;">
+          <span style="font-size: 0.78rem; font-weight: 500; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 8px; display: block;">
             {stat.label}
           </span>
         </div>

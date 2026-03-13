@@ -41,7 +41,9 @@ const schema = [
     '@type': 'Article',
     headline: article.title,
     description: article.excerpt,
+    image: `${SITE.url}/og-image.png`,
     datePublished: article.date,
+    dateModified: article.date,
     author: { '@type': 'Organization', name: SITE.name },
     publisher: {
       '@type': 'Organization',
@@ -63,11 +65,11 @@ const schema = [
       <nav aria-label="Breadcrumb" style="margin-bottom: 24px;">
         <ol style="list-style: none; padding: 0; margin: 0; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;">
           <li>
-            <a href="/" style="font-size: 0.78rem; color: rgba(240,237,232,0.7); transition: color 0.3s ease;" class="hover:text-text-light">Home</a>
+            <a href="/" style="font-size: 0.78rem; color: rgba(240,237,232,0.85); transition: color 0.3s ease;" class="hover:text-text-light">Home</a>
             <span style="color: rgba(240,237,232,0.4); margin-left: 8px;" aria-hidden="true">/</span>
           </li>
           <li>
-            <a href="/insights/" style="font-size: 0.78rem; color: rgba(240,237,232,0.7); transition: color 0.3s ease;" class="hover:text-text-light">Insights</a>
+            <a href="/insights/" style="font-size: 0.78rem; color: rgba(240,237,232,0.85); transition: color 0.3s ease;" class="hover:text-text-light">Insights</a>
             <span style="color: rgba(240,237,232,0.4); margin-left: 8px;" aria-hidden="true">/</span>
           </li>
           <li aria-current="page">
@@ -78,8 +80,8 @@ const schema = [
       <span class="eyebrow eyebrow-light" style="display: block; margin-bottom: 12px;">{article.category}</span>
       <h1 class="font-heading" style="color: var(--color-text-light); font-size: clamp(1.6rem, 3.5vw, 2.2rem); line-height: 1.3; margin-bottom: 20px;">{article.title}</h1>
       <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
-        <span style="font-size: 0.82rem; color: rgba(240,237,232,0.7);">{publishDate}</span>
-        <span style="font-size: 0.82rem; color: rgba(240,237,232,0.7);">{article.readTime} read</span>
+        <span style="font-size: 0.82rem; color: rgba(240,237,232,0.85);">{publishDate}</span>
+        <span style="font-size: 0.82rem; color: rgba(240,237,232,0.85);">{article.readTime} read</span>
       </div>
     </div>
   </section>
@@ -100,7 +102,7 @@ const schema = [
         <div>
           <span style="font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(44,44,46,0.5); display: block; margin-bottom: 4px;">Written by</span>
           <span style="font-size: 0.95rem; font-weight: 600; color: var(--color-charcoal);">Hartwell & Stone</span>
-          <p style="font-size: 0.82rem; color: rgba(44,44,46,0.6); margin-top: 4px;">Award-winning construction in Essex and the South East since 1987.</p>
+          <p style="font-size: 0.82rem; color: var(--color-text-muted); margin-top: 4px;">Award-winning construction in Essex and the South East since 1987.</p>
         </div>
       </div>
     </div>
@@ -114,9 +116,9 @@ const schema = [
         <div class="grid grid-cols-1 md:grid-cols-2" style="gap: 24px;">
           {related.map((rel) => (
             <a href={`/insights/${rel.slug}/`} style="padding: 24px; background: var(--color-warm-white); border: 1px solid var(--color-border); text-decoration: none; color: inherit; transition: border-color 0.3s ease;">
-              <span style="font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-brass); display: block; margin-bottom: 8px;">{rel.category}</span>
+              <span style="font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-brass-dark); display: block; margin-bottom: 8px;">{rel.category}</span>
               <h3 class="font-heading" style="font-size: 1.05rem; margin-bottom: 8px;">{rel.title}</h3>
-              <p style="font-size: 0.82rem; color: rgba(44,44,46,0.6); line-height: 1.6;">{rel.excerpt.slice(0, 120)}...</p>
+              <p style="font-size: 0.82rem; color: var(--color-text-muted); line-height: 1.6;">{rel.excerpt.slice(0, 120)}...</p>
             </a>
           ))}
         </div>
@@ -127,7 +129,7 @@ const schema = [
   <!-- Back link -->
   <section style="padding: 32px 0 0; background: var(--color-warm-white);">
     <div style="max-width: 800px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px); text-align: center;">
-      <a href="/insights/" style="font-size: 0.88rem; color: var(--color-brass); font-weight: 600; text-decoration: none;">&larr; All Insights</a>
+      <a href="/insights/" style="font-size: 0.88rem; color: var(--color-brass-dark); font-weight: 600; text-decoration: none;">&larr; All Insights</a>
     </div>
   </section>
 

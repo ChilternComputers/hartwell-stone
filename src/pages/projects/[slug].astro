@@ -61,7 +61,7 @@ const schema = [
 
 <Layout
   title={`${project.title} | ${SITE.name}`}
-  description={project.description.slice(0, 155) + '...'}
+  description={project.description.length <= 155 ? project.description : project.description.slice(0, project.description.lastIndexOf(' ', 155)) + '...'}
   schema={schema}
 >
   <!-- Hero -->
@@ -70,11 +70,11 @@ const schema = [
       <nav aria-label="Breadcrumb" style="margin-bottom: 24px;">
         <ol style="list-style: none; padding: 0; margin: 0; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;">
           <li>
-            <a href="/" style="font-size: 0.78rem; color: rgba(240,237,232,0.7); transition: color 0.3s ease;" class="hover:text-text-light">Home</a>
+            <a href="/" style="font-size: 0.78rem; color: rgba(240,237,232,0.85); transition: color 0.3s ease;" class="hover:text-text-light">Home</a>
             <span style="color: rgba(240,237,232,0.4); margin-left: 8px;" aria-hidden="true">/</span>
           </li>
           <li>
-            <a href="/projects/" style="font-size: 0.78rem; color: rgba(240,237,232,0.7); transition: color 0.3s ease;" class="hover:text-text-light">Projects</a>
+            <a href="/projects/" style="font-size: 0.78rem; color: rgba(240,237,232,0.85); transition: color 0.3s ease;" class="hover:text-text-light">Projects</a>
             <span style="color: rgba(240,237,232,0.4); margin-left: 8px;" aria-hidden="true">/</span>
           </li>
           <li aria-current="page">
@@ -85,21 +85,21 @@ const schema = [
 
       <span class="eyebrow eyebrow-light" style="display: block; margin-bottom: 12px;">{project.type}</span>
       <h1 class="font-heading" style="color: var(--color-text-light); margin-bottom: 16px;">{project.title}</h1>
-      <p style="font-size: 1rem; color: rgba(240,237,232,0.7);">{project.location}</p>
+      <p style="font-size: 1rem; color: rgba(240,237,232,0.85);">{project.location}</p>
 
       <!-- Project stats -->
       <div style="display: flex; justify-content: center; gap: 40px; margin-top: 32px; flex-wrap: wrap;">
         <div style="text-align: center;">
           <span class="font-heading" style="font-size: 1.4rem; color: var(--color-brass-light); display: block;">{project.value}</span>
-          <span style="font-size: 0.72rem; color: rgba(240,237,232,0.7); text-transform: uppercase; letter-spacing: 0.08em;">Project Value</span>
+          <span style="font-size: 0.72rem; color: rgba(240,237,232,0.85); text-transform: uppercase; letter-spacing: 0.08em;">Project Value</span>
         </div>
         <div style="text-align: center;">
           <span class="font-heading" style="font-size: 1.4rem; color: var(--color-brass-light); display: block;">{project.duration}</span>
-          <span style="font-size: 0.72rem; color: rgba(240,237,232,0.7); text-transform: uppercase; letter-spacing: 0.08em;">Duration</span>
+          <span style="font-size: 0.72rem; color: rgba(240,237,232,0.85); text-transform: uppercase; letter-spacing: 0.08em;">Duration</span>
         </div>
         <div style="text-align: center;">
           <span class="font-heading" style="font-size: 1.4rem; color: var(--color-brass-light); display: block;">{project.type}</span>
-          <span style="font-size: 0.72rem; color: rgba(240,237,232,0.7); text-transform: uppercase; letter-spacing: 0.08em;">Category</span>
+          <span style="font-size: 0.72rem; color: rgba(240,237,232,0.85); text-transform: uppercase; letter-spacing: 0.08em;">Category</span>
         </div>
       </div>
     </div>
@@ -144,7 +144,7 @@ const schema = [
             <div data-reveal>
               <span class="eyebrow" style="display: block; margin-bottom: 12px;">The Challenge</span>
               <h3 class="font-heading" style="font-size: 1.3rem; margin-bottom: 16px;">Obstacles We Overcame</h3>
-              <p style="font-size: 0.95rem; color: rgba(44,44,46,0.7); line-height: 1.9;">
+              <p style="font-size: 0.95rem; color: var(--color-text-secondary); line-height: 1.9;">
                 {project.challenges}
               </p>
             </div>
@@ -153,7 +153,7 @@ const schema = [
             <div data-reveal>
               <span class="eyebrow" style="display: block; margin-bottom: 12px;">Our Approach</span>
               <h3 class="font-heading" style="font-size: 1.3rem; margin-bottom: 16px;">How We Solved It</h3>
-              <p style="font-size: 0.95rem; color: rgba(44,44,46,0.7); line-height: 1.9;">
+              <p style="font-size: 0.95rem; color: var(--color-text-secondary); line-height: 1.9;">
                 {project.solutions}
               </p>
             </div>
@@ -231,7 +231,7 @@ const schema = [
               </div>
               <span class="eyebrow" style="display: block; margin-bottom: 6px; font-size: 0.68rem;">{rel.type} · {rel.location}</span>
               <h3 class="font-heading" style="font-size: 1.15rem; margin-bottom: 6px;">{rel.title}</h3>
-              <span style="font-size: 0.85rem; color: var(--color-brass); font-weight: 600;">{rel.value}</span>
+              <span style="font-size: 0.85rem; color: var(--color-brass-dark); font-weight: 600;">{rel.value}</span>
             </a>
           ))}
         </div>
@@ -242,7 +242,7 @@ const schema = [
   <!-- Back to Projects + CTA -->
   <section style="padding: 48px 0 0; background: var(--color-stone);">
     <div style="max-width: 800px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px); text-align: center;">
-      <a href="/projects/" style="font-size: 0.88rem; color: var(--color-brass); font-weight: 600; text-decoration: none; transition: color 0.3s ease;" class="hover:text-charcoal">
+      <a href="/projects/" style="font-size: 0.88rem; color: var(--color-brass-dark); font-weight: 600; text-decoration: none; transition: color 0.3s ease;" class="hover:text-charcoal">
         &larr; Back to All Projects
       </a>
     </div>

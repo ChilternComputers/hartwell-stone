@@ -2,11 +2,15 @@
 import Layout from '@/layouts/Layout.astro';
 import { SITE } from '@/config';
 import { testimonials } from '@/data/testimonials';
+import { projects } from '@/data/projects';
 import CTABanner from '@/components/CTABanner.astro';
 
 function stars(count: number) {
   return '★'.repeat(count) + '☆'.repeat(5 - count);
 }
+
+// Map testimonials to project slugs via matching image paths
+const projectSlugByImage = new Map(projects.map((p) => [p.image, p.slug]));
 
 const schema = [
   {
@@ -62,7 +66,7 @@ const schema = [
           >
             <!-- Rating + Project type -->
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-              <span style="color: var(--color-brass); font-size: 1rem; letter-spacing: 2px;" aria-label={`${t.rating} out of 5 stars`}>
+              <span style="color: var(--color-brass-dark); font-size: 1rem; letter-spacing: 2px;" aria-label={`${t.rating} out of 5 stars`}>
                 {stars(t.rating)}
               </span>
               <span style="font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(44,44,46,0.4);">
@@ -77,8 +81,12 @@ const schema = [
                 <span style="font-weight: 600; color: var(--color-charcoal); display: block; font-size: 0.9rem;">
                   {t.name}
                 </span>
-                <span style="font-size: 0.78rem; color: rgba(44,44,46,0.6);">
-                  {t.project} — {t.location}
+                <span style="font-size: 0.78rem; color: var(--color-text-muted);">
+                  {t.image && projectSlugByImage.has(t.image) ? (
+                    <a href={`/projects/${projectSlugByImage.get(t.image)}/`} style="color: var(--color-brass-dark); text-decoration: none; font-weight: 500; transition: color 0.3s ease;" class="hover:text-charcoal">{t.project}</a>
+                  ) : (
+                    t.project
+                  )} — {t.location}
                 </span>
               </div>
               <span style="font-size: 0.72rem; color: rgba(44,44,46,0.35);">
@@ -95,9 +103,9 @@ const schema = [
           Read more reviews on these platforms:
         </p>
         <div style="display: flex; justify-content: center; gap: 24px; flex-wrap: wrap;">
-          <span style="font-size: 0.85rem; font-weight: 600; color: var(--color-brass); letter-spacing: 0.05em;">Google Reviews</span>
-          <span style="font-size: 0.85rem; font-weight: 600; color: var(--color-brass); letter-spacing: 0.05em;">Checkatrade</span>
-          <span style="font-size: 0.85rem; font-weight: 600; color: var(--color-brass); letter-spacing: 0.05em;">Trustpilot</span>
+          <span style="font-size: 0.85rem; font-weight: 600; color: var(--color-brass-dark); letter-spacing: 0.05em;">Google Reviews</span>
+          <span style="font-size: 0.85rem; font-weight: 600; color: var(--color-brass-dark); letter-spacing: 0.05em;">Checkatrade</span>
+          <span style="font-size: 0.85rem; font-weight: 600; color: var(--color-brass-dark); letter-spacing: 0.05em;">Trustpilot</span>
         </div>
       </div>
     </div>

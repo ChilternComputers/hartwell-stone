@@ -45,7 +45,7 @@ const schema = [
     <div style="max-width: 900px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px); text-align: center;">
       <span class="eyebrow eyebrow-light" style="display: block; margin-bottom: 12px;">Get In Touch</span>
       <h1 class="font-heading" style="color: var(--color-text-light);">Start a Conversation</h1>
-      <p style="font-size: 1rem; color: rgba(240,237,232,0.7); line-height: 1.8; margin-top: 16px;">
+      <p style="font-size: 1rem; color: rgba(240,237,232,0.85); line-height: 1.8; margin-top: 16px;">
         Every exceptional home begins with a conversation. Arrange a complimentary site consultation — we'll listen to your aspirations and provide honest, expert guidance.
       </p>
     </div>
@@ -62,28 +62,28 @@ const schema = [
 
           <div style="display: flex; flex-direction: column; gap: 24px; margin-bottom: 32px;">
             <div>
-              <span style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brass); display: block; margin-bottom: 6px;">Phone</span>
+              <span style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brass-dark); display: block; margin-bottom: 6px;">Phone</span>
               <a href={`tel:${SITE.phone.replace(/\s/g, '')}`} style="font-size: 1.1rem; font-weight: 500; color: var(--color-charcoal); transition: color 0.3s ease;">
                 {SITE.phone}
               </a>
             </div>
 
             <div>
-              <span style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brass); display: block; margin-bottom: 6px;">Email</span>
+              <span style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brass-dark); display: block; margin-bottom: 6px;">Email</span>
               <a href={`mailto:${SITE.email}`} style="font-size: 1rem; color: var(--color-charcoal); transition: color 0.3s ease;">
                 {SITE.email}
               </a>
             </div>
 
             <div>
-              <span style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brass); display: block; margin-bottom: 6px;">WhatsApp</span>
+              <span style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brass-dark); display: block; margin-bottom: 6px;">WhatsApp</span>
               <a href={`https://wa.me/${SITE.whatsapp}`} target="_blank" rel="noopener noreferrer" style="font-size: 1rem; color: var(--color-charcoal); transition: color 0.3s ease;">
                 Message us on WhatsApp
               </a>
             </div>
 
             <div>
-              <span style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brass); display: block; margin-bottom: 6px;">Office</span>
+              <span style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brass-dark); display: block; margin-bottom: 6px;">Office</span>
               <p style="font-size: 0.95rem; color: var(--color-text-dark); line-height: 1.7;">
                 {SITE.address.street}<br />
                 {SITE.address.area}, {SITE.address.city}<br />
@@ -92,8 +92,8 @@ const schema = [
             </div>
 
             <div>
-              <span style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brass); display: block; margin-bottom: 6px;">Opening Hours</span>
-              <p style="font-size: 0.9rem; color: rgba(44,44,46,0.7); line-height: 1.8;">
+              <span style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brass-dark); display: block; margin-bottom: 6px;">Opening Hours</span>
+              <p style="font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.8;">
                 {SITE.hours.weekday}<br />
                 {SITE.hours.saturday}<br />
                 {SITE.hours.sunday}
@@ -111,7 +111,7 @@ const schema = [
         <!-- Project Enquiry Form (3 cols) -->
         <div class="lg:col-span-3" style="background: var(--color-stone); padding: 40px;" data-reveal>
           <h2 class="font-heading" style="font-size: 1.5rem; margin-bottom: 8px; text-align: center;">Project Enquiry</h2>
-          <p style="font-size: 0.88rem; color: rgba(44,44,46,0.6); text-align: center; margin-bottom: 32px;">
+          <p style="font-size: 0.88rem; color: var(--color-text-muted); text-align: center; margin-bottom: 32px;">
             Tell us about your project and a member of our team will be in touch within 24 hours.
           </p>
           <QuoteForm />

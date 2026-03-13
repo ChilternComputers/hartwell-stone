@@ -35,20 +35,20 @@ const services = allServices.map((s) => ({
           data-stagger-child
         >
           <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
-            <span style="font-size: 1.8rem; color: var(--color-brass);" aria-hidden="true">
+            <span style="font-size: 1.8rem; color: var(--color-brass-dark);" aria-hidden="true">
               {service.icon}
             </span>
-            <span style="font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; color: rgba(44,44,46,0.5); text-transform: uppercase;">
+            <span style="font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; color: var(--color-text-muted); text-transform: uppercase;">
               {service.price}
             </span>
           </div>
           <h3 class="font-heading" style="font-size: 1.35rem; margin-bottom: 10px; color: var(--color-charcoal);">
             {service.title}
           </h3>
-          <p style="font-size: 0.9rem; color: rgba(44,44,46,0.7); line-height: 1.7;">
+          <p style="font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.7;">
             {service.description}
           </p>
-          <span style="display: inline-block; margin-top: 16px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brass); transition: color 0.3s ease;">
+          <span style="display: inline-block; margin-top: 16px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brass-dark); transition: color 0.3s ease;">
             Learn More &#8594;
           </span>
         </a>

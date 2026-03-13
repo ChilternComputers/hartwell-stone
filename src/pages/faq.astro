@@ -39,7 +39,7 @@ const schema = [
       <nav aria-label="Breadcrumb" style="margin-bottom: 24px;">
         <ol style="list-style: none; padding: 0; margin: 0; display: flex; justify-content: center; gap: 8px;">
           <li>
-            <a href="/" style="font-size: 0.78rem; color: rgba(240,237,232,0.7); transition: color 0.3s ease;" class="hover:text-text-light">Home</a>
+            <a href="/" style="font-size: 0.78rem; color: rgba(240,237,232,0.85); transition: color 0.3s ease;" class="hover:text-text-light">Home</a>
             <span style="color: rgba(240,237,232,0.4); margin-left: 8px;" aria-hidden="true">/</span>
           </li>
           <li aria-current="page">
@@ -49,7 +49,7 @@ const schema = [
       </nav>
       <span class="eyebrow eyebrow-light" style="display: block; margin-bottom: 12px;">Common Questions</span>
       <h1 class="font-heading" style="color: var(--color-text-light);">Frequently Asked Questions</h1>
-      <p style="font-size: 1rem; color: rgba(240,237,232,0.7); line-height: 1.8; margin-top: 16px; max-width: 600px; margin-left: auto; margin-right: auto;">
+      <p style="font-size: 1rem; color: rgba(240,237,232,0.85); line-height: 1.8; margin-top: 16px; max-width: 600px; margin-left: auto; margin-right: auto;">
         Honest answers to the questions we hear most often. If yours isn't here, we're always happy to talk.
       </p>
     </div>
@@ -71,7 +71,7 @@ const schema = [
               <span style="font-size: 1rem; font-weight: 600; color: var(--color-charcoal); line-height: 1.5;">
                 {faq.question}
               </span>
-              <span class="faq-icon" style="flex-shrink: 0; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; color: var(--color-brass); font-size: 1.2rem; transition: transform 0.3s ease;" aria-hidden="true">
+              <span class="faq-icon" style="flex-shrink: 0; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; color: var(--color-brass-dark); font-size: 1.2rem; transition: transform 0.3s ease;" aria-hidden="true">
                 +
               </span>
             </button>
@@ -82,7 +82,7 @@ const schema = [
               class="faq-content"
               style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;"
             >
-              <p style="font-size: 0.95rem; color: rgba(44,44,46,0.7); line-height: 1.9; padding: 0 0 24px;">
+              <p style="font-size: 0.95rem; color: var(--color-text-secondary); line-height: 1.9; padding: 0 0 24px;">
                 {faq.answer}
               </p>
             </div>
@@ -96,7 +96,7 @@ const schema = [
   <section style="padding: 80px 0; background: var(--color-stone);">
     <div style="max-width: 600px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px); text-align: center;" data-reveal>
       <h2 class="font-heading" style="margin-bottom: 16px;">Still Have Questions?</h2>
-      <p style="font-size: 0.95rem; color: rgba(44,44,46,0.7); line-height: 1.8; margin-bottom: 32px;">
+      <p style="font-size: 0.95rem; color: var(--color-text-secondary); line-height: 1.8; margin-bottom: 32px;">
         Every project is different. If you'd like to discuss your plans or need advice on feasibility, planning or budgets, we're always happy to have an informal conversation.
       </p>
       <div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: center;">

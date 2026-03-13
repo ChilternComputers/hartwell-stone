@@ -34,6 +34,8 @@
   --color-brass-dark: #7A5907;
   --color-text-dark: #2C2C2E;
   --color-text-light: #F0EDE8;
+  --color-text-secondary: #545456;
+  --color-text-muted: #5F5F61;
   --color-border: #e0d8cc;
 
   --font-heading: 'DM Serif Display', Georgia, serif;
@@ -247,8 +249,8 @@ html.lenis, html.lenis body {
 
 .btn-outline {
   background: transparent;
-  border: 1px solid var(--color-brass);
-  color: var(--color-brass);
+  border: 1px solid var(--color-brass-dark);
+  color: var(--color-brass-dark);
 }
 .btn-outline:hover {
   background: var(--color-brass);
@@ -275,7 +277,7 @@ html.lenis, html.lenis body {
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--color-brass);
+  color: var(--color-brass-dark);
 }
 
 .eyebrow-light {
@@ -437,30 +439,6 @@ html.lenis, html.lenis body {
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: rgba(240,237,232,0.35);
-}
-
-/* ============================================
-   CASE STUDY MODAL
-   ============================================ */
-
-.case-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 9000;
-  background: var(--color-charcoal);
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
-  opacity: 0;
-  pointer-events: none;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-.case-modal.active {
-  opacity: 1;
-  pointer-events: auto;
-  visibility: visible;
 }
 
 /* ============================================
