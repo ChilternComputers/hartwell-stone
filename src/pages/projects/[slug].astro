@@ -62,6 +62,7 @@ const schema = [
 <Layout
   title={`${project.title} | ${SITE.name}`}
   description={project.description.length <= 155 ? project.description : project.description.slice(0, project.description.lastIndexOf(' ', 155)) + '...'}
+  ogImage={`${SITE.url}${project.image}`}
   schema={schema}
 >
   <!-- Hero -->

@@ -3,9 +3,9 @@ import { SITE } from '@/config';
 
 const stats = [
   { value: SITE.yearsExperience, suffix: '', label: 'Years of Excellence' },
-  { value: 487, suffix: '', label: 'Projects Completed' },
-  { value: 34, suffix: '', label: 'Industry Awards' },
-  { value: 98, suffix: '%', label: 'Client Satisfaction' },
+  { value: parseInt(SITE.projects), suffix: '', label: 'Projects Completed' },
+  { value: parseInt(SITE.awards), suffix: '', label: 'Industry Awards' },
+  { value: parseFloat(SITE.satisfaction), suffix: '%', label: 'Client Satisfaction' },
 ];
 ---
 

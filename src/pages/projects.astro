@@ -66,6 +66,7 @@ const schema = {
       </div>
 
       <!-- Project grid -->
+      <h2 class="font-heading" style="font-size: 1.3rem; margin-bottom: 32px; text-align: center;">Portfolio</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style="gap: 24px;" id="project-grid">
         {projects.map((project, i) => (
           <a href={`/projects/${project.slug}/`} data-project-type={project.type} class="project-item" data-index={i} style="cursor: pointer; text-decoration: none; color: inherit; display: block;">
