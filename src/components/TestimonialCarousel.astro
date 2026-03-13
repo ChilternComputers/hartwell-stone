@@ -1,30 +1,7 @@
 ---
-const testimonials = [
-  {
-    name: 'Caroline & Richard Ashworth',
-    location: 'Chelmsford',
-    project: 'Georgian Townhouse Restoration',
-    text: 'They understood that this house deserved respect. Every detail was considered — from the lime mortar mix to matching the original crown mouldings. It felt less like a building project and more like a collaboration.',
-  },
-  {
-    name: 'Dr Michael Chen',
-    location: 'Ingatestone',
-    project: 'Contemporary New Build',
-    text: 'The project management was exemplary — fortnightly reports, cost tracking to the penny, and they finished three weeks ahead of programme. The build quality is outstanding.',
-  },
-  {
-    name: 'Sarah & David Blackwell',
-    location: 'Brentwood',
-    project: 'Double-Storey Extension',
-    text: 'It doesn\'t feel like an extension — it feels like the house was always meant to be this way. Their joiners matched the original Arts and Crafts detailing so perfectly that our neighbours can\'t tell where old ends and new begins.',
-  },
-  {
-    name: 'Hugh & Margaret Prentice',
-    location: 'Writtle',
-    project: 'Grain Store Barn Conversion',
-    text: 'We\'d been told by two other builders it couldn\'t be done within our budget. Hartwell & Stone found a way — clever design, honest pricing and not a single wasted pound.',
-  },
-];
+import { testimonials as allTestimonials } from '@/data/testimonials';
+
+const testimonials = allTestimonials.slice(0, 4);
 ---
 
 <section style="padding: 96px 0; background: var(--color-warm-white);">

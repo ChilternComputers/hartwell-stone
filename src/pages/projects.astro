@@ -3,7 +3,6 @@ import Layout from '@/layouts/Layout.astro';
 import { SITE } from '@/config';
 import { projects } from '@/data/projects';
 import ProjectCard from '@/components/ProjectCard.astro';
-import CaseStudyModal from '@/components/CaseStudyModal.astro';
 import CTABanner from '@/components/CTABanner.astro';
 
 const types = [...new Set(projects.map((p) => p.type))];
@@ -69,7 +68,6 @@ const schema = {
   </section>
 
   <CTABanner />
-  <CaseStudyModal />
 </Layout>
 
 <script>

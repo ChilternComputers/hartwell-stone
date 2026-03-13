@@ -1,48 +1,22 @@
 ---
-const services = [
-  {
-    title: 'Bespoke New Builds',
-    description: 'From contemporary country houses to elegant urban residences, designed and built to endure for generations.',
-    icon: '⬡',
-    href: '/services/#new-builds',
-    price: 'From £350k',
-  },
-  {
-    title: 'Extensions & Additions',
-    description: 'Single-storey, double-storey and wrap-around extensions that feel like a natural continuation of the original architecture.',
-    icon: '⊞',
-    href: '/services/#extensions',
-    price: 'From £60k',
-  },
-  {
-    title: 'Listed Buildings & Heritage',
-    description: 'Specialist conservation work on listed buildings and heritage properties, with traditional materials and techniques.',
-    icon: '◈',
-    href: '/services/#heritage',
-    price: 'From £80k',
-  },
-  {
-    title: 'Whole-House Renovations',
-    description: 'Complete transformations — from structural remodelling and rewiring to decoration and landscaping. One team, one programme.',
-    icon: '◉',
-    href: '/services/#renovations',
-    price: 'From £120k',
-  },
-  {
-    title: 'Heritage & Barn Conversions',
-    description: 'Barns, chapels, warehouses and maltings transformed into exceptional homes that celebrate their original character.',
-    icon: '⬢',
-    href: '/services/#conversions',
-    price: 'From £250k',
-  },
-  {
-    title: 'Project Management',
-    description: 'Dedicated project management for clients with their own design team — coordinating every trade, controlling costs, ensuring quality.',
-    icon: '▣',
-    href: '/services/#project-management',
-    price: 'From 12%',
-  },
-];
+import { services as allServices } from '@/data/services';
+
+const icons: Record<string, string> = {
+  'new-builds': '⬡',
+  'extensions': '⊞',
+  'heritage': '◈',
+  'renovations': '◉',
+  'conversions': '⬢',
+  'project-management': '▣',
+};
+
+const services = allServices.map((s) => ({
+  title: s.title,
+  description: s.description.split('.')[0] + '.',
+  icon: icons[s.id] || '◆',
+  href: `/services/#${s.id}`,
+  price: s.startingFrom,
+}));
 ---
 
 <section style="padding: 96px 0; background: var(--color-warm-white);">
