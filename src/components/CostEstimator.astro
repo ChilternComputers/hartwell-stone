@@ -10,7 +10,7 @@
       <h2 class="font-heading" style="color: var(--color-text-light); margin-bottom: 16px;">
         What Will Your Project Cost?
       </h2>
-      <p style="font-size: 0.95rem; color: rgba(240,237,232,0.65); line-height: 1.8; max-width: 600px; margin-left: auto; margin-right: auto;">
+      <p style="font-size: 0.95rem; color: rgba(240,237,232,0.85); line-height: 1.8; max-width: 600px; margin-left: auto; margin-right: auto;">
         Use our interactive guide for a ballpark estimate. Every project is unique — arrange a complimentary consultation for a detailed quotation.
       </p>
     </div>
@@ -45,24 +45,24 @@
         </div>
         <input type="range" id="est-size" class="cost-slider" min="20" max="400" value="80" step="10" />
         <div style="display: flex; justify-content: space-between; margin-top: 6px;">
-          <span style="font-size: 0.7rem; color: rgba(240,237,232,0.4);">20 m&sup2;</span>
-          <span style="font-size: 0.7rem; color: rgba(240,237,232,0.4);">400 m&sup2;</span>
+          <span style="font-size: 0.7rem; color: rgba(240,237,232,0.85);">20 m&sup2;</span>
+          <span style="font-size: 0.7rem; color: rgba(240,237,232,0.85);">400 m&sup2;</span>
         </div>
       </div>
 
       <!-- Finish level -->
       <div style="margin-bottom: 36px;">
-        <label style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-brass-light); display: block; margin-bottom: 10px;">
+        <label id="est-finish-label" style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-brass-light); display: block; margin-bottom: 10px;">
           Specification Level
         </label>
-        <div style="display: flex; gap: 12px; flex-wrap: wrap;" id="est-finish">
-          <button class="finish-btn active" data-finish="standard" style="flex: 1; min-width: 100px; padding: 12px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; border: 1px solid var(--color-brass); background: var(--color-brass); color: var(--color-warm-white); cursor: pointer; transition: all 0.3s ease; font-family: var(--font-body);">
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;" id="est-finish" role="radiogroup" aria-labelledby="est-finish-label">
+          <button class="finish-btn active" data-finish="standard" role="radio" aria-checked="true" style="flex: 1; min-width: 100px; padding: 12px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; border: 1px solid var(--color-brass); background: var(--color-brass); color: var(--color-warm-white); cursor: pointer; transition: all 0.3s ease; font-family: var(--font-body);">
             Standard
           </button>
-          <button class="finish-btn" data-finish="premium" style="flex: 1; min-width: 100px; padding: 12px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; border: 1px solid rgba(240,237,232,0.2); background: transparent; color: var(--color-text-light); cursor: pointer; transition: all 0.3s ease; font-family: var(--font-body);">
+          <button class="finish-btn" data-finish="premium" role="radio" aria-checked="false" style="flex: 1; min-width: 100px; padding: 12px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; border: 1px solid rgba(240,237,232,0.2); background: transparent; color: var(--color-text-light); cursor: pointer; transition: all 0.3s ease; font-family: var(--font-body);">
             Premium
           </button>
-          <button class="finish-btn" data-finish="luxury" style="flex: 1; min-width: 100px; padding: 12px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; border: 1px solid rgba(240,237,232,0.2); background: transparent; color: var(--color-text-light); cursor: pointer; transition: all 0.3s ease; font-family: var(--font-body);">
+          <button class="finish-btn" data-finish="luxury" role="radio" aria-checked="false" style="flex: 1; min-width: 100px; padding: 12px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; border: 1px solid rgba(240,237,232,0.2); background: transparent; color: var(--color-text-light); cursor: pointer; transition: all 0.3s ease; font-family: var(--font-body);">
             Luxury
           </button>
         </div>
@@ -79,7 +79,7 @@
 
     <!-- Disclaimer + CTA -->
     <div style="text-align: center; margin-top: 28px;" data-reveal>
-      <p style="font-size: 0.8rem; color: rgba(240,237,232,0.45); margin-bottom: 20px; line-height: 1.7;">
+      <p style="font-size: 0.8rem; color: rgba(240,237,232,0.85); margin-bottom: 20px; line-height: 1.7;">
         This is a guide only. Actual costs depend on site conditions, specifications and planning requirements.
       </p>
       <a href="/contact/" class="btn-primary btn-fill" style="padding: 16px 36px;">
@@ -108,8 +108,8 @@
 
   const typeSelect = document.getElementById('est-type') as HTMLSelectElement;
   const sizeSlider = document.getElementById('est-size') as HTMLInputElement;
-  const sizeVal = document.getElementById('est-size-val')!;
-  const resultEl = document.getElementById('est-result')!;
+  const sizeVal = document.getElementById('est-size-val');
+  const resultEl = document.getElementById('est-result');
   const finishBtns = document.querySelectorAll('.finish-btn');
   let currentFinish = 'standard';
 
@@ -124,8 +124,8 @@
     const mult = finishMult[currentFinish] || 1;
     const low = Math.round(base * size * mult);
     const high = Math.round(low * 1.5);
-    resultEl.textContent = `${formatGBP(low)} – ${formatGBP(high)}`;
-    sizeVal.textContent = `${size} m²`;
+    if (resultEl) resultEl.textContent = `${formatGBP(low)} – ${formatGBP(high)}`;
+    if (sizeVal) sizeVal.textContent = `${size} m²`;
   }
 
   let rafId = 0;
@@ -146,10 +146,12 @@
           el.style.background = 'var(--color-brass)';
           el.style.borderColor = 'var(--color-brass)';
           el.style.color = 'var(--color-warm-white)';
+          el.setAttribute('aria-checked', 'true');
         } else {
           el.style.background = 'transparent';
           el.style.borderColor = 'rgba(240,237,232,0.2)';
           el.style.color = 'var(--color-text-light)';
+          el.setAttribute('aria-checked', 'false');
         }
       });
       calculate();

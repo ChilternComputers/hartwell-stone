@@ -13,6 +13,7 @@ const testimonials = allTestimonials.slice(0, 4);
 
     <!-- Carousel container -->
     <div id="testimonial-carousel" style="position: relative; min-height: 220px;" data-reveal="scale">
+      <div aria-live="polite" aria-atomic="true">
       {testimonials.map((t, i) => (
         <div class={`testimonial-slide ${i === 0 ? 'active' : ''}`} data-slide={i}>
           <div style="text-align: center;">
@@ -34,6 +35,7 @@ const testimonials = allTestimonials.slice(0, 4);
           </div>
         </div>
       ))}
+      </div>
 
       <!-- Controls: dots + pause -->
       <div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 32px;" id="testimonial-dots">

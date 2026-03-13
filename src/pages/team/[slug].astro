@@ -31,6 +31,8 @@ const schema = [
     jobTitle: member.role,
     worksFor: { '@type': 'Organization', name: SITE.name },
     description: member.bio,
+    image: `${SITE.url}${member.image}`,
+    url: `${SITE.url}/team/${member.slug}/`,
   },
 ];
 ---
@@ -82,24 +84,24 @@ const schema = [
 
           <!-- Quick facts -->
           <div style="background: var(--color-stone); padding: 24px; border-left: 3px solid var(--color-brass);">
-            <h3 style="font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(44,44,46,0.5); margin-bottom: 16px;">At a Glance</h3>
+            <h3 style="font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 16px;">At a Glance</h3>
             <dl style="margin: 0; display: flex; flex-direction: column; gap: 12px;">
               <div>
-                <dt style="font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: rgba(44,44,46,0.5);">Experience</dt>
+                <dt style="font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-text-muted);">Experience</dt>
                 <dd style="font-size: 0.9rem; color: var(--color-charcoal); font-weight: 500; margin: 2px 0 0;">{member.yearsExperience} years</dd>
               </div>
               <div>
-                <dt style="font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: rgba(44,44,46,0.5);">Qualifications</dt>
+                <dt style="font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-text-muted);">Qualifications</dt>
                 <dd style="margin: 2px 0 0;">
                   <div style="display: flex; flex-wrap: wrap; gap: 6px;">
                     {member.qualifications.map((q) => (
-                      <span style="font-size: 0.72rem; padding: 3px 8px; background: var(--color-warm-white); color: rgba(44,44,46,0.65); font-weight: 500;">{q}</span>
+                      <span style="font-size: 0.72rem; padding: 3px 8px; background: var(--color-warm-white); color: var(--color-text-secondary); font-weight: 500;">{q}</span>
                     ))}
                   </div>
                 </dd>
               </div>
               <div>
-                <dt style="font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: rgba(44,44,46,0.5);">Specialisms</dt>
+                <dt style="font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-text-muted);">Specialisms</dt>
                 <dd style="font-size: 0.85rem; color: var(--color-text-secondary); margin: 2px 0 0; line-height: 1.6;">
                   {member.specialisms.join(' · ')}
                 </dd>
@@ -119,7 +121,7 @@ const schema = [
 
           {member.notable && member.notable.length > 0 && (
             <div style="margin-top: 32px; padding: 24px; background: var(--color-stone); border-left: 3px solid var(--color-brass);">
-              <h3 style="font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(44,44,46,0.5); margin-bottom: 16px;">Notable Achievements</h3>
+              <h3 style="font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 16px;">Notable Achievements</h3>
               <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px;">
                 {member.notable.map((item) => (
                   <li style="font-size: 0.9rem; color: var(--color-charcoal); padding-left: 16px; position: relative;">

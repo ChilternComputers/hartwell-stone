@@ -196,12 +196,14 @@ const types = [...new Set(projects.map((p) => p.type))];
 <script>
   const filterBtns = document.querySelectorAll('.gallery-filter-btn');
   const galleryItems = document.querySelectorAll('.gallery-item');
-  const lightbox = document.getElementById('lightbox')!;
-  const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
-  const lightboxCaption = document.getElementById('lightbox-caption')!;
-  const lightboxClose = document.getElementById('lightbox-close')!;
-  const lightboxViewProject = document.getElementById('lightbox-view-project')!;
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement | null;
+  const lightboxCaption = document.getElementById('lightbox-caption');
+  const lightboxClose = document.getElementById('lightbox-close');
+  const lightboxViewProject = document.getElementById('lightbox-view-project');
+  if (!lightbox || !lightboxImg || !lightboxCaption || !lightboxClose || !lightboxViewProject) throw new Error('Lightbox elements not found');
   let currentProjectIndex = 0;
+  let triggerEl: Element | null = null;
 
   // Filter logic
   filterBtns.forEach((btn) => {
@@ -233,6 +235,7 @@ const types = [...new Set(projects.map((p) => p.type))];
 
   // Open lightbox handler
   function openLightbox(item: Element) {
+    triggerEl = document.activeElement;
     const img = item.querySelector('img') as HTMLImageElement;
     const title = item.querySelector('.font-heading')?.textContent || '';
     const projectIndex = parseInt(item.getAttribute('data-project-index') || '0');
@@ -263,6 +266,7 @@ const types = [...new Set(projects.map((p) => p.type))];
   function closeLightbox() {
     lightbox.style.display = 'none';
     document.body.style.overflow = '';
+    (triggerEl as HTMLElement)?.focus();
   }
 
   lightboxClose.addEventListener('click', closeLightbox);

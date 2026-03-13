@@ -13,29 +13,24 @@ const schema = [
       { '@type': 'ListItem', position: 2, name: 'Services', item: `${SITE.url}/services/` },
     ],
   },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: faqs.map((faq) => ({
-      '@type': 'Question',
-      name: faq.question,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: faq.answer,
-      },
-    })),
-  },
 ];
 ---
 
 <Layout
-  title={`Our Services | ${SITE.name} — New Builds, Heritage, Extensions & Renovations`}
+  title="Services | Hartwell &amp; Stone — Builds, Heritage &amp; More"
   description="Bespoke new builds, heritage restorations, extensions, whole-house renovations and barn conversions. Award-winning residential construction across the South East."
   schema={schema}
 >
   <!-- Page Header -->
   <section style="padding: 140px 0 64px; background: var(--color-charcoal);">
     <div style="max-width: 900px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px); text-align: center;">
+      <nav aria-label="Breadcrumb" style="margin-bottom: 12px;">
+        <ol style="list-style: none; display: flex; gap: 8px; font-size: 0.8rem; justify-content: center; padding: 0; margin: 0;">
+          <li><a href="/" style="color: rgba(240,237,232,0.85);">Home</a></li>
+          <li aria-hidden="true" style="color: rgba(240,237,232,0.5);">/</li>
+          <li aria-current="page" style="color: rgba(240,237,232,0.85);">Services</li>
+        </ol>
+      </nav>
       <span class="eyebrow eyebrow-light" style="display: block; margin-bottom: 12px;">Our Expertise</span>
       <h1 class="font-heading" style="color: var(--color-text-light);">What We Do</h1>
       <p style="font-size: 1rem; color: rgba(240,237,232,0.85); line-height: 1.8; margin-top: 16px; max-width: 600px; margin-left: auto; margin-right: auto;">
@@ -79,7 +74,10 @@ const schema = [
               <a href="/contact/" class="btn-primary btn-fill" style="padding: 14px 28px;">
                 Discuss This Service
               </a>
-              <span style="font-size: 0.82rem; color: rgba(44,44,46,0.5);">
+              <a href="/projects/" class="btn-outline" style="padding: 14px 28px;">
+                View {service.title} Projects &rarr;
+              </a>
+              <span style="font-size: 0.82rem; color: var(--color-text-muted);">
                 {service.priceRange}
               </span>
             </div>

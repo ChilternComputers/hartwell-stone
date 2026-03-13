@@ -41,14 +41,17 @@ const schema = [
     '@type': 'Article',
     headline: article.title,
     description: article.excerpt,
-    image: `${SITE.url}/og-image.png`,
+    image: `${SITE.url}${article.image}`,
     datePublished: article.date,
     dateModified: article.date,
     author: { '@type': 'Organization', name: SITE.name },
     publisher: {
       '@type': 'Organization',
       name: SITE.name,
-      url: SITE.url,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${SITE.url}/favicon.svg`,
+      },
     },
   },
 ];
@@ -100,7 +103,7 @@ const schema = [
       <!-- Author box -->
       <div style="margin-top: 48px; padding: 24px; background: var(--color-stone); border-left: 3px solid var(--color-brass); display: flex; gap: 16px; align-items: center;">
         <div>
-          <span style="font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(44,44,46,0.5); display: block; margin-bottom: 4px;">Written by</span>
+          <span style="font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-muted); display: block; margin-bottom: 4px;">Written by</span>
           <span style="font-size: 0.95rem; font-weight: 600; color: var(--color-charcoal);">Hartwell & Stone</span>
           <p style="font-size: 0.82rem; color: var(--color-text-muted); margin-top: 4px;">Award-winning construction in Essex and the South East since 1987.</p>
         </div>

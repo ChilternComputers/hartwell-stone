@@ -22,6 +22,8 @@ const schema = [
     legalName: SITE.legalName,
     description: SITE.description,
     url: SITE.url,
+    logo: `${SITE.url}/favicon.svg`,
+    image: `${SITE.url}/og-image.png`,
     telephone: SITE.phone,
     email: SITE.email,
     foundingDate: '1987',
@@ -73,6 +75,8 @@ const schema = [
     name: SITE.name,
     legalName: SITE.legalName,
     url: SITE.url,
+    logo: `${SITE.url}/favicon.svg`,
+    image: `${SITE.url}/og-image.png`,
     foundingDate: '1987',
     numberOfEmployees: {
       '@type': 'QuantitativeValue',
@@ -89,23 +93,11 @@ const schema = [
       availableLanguage: 'English',
     },
   },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: 'Home',
-        item: SITE.url,
-      },
-    ],
-  },
 ];
 ---
 
 <Layout
-  title={`${SITE.name} | Award-Winning Residential Construction & Heritage Restoration`}
+  title={`${SITE.name} | Premium Construction & Restoration`}
   description={SITE.description}
   schema={schema}
 >

@@ -143,12 +143,12 @@ const navLinks = [
       scrolled = true;
       navbar.style.backgroundColor = 'rgba(26, 29, 35, 0.95)';
       navbar.style.backdropFilter = 'blur(20px)';
-      (navbar.style as any).WebkitBackdropFilter = 'blur(20px)';
+      navbar.style.setProperty('-webkit-backdrop-filter', 'blur(20px)');
     } else if (y <= 60 && scrolled) {
       scrolled = false;
       navbar.style.backgroundColor = 'transparent';
       navbar.style.backdropFilter = 'none';
-      (navbar.style as any).WebkitBackdropFilter = 'none';
+      navbar.style.setProperty('-webkit-backdrop-filter', 'none');
     }
 
     // Hide on scroll down, show on scroll up

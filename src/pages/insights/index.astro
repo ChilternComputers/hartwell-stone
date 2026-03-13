@@ -17,7 +17,7 @@ const schema = {
 ---
 
 <Layout
-  title={`Insights & Guides | ${SITE.name} — Expert Construction Advice`}
+  title="Insights | Hartwell &amp; Stone — Construction Guides"
   description="Expert guides on planning permission, building costs, heritage restoration, sustainable construction and choosing the right builder. Practical advice from 37 years of experience."
   schema={schema}
 >
@@ -40,6 +40,7 @@ const schema = {
         <button
           class="filter-btn active"
           data-filter="all"
+          aria-pressed="true"
           style="padding: 12px 20px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; border: 2px solid var(--color-brass); background: var(--color-brass); color: var(--color-warm-white); cursor: pointer; transition: all 0.3s ease; font-family: var(--font-body); min-height: 44px;"
         >
           All
@@ -48,6 +49,7 @@ const schema = {
           <button
             class="filter-btn"
             data-filter={cat}
+            aria-pressed="false"
             style="padding: 12px 20px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; border: 2px solid var(--color-border); background: transparent; color: var(--color-text-dark); cursor: pointer; transition: all 0.3s ease; font-family: var(--font-body); min-height: 44px;"
           >
             {cat}
@@ -67,11 +69,11 @@ const schema = {
             <div>
               <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 12px; flex-wrap: wrap;">
                 <span style="font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-brass-dark);">{article.category}</span>
-                <span style="font-size: 0.72rem; color: rgba(44,44,46,0.5);">{new Date(article.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
-                <span style="font-size: 0.72rem; color: rgba(44,44,46,0.5);">{article.readTime} read</span>
+                <span style="font-size: 0.72rem; color: var(--color-text-muted);">{new Date(article.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+                <span style="font-size: 0.72rem; color: var(--color-text-muted);">{article.readTime} read</span>
               </div>
               <h2 class="font-heading" style="font-size: 1.3rem; margin-bottom: 10px;">{article.title}</h2>
-              <p style="font-size: 0.9rem; color: rgba(44,44,46,0.65); line-height: 1.7;">{article.excerpt}</p>
+              <p style="font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.7;">{article.excerpt}</p>
               <span style="display: inline-block; margin-top: 12px; font-size: 0.82rem; font-weight: 600; color: var(--color-brass-dark);">Read more &rarr;</span>
             </div>
           </a>
@@ -104,10 +106,12 @@ const schema = {
           el.style.background = 'var(--color-brass)';
           el.style.borderColor = 'var(--color-brass)';
           el.style.color = 'var(--color-warm-white)';
+          el.setAttribute('aria-pressed', 'true');
         } else {
           el.style.background = 'transparent';
           el.style.borderColor = 'var(--color-border)';
           el.style.color = 'var(--color-text-dark)';
+          el.setAttribute('aria-pressed', 'false');
         }
       });
 

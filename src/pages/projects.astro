@@ -18,13 +18,20 @@ const schema = {
 ---
 
 <Layout
-  title={`Our Projects | ${SITE.name} — Portfolio of Award-Winning Construction`}
+  title="Projects | Hartwell &amp; Stone — Award-Winning Portfolio"
   description="Browse our portfolio of bespoke new builds, heritage restorations, barn conversions and elegant extensions. Each project tells a story of craftsmanship and collaboration."
   schema={schema}
 >
   <!-- Page Header -->
   <section style="padding: 140px 0 64px; background: var(--color-charcoal);">
     <div style="max-width: 900px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px); text-align: center;">
+      <nav aria-label="Breadcrumb" style="margin-bottom: 12px;">
+        <ol style="list-style: none; display: flex; gap: 8px; font-size: 0.8rem; justify-content: center; padding: 0; margin: 0;">
+          <li><a href="/" style="color: rgba(240,237,232,0.85);">Home</a></li>
+          <li aria-hidden="true" style="color: rgba(240,237,232,0.5);">/</li>
+          <li aria-current="page" style="color: rgba(240,237,232,0.85);">Projects</li>
+        </ol>
+      </nav>
       <span class="eyebrow eyebrow-light" style="display: block; margin-bottom: 12px;">Selected Work</span>
       <h1 class="font-heading" style="color: var(--color-text-light);">Our Projects</h1>
       <p style="font-size: 1rem; color: rgba(240,237,232,0.85); line-height: 1.8; margin-top: 16px; max-width: 600px; margin-left: auto; margin-right: auto;">
@@ -41,6 +48,7 @@ const schema = {
         <button
           class="filter-btn active"
           data-filter="all"
+          aria-pressed="true"
           style="padding: 12px 20px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; border: 2px solid var(--color-brass); background: var(--color-brass); color: var(--color-warm-white); cursor: pointer; transition: all 0.3s ease; font-family: var(--font-body); min-height: 44px;"
         >
           All
@@ -49,6 +57,7 @@ const schema = {
           <button
             class="filter-btn"
             data-filter={type}
+            aria-pressed="false"
             style="padding: 12px 20px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; border: 2px solid var(--color-border); background: transparent; color: var(--color-text-dark); cursor: pointer; transition: all 0.3s ease; font-family: var(--font-body); min-height: 44px;"
           >
             {type}
@@ -86,10 +95,12 @@ const schema = {
           el.style.background = 'var(--color-brass)';
           el.style.borderColor = 'var(--color-brass)';
           el.style.color = 'var(--color-warm-white)';
+          el.setAttribute('aria-pressed', 'true');
         } else {
           el.style.background = 'transparent';
           el.style.borderColor = 'var(--color-border)';
           el.style.color = 'var(--color-text-dark)';
+          el.setAttribute('aria-pressed', 'false');
         }
       });
 

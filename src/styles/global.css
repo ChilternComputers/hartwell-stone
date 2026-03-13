@@ -90,6 +90,11 @@ body {
   background: #999;
 }
 
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+
 /* ============================================
    TYPOGRAPHY
    ============================================ */

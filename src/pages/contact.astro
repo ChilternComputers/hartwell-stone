@@ -27,6 +27,11 @@ const schema = [
       postalCode: SITE.address.postcode,
       addressCountry: SITE.address.country,
     },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: 51.7356,
+      longitude: 0.4685,
+    },
     openingHoursSpecification: [
       { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '07:30', closes: '17:30' },
       { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Saturday', opens: '08:00', closes: '13:00' },
@@ -36,13 +41,20 @@ const schema = [
 ---
 
 <Layout
-  title={`Contact Us | ${SITE.name} — Arrange a Complimentary Consultation`}
+  title="Contact | Hartwell &amp; Stone — Free Consultation"
   description="Arrange a complimentary site consultation. Call, email or submit a project enquiry. We'll visit your property, listen to your aspirations and provide honest guidance — no obligation."
   schema={schema}
 >
   <!-- Page Header -->
   <section style="padding: 140px 0 64px; background: var(--color-charcoal);">
     <div style="max-width: 900px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px); text-align: center;">
+      <nav aria-label="Breadcrumb" style="margin-bottom: 12px;">
+        <ol style="list-style: none; display: flex; gap: 8px; font-size: 0.8rem; justify-content: center; padding: 0; margin: 0;">
+          <li><a href="/" style="color: rgba(240,237,232,0.85);">Home</a></li>
+          <li aria-hidden="true" style="color: rgba(240,237,232,0.5);">/</li>
+          <li aria-current="page" style="color: rgba(240,237,232,0.85);">Contact</li>
+        </ol>
+      </nav>
       <span class="eyebrow eyebrow-light" style="display: block; margin-bottom: 12px;">Get In Touch</span>
       <h1 class="font-heading" style="color: var(--color-text-light);">Start a Conversation</h1>
       <p style="font-size: 1rem; color: rgba(240,237,232,0.85); line-height: 1.8; margin-top: 16px;">

@@ -59,13 +59,20 @@ const schema = {
 ---
 
 <Layout
-  title={`Service Areas | ${SITE.name} — Essex, London, South East & Nationwide`}
+  title="Service Areas | Hartwell &amp; Stone — Nationwide Coverage"
   description="Based in Chelmsford, Hartwell & Stone serves Essex, London, the Home Counties and East Anglia. Nationwide coverage for larger projects by arrangement."
   schema={schema}
 >
   <!-- Page Header -->
   <section style="padding: 140px 0 64px; background: var(--color-charcoal);">
     <div style="max-width: 900px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px); text-align: center;">
+      <nav aria-label="Breadcrumb" style="margin-bottom: 12px;">
+        <ol style="list-style: none; display: flex; gap: 8px; font-size: 0.8rem; justify-content: center; padding: 0; margin: 0;">
+          <li><a href="/" style="color: rgba(240,237,232,0.85);">Home</a></li>
+          <li aria-hidden="true" style="color: rgba(240,237,232,0.5);">/</li>
+          <li aria-current="page" style="color: rgba(240,237,232,0.85);">Service Areas</li>
+        </ol>
+      </nav>
       <span class="eyebrow eyebrow-light" style="display: block; margin-bottom: 12px;">Coverage</span>
       <h1 class="font-heading" style="color: var(--color-text-light);">Where We Work</h1>
       <p style="font-size: 1rem; color: rgba(240,237,232,0.85); line-height: 1.8; margin-top: 16px; max-width: 600px; margin-left: auto; margin-right: auto;">
@@ -86,7 +93,7 @@ const schema = {
           {region.areas.map((area) => (
             <div style={`padding: 24px; background: var(--color-warm-white); border: 1px solid var(--color-border);`} data-stagger-child>
               <h3 style="font-family: var(--font-body); font-size: 1rem; font-weight: 600; color: var(--color-charcoal); margin-bottom: 8px;">{area.name}</h3>
-              <p style="font-size: 0.85rem; color: rgba(44,44,46,0.65); line-height: 1.7;">{area.desc}</p>
+              <p style="font-size: 0.85rem; color: var(--color-text-secondary); line-height: 1.7;">{area.desc}</p>
             </div>
           ))}
         </div>

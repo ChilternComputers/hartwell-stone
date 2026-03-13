@@ -9,7 +9,7 @@
   <div style="max-width: 960px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
     <p class="font-body" style="font-size: 0.88rem; line-height: 1.7; color: var(--color-text-light); margin: 0; flex: 1; min-width: 260px;">
       We use essential cookies to ensure our website functions properly. No tracking or advertising cookies are used. See our
-      <a href="/privacy/" style="color: var(--color-brass-light); text-decoration: underline;">Privacy Policy</a> for details.
+      <a href="/privacy/" id="cookie-privacy-link" style="color: var(--color-brass-light); text-decoration: underline;">Privacy Policy</a> for details.
     </p>
     <div style="display: flex; gap: 12px; flex-shrink: 0;">
       <button
@@ -34,6 +34,7 @@
   const banner = document.getElementById('cookie-consent');
   const acceptBtn = document.getElementById('cookie-accept');
   const declineBtn = document.getElementById('cookie-decline');
+  const privacyLink = document.getElementById('cookie-privacy-link');
 
   if (!localStorage.getItem('cookie-consent')) {
     requestAnimationFrame(() => {
@@ -66,7 +67,7 @@
     }
 
     if (e.key === 'Tab' && acceptBtn && declineBtn) {
-      const focusable = [acceptBtn, declineBtn];
+      const focusable = [privacyLink, declineBtn, acceptBtn].filter(Boolean) as HTMLElement[];
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
 

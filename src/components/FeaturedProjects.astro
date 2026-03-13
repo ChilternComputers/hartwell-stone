@@ -19,9 +19,11 @@ const projects = allProjects.slice(0, 4);
         const imgH = tall ? '340px' : '260px';
         const bg = badgeColors[project.type] || 'rgba(184,134,11,0.9)';
         return (
-          <div
+          <a
+            href={`/projects/${project.slug}/`}
             class="project-card geo-cut"
-            style={`background: var(--color-charcoal); overflow: hidden; ${tall ? 'margin-top: 0;' : 'margin-top: 32px;'}`}
+            style={`background: var(--color-charcoal); overflow: hidden; ${tall ? 'margin-top: 0;' : 'margin-top: 32px;'} text-decoration: none; color: inherit; display: block;`}
+            aria-label={`${project.title} — ${project.type} in ${project.location}`}
             data-stagger-child
           >
             <div class="img-zoom" style="position: relative; overflow: hidden;">
@@ -59,7 +61,7 @@ const projects = allProjects.slice(0, 4);
                 {project.value} · {project.location}
               </span>
             </div>
-          </div>
+          </a>
         );
       })}
     </div>
