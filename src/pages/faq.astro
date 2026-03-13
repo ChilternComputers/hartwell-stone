@@ -1,0 +1,137 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { SITE } from '@/config';
+import { faqs } from '@/data/services';
+import CTABanner from '@/components/CTABanner.astro';
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url },
+      { '@type': 'ListItem', position: 2, name: 'FAQ', item: `${SITE.url}/faq/` },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  },
+];
+---
+
+<Layout
+  title={`Frequently Asked Questions | ${SITE.name}`}
+  description="Answers to common questions about working with Hartwell & Stone — project costs, planning permission, timescales, guarantees, listed buildings and more."
+  schema={schema}
+>
+  <!-- Page Header -->
+  <section style="padding: 140px 0 64px; background: var(--color-charcoal);">
+    <div style="max-width: 900px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px); text-align: center;">
+      <nav aria-label="Breadcrumb" style="margin-bottom: 24px;">
+        <ol style="list-style: none; padding: 0; margin: 0; display: flex; justify-content: center; gap: 8px;">
+          <li>
+            <a href="/" style="font-size: 0.78rem; color: rgba(240,237,232,0.7); transition: color 0.3s ease;" class="hover:text-text-light">Home</a>
+            <span style="color: rgba(240,237,232,0.4); margin-left: 8px;" aria-hidden="true">/</span>
+          </li>
+          <li aria-current="page">
+            <span style="font-size: 0.78rem; color: var(--color-brass-light);">FAQ</span>
+          </li>
+        </ol>
+      </nav>
+      <span class="eyebrow eyebrow-light" style="display: block; margin-bottom: 12px;">Common Questions</span>
+      <h1 class="font-heading" style="color: var(--color-text-light);">Frequently Asked Questions</h1>
+      <p style="font-size: 1rem; color: rgba(240,237,232,0.7); line-height: 1.8; margin-top: 16px; max-width: 600px; margin-left: auto; margin-right: auto;">
+        Honest answers to the questions we hear most often. If yours isn't here, we're always happy to talk.
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ Accordion -->
+  <section style="padding: 80px 0; background: var(--color-warm-white);">
+    <div style="max-width: 800px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
+      <div style="display: flex; flex-direction: column; gap: 0;" id="faq-list">
+        {faqs.map((faq, i) => (
+          <div class="faq-item" style="border-bottom: 1px solid var(--color-border);" data-reveal>
+            <button
+              class="faq-trigger"
+              aria-expanded="false"
+              aria-controls={`faq-answer-${i}`}
+              id={`faq-question-${i}`}
+              style="width: 100%; text-align: left; background: none; border: none; cursor: pointer; padding: 24px 0; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-family: var(--font-body);"
+            >
+              <span style="font-size: 1rem; font-weight: 600; color: var(--color-charcoal); line-height: 1.5;">
+                {faq.question}
+              </span>
+              <span class="faq-icon" style="flex-shrink: 0; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; color: var(--color-brass); font-size: 1.2rem; transition: transform 0.3s ease;" aria-hidden="true">
+                +
+              </span>
+            </button>
+            <div
+              id={`faq-answer-${i}`}
+              role="region"
+              aria-labelledby={`faq-question-${i}`}
+              class="faq-content"
+              style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;"
+            >
+              <p style="font-size: 0.95rem; color: rgba(44,44,46,0.7); line-height: 1.9; padding: 0 0 24px;">
+                {faq.answer}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Still have questions -->
+  <section style="padding: 80px 0; background: var(--color-stone);">
+    <div style="max-width: 600px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px); text-align: center;" data-reveal>
+      <h2 class="font-heading" style="margin-bottom: 16px;">Still Have Questions?</h2>
+      <p style="font-size: 0.95rem; color: rgba(44,44,46,0.7); line-height: 1.8; margin-bottom: 32px;">
+        Every project is different. If you'd like to discuss your plans or need advice on feasibility, planning or budgets, we're always happy to have an informal conversation.
+      </p>
+      <div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: center;">
+        <a href="/contact/" class="btn-primary btn-fill" style="padding: 14px 32px;">
+          Get in Touch
+        </a>
+        <a href={`tel:${SITE.phone.replace(/\s/g, '')}`} class="btn-primary" style="padding: 14px 32px;">
+          Call {SITE.phone}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <CTABanner />
+</Layout>
+
+<script>
+  document.querySelectorAll('.faq-trigger').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      const contentId = btn.getAttribute('aria-controls');
+      const content = document.getElementById(contentId!) as HTMLElement;
+      const icon = btn.querySelector('.faq-icon') as HTMLElement;
+
+      if (expanded) {
+        btn.setAttribute('aria-expanded', 'false');
+        content.style.maxHeight = '0';
+        icon.textContent = '+';
+        icon.style.transform = 'rotate(0deg)';
+      } else {
+        btn.setAttribute('aria-expanded', 'true');
+        content.style.maxHeight = content.scrollHeight + 'px';
+        icon.textContent = '−';
+        icon.style.transform = 'rotate(180deg)';
+      }
+    });
+  });
+</script>

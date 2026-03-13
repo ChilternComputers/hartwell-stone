@@ -116,7 +116,7 @@ const schema = {
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" style="gap: 32px;" data-stagger-parent>
         {team.map((member) => (
-          <div style="text-align: center;" data-stagger-child>
+          <a href={`/team/${member.slug}/`} style="text-align: center; text-decoration: none; color: inherit; display: block;" data-stagger-child>
             <div style="width: 100%; aspect-ratio: 3/4; background: var(--color-stone); margin-bottom: 20px; overflow: hidden;">
               <img
                 src={member.image}
@@ -141,7 +141,7 @@ const schema = {
                 <span style="font-size: 0.68rem; padding: 3px 8px; background: var(--color-stone); color: rgba(44,44,46,0.6); font-weight: 500;">{q}</span>
               ))}
             </div>
-          </div>
+          </a>
         ))}
       </div>
     </div>

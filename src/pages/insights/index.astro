@@ -1,0 +1,121 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { SITE } from '@/config';
+import { insights } from '@/data/insights';
+import CTABanner from '@/components/CTABanner.astro';
+
+const categories = [...new Set(insights.map((i) => i.category))];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url },
+    { '@type': 'ListItem', position: 2, name: 'Insights', item: `${SITE.url}/insights/` },
+  ],
+};
+---
+
+<Layout
+  title={`Insights & Guides | ${SITE.name} — Expert Construction Advice`}
+  description="Expert guides on planning permission, building costs, heritage restoration, sustainable construction and choosing the right builder. Practical advice from 37 years of experience."
+  schema={schema}
+>
+  <!-- Page Header -->
+  <section style="padding: 140px 0 64px; background: var(--color-charcoal);">
+    <div style="max-width: 900px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px); text-align: center;">
+      <span class="eyebrow eyebrow-light" style="display: block; margin-bottom: 12px;">Knowledge</span>
+      <h1 class="font-heading" style="color: var(--color-text-light);">Insights & Guides</h1>
+      <p style="font-size: 1rem; color: rgba(240,237,232,0.7); line-height: 1.8; margin-top: 16px; max-width: 600px; margin-left: auto; margin-right: auto;">
+        Practical guidance on planning, costs, heritage and construction — drawn from nearly four decades of building experience.
+      </p>
+    </div>
+  </section>
+
+  <!-- Filter + Articles -->
+  <section style="padding: 64px 0 96px; background: var(--color-warm-white);">
+    <div style="max-width: 1000px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
+      <!-- Category filters -->
+      <div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 48px;" id="insight-filters">
+        <button
+          class="filter-btn active"
+          data-filter="all"
+          style="padding: 8px 16px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; border: 2px solid var(--color-brass); background: var(--color-brass); color: var(--color-warm-white); cursor: pointer; transition: all 0.3s ease; font-family: var(--font-body);"
+        >
+          All
+        </button>
+        {categories.map((cat) => (
+          <button
+            class="filter-btn"
+            data-filter={cat}
+            style="padding: 8px 16px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; border: 2px solid var(--color-border); background: transparent; color: var(--color-text-dark); cursor: pointer; transition: all 0.3s ease; font-family: var(--font-body);"
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      <!-- Article grid -->
+      <div style="display: flex; flex-direction: column; gap: 32px;" id="insight-grid">
+        {insights.map((article) => (
+          <a
+            href={`/insights/${article.slug}/`}
+            data-category={article.category}
+            class="insight-item"
+            style="display: grid; grid-template-columns: 1fr; gap: 24px; text-decoration: none; color: inherit; padding: 24px; background: var(--color-warm-white); border: 1px solid var(--color-border); transition: border-color 0.3s ease, box-shadow 0.3s ease;"
+          >
+            <div>
+              <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 12px; flex-wrap: wrap;">
+                <span style="font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-brass);">{article.category}</span>
+                <span style="font-size: 0.72rem; color: rgba(44,44,46,0.5);">{new Date(article.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+                <span style="font-size: 0.72rem; color: rgba(44,44,46,0.5);">{article.readTime} read</span>
+              </div>
+              <h2 class="font-heading" style="font-size: 1.3rem; margin-bottom: 10px;">{article.title}</h2>
+              <p style="font-size: 0.9rem; color: rgba(44,44,46,0.65); line-height: 1.7;">{article.excerpt}</p>
+              <span style="display: inline-block; margin-top: 12px; font-size: 0.82rem; font-weight: 600; color: var(--color-brass);">Read more &rarr;</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTABanner />
+</Layout>
+
+<style>
+  .insight-item:hover {
+    border-color: var(--color-brass) !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  }
+</style>
+
+<script>
+  const filterBtns = document.querySelectorAll('#insight-filters .filter-btn');
+  const items = document.querySelectorAll('.insight-item');
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const filter = btn.getAttribute('data-filter');
+
+      filterBtns.forEach((b) => {
+        const el = b as HTMLElement;
+        if (b === btn) {
+          el.style.background = 'var(--color-brass)';
+          el.style.borderColor = 'var(--color-brass)';
+          el.style.color = 'var(--color-warm-white)';
+        } else {
+          el.style.background = 'transparent';
+          el.style.borderColor = 'var(--color-border)';
+          el.style.color = 'var(--color-text-dark)';
+        }
+      });
+
+      items.forEach((item) => {
+        const el = item as HTMLElement;
+        const match = filter === 'all' || item.getAttribute('data-category') === filter;
+        el.style.display = match ? 'grid' : 'none';
+      });
+    });
+  });
+</script>

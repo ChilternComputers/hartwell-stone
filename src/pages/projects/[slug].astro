@@ -1,0 +1,252 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { SITE } from '@/config';
+import { projects } from '@/data/projects';
+import CTABanner from '@/components/CTABanner.astro';
+
+export function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+
+const related = projects
+  .filter((p) => p.slug !== project.slug && p.type === project.type)
+  .slice(0, 2);
+
+if (related.length < 2) {
+  const extras = projects
+    .filter((p) => p.slug !== project.slug && !related.includes(p))
+    .slice(0, 2 - related.length);
+  related.push(...extras);
+}
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url },
+      { '@type': 'ListItem', position: 2, name: 'Projects', item: `${SITE.url}/projects/` },
+      { '@type': 'ListItem', position: 3, name: project.title, item: `${SITE.url}/projects/${project.slug}/` },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: project.title,
+    description: project.description,
+    creator: {
+      '@type': 'Organization',
+      name: SITE.name,
+    },
+    locationCreated: {
+      '@type': 'Place',
+      address: project.location,
+    },
+    ...(project.clientTestimonial && {
+      review: {
+        '@type': 'Review',
+        reviewBody: project.clientTestimonial,
+        author: { '@type': 'Person', name: 'Client' },
+        reviewRating: { '@type': 'Rating', ratingValue: 5, bestRating: 5 },
+      },
+    }),
+  },
+];
+---
+
+<Layout
+  title={`${project.title} | ${SITE.name}`}
+  description={project.description.slice(0, 155) + '...'}
+  schema={schema}
+>
+  <!-- Hero -->
+  <section style="padding: 140px 0 64px; background: var(--color-charcoal);">
+    <div style="max-width: 900px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px); text-align: center;">
+      <nav aria-label="Breadcrumb" style="margin-bottom: 24px;">
+        <ol style="list-style: none; padding: 0; margin: 0; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;">
+          <li>
+            <a href="/" style="font-size: 0.78rem; color: rgba(240,237,232,0.7); transition: color 0.3s ease;" class="hover:text-text-light">Home</a>
+            <span style="color: rgba(240,237,232,0.4); margin-left: 8px;" aria-hidden="true">/</span>
+          </li>
+          <li>
+            <a href="/projects/" style="font-size: 0.78rem; color: rgba(240,237,232,0.7); transition: color 0.3s ease;" class="hover:text-text-light">Projects</a>
+            <span style="color: rgba(240,237,232,0.4); margin-left: 8px;" aria-hidden="true">/</span>
+          </li>
+          <li aria-current="page">
+            <span style="font-size: 0.78rem; color: var(--color-brass-light);">{project.title}</span>
+          </li>
+        </ol>
+      </nav>
+
+      <span class="eyebrow eyebrow-light" style="display: block; margin-bottom: 12px;">{project.type}</span>
+      <h1 class="font-heading" style="color: var(--color-text-light); margin-bottom: 16px;">{project.title}</h1>
+      <p style="font-size: 1rem; color: rgba(240,237,232,0.7);">{project.location}</p>
+
+      <!-- Project stats -->
+      <div style="display: flex; justify-content: center; gap: 40px; margin-top: 32px; flex-wrap: wrap;">
+        <div style="text-align: center;">
+          <span class="font-heading" style="font-size: 1.4rem; color: var(--color-brass-light); display: block;">{project.value}</span>
+          <span style="font-size: 0.72rem; color: rgba(240,237,232,0.7); text-transform: uppercase; letter-spacing: 0.08em;">Project Value</span>
+        </div>
+        <div style="text-align: center;">
+          <span class="font-heading" style="font-size: 1.4rem; color: var(--color-brass-light); display: block;">{project.duration}</span>
+          <span style="font-size: 0.72rem; color: rgba(240,237,232,0.7); text-transform: uppercase; letter-spacing: 0.08em;">Duration</span>
+        </div>
+        <div style="text-align: center;">
+          <span class="font-heading" style="font-size: 1.4rem; color: var(--color-brass-light); display: block;">{project.type}</span>
+          <span style="font-size: 0.72rem; color: rgba(240,237,232,0.7); text-transform: uppercase; letter-spacing: 0.08em;">Category</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hero Image -->
+  <section style="background: var(--color-stone);">
+    <div style="max-width: 1200px; margin: 0 auto;">
+      <div style="aspect-ratio: 16/9; overflow: hidden;">
+        <img
+          src={project.image}
+          alt={project.title}
+          width="1200"
+          height="675"
+          loading="eager"
+          fetchpriority="high"
+          style="width: 100%; height: 100%; object-fit: cover;"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Description -->
+  <section style="padding: 80px 0; background: var(--color-warm-white);">
+    <div style="max-width: 800px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
+      <div data-reveal>
+        <span class="eyebrow" style="display: block; margin-bottom: 12px;">The Brief</span>
+        <h2 class="font-heading" style="margin-bottom: 24px;">Project Overview</h2>
+        <p style="font-size: 1rem; color: rgba(44,44,46,0.75); line-height: 1.9;">
+          {project.description}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Challenges & Solutions -->
+  {(project.challenges || project.solutions) && (
+    <section style="padding: 80px 0; background: var(--color-stone);">
+      <div style="max-width: 1000px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
+        <div class="grid grid-cols-1 md:grid-cols-2" style="gap: 48px;">
+          {project.challenges && (
+            <div data-reveal>
+              <span class="eyebrow" style="display: block; margin-bottom: 12px;">The Challenge</span>
+              <h3 class="font-heading" style="font-size: 1.3rem; margin-bottom: 16px;">Obstacles We Overcame</h3>
+              <p style="font-size: 0.95rem; color: rgba(44,44,46,0.7); line-height: 1.9;">
+                {project.challenges}
+              </p>
+            </div>
+          )}
+          {project.solutions && (
+            <div data-reveal>
+              <span class="eyebrow" style="display: block; margin-bottom: 12px;">Our Approach</span>
+              <h3 class="font-heading" style="font-size: 1.3rem; margin-bottom: 16px;">How We Solved It</h3>
+              <p style="font-size: 0.95rem; color: rgba(44,44,46,0.7); line-height: 1.9;">
+                {project.solutions}
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Gallery -->
+  {project.gallery && project.gallery.length > 0 && (
+    <section style="padding: 80px 0; background: var(--color-warm-white);">
+      <div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
+        <div style="text-align: center; margin-bottom: 48px;" data-reveal>
+          <span class="eyebrow" style="display: block; margin-bottom: 12px;">Gallery</span>
+          <h2 class="font-heading">Project Photography</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2" style="gap: 16px;" data-stagger-parent>
+          {project.gallery.map((img, i) => (
+            <div style="aspect-ratio: 4/3; overflow: hidden;" data-stagger-child>
+              <img
+                src={img}
+                alt={`${project.title} — detail ${i + 1}`}
+                width="600"
+                height="450"
+                loading="lazy"
+                style="width: 100%; height: 100%; object-fit: cover;"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Client Testimonial -->
+  {project.clientTestimonial && (
+    <section style="padding: 96px 0; background: var(--color-charcoal);">
+      <div style="max-width: 800px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px); text-align: center;" data-reveal>
+        <span class="eyebrow eyebrow-light" style="display: block; margin-bottom: 12px;">Client Feedback</span>
+        <blockquote style="margin: 0;">
+          <p class="font-heading" style="font-size: clamp(1.2rem, 2.5vw, 1.6rem); color: var(--color-text-light); line-height: 1.6; font-style: italic;">
+            &ldquo;{project.clientTestimonial}&rdquo;
+          </p>
+          <footer style="margin-top: 24px;">
+            <span style="font-size: 0.85rem; color: var(--color-brass-light);">
+              — Client, {project.title}
+            </span>
+          </footer>
+        </blockquote>
+      </div>
+    </section>
+  )}
+
+  <!-- Related Projects -->
+  {related.length > 0 && (
+    <section style="padding: 80px 0; background: var(--color-warm-white);">
+      <div style="max-width: 1000px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
+        <div style="text-align: center; margin-bottom: 48px;" data-reveal>
+          <span class="eyebrow" style="display: block; margin-bottom: 12px;">More Work</span>
+          <h2 class="font-heading">Related Projects</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2" style="gap: 24px;" data-stagger-parent>
+          {related.map((rel) => (
+            <a href={`/projects/${rel.slug}/`} style="display: block; text-decoration: none; color: inherit; transition: transform 0.3s ease;" class="hover:scale-[1.02]" data-stagger-child>
+              <div style="overflow: hidden; aspect-ratio: 16/9; margin-bottom: 16px;">
+                <img
+                  src={rel.image}
+                  alt={rel.title}
+                  width="500"
+                  height="281"
+                  loading="lazy"
+                  style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;"
+                />
+              </div>
+              <span class="eyebrow" style="display: block; margin-bottom: 6px; font-size: 0.68rem;">{rel.type} · {rel.location}</span>
+              <h3 class="font-heading" style="font-size: 1.15rem; margin-bottom: 6px;">{rel.title}</h3>
+              <span style="font-size: 0.85rem; color: var(--color-brass); font-weight: 600;">{rel.value}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Back to Projects + CTA -->
+  <section style="padding: 48px 0 0; background: var(--color-stone);">
+    <div style="max-width: 800px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px); text-align: center;">
+      <a href="/projects/" style="font-size: 0.88rem; color: var(--color-brass); font-weight: 600; text-decoration: none; transition: color 0.3s ease;" class="hover:text-charcoal">
+        &larr; Back to All Projects
+      </a>
+    </div>
+  </section>
+
+  <CTABanner />
+</Layout>

@@ -1,5 +1,6 @@
 export interface Project {
   title: string;
+  slug: string;
   type: string;
   location: string;
   image: string;
@@ -15,6 +16,7 @@ export interface Project {
 export const projects: Project[] = [
   {
     title: 'The Willows — Georgian Restoration',
+    slug: 'the-willows',
     type: 'Renovation',
     location: 'Chelmsford, Essex',
     image: '/images/projects/project-1.webp',
@@ -28,6 +30,7 @@ export const projects: Project[] = [
   },
   {
     title: 'Thornfield House — Contemporary New Build',
+    slug: 'thornfield-house',
     type: 'New Build',
     location: 'Ingatestone, Essex',
     image: '/images/projects/project-2.webp',
@@ -41,6 +44,7 @@ export const projects: Project[] = [
   },
   {
     title: 'The Old Maltings — Warehouse Conversion',
+    slug: 'the-old-maltings',
     type: 'Heritage Conversion',
     location: 'Maldon, Essex',
     image: '/images/projects/project-3.webp',
@@ -54,6 +58,7 @@ export const projects: Project[] = [
   },
   {
     title: 'Montague Crescent — Double-Storey Extension',
+    slug: 'montague-crescent',
     type: 'Extension',
     location: 'Brentwood, Essex',
     image: '/images/projects/project-4.webp',
@@ -67,6 +72,7 @@ export const projects: Project[] = [
   },
   {
     title: 'The Grain Store — Barn Conversion',
+    slug: 'the-grain-store',
     type: 'Heritage Conversion',
     location: 'Writtle, Essex',
     image: '/images/projects/project-5.webp',
@@ -79,6 +85,7 @@ export const projects: Project[] = [
   },
   {
     title: 'Riverside Walk — Luxury Apartments',
+    slug: 'riverside-walk',
     type: 'New Build',
     location: 'Chelmsford, Essex',
     image: '/images/projects/project-6.webp',
@@ -92,6 +99,7 @@ export const projects: Project[] = [
   },
   {
     title: 'The Rectory — Period Renovation',
+    slug: 'the-rectory',
     type: 'Renovation',
     location: 'Billericay, Essex',
     image: '/images/projects/project-7.webp',
@@ -105,6 +113,7 @@ export const projects: Project[] = [
   },
   {
     title: 'Oakwood Studio — Garden Office',
+    slug: 'oakwood-studio',
     type: 'Studio',
     location: 'Shenfield, Essex',
     image: '/images/projects/project-8.webp',
@@ -118,6 +127,7 @@ export const projects: Project[] = [
   },
   {
     title: 'Chapel Lane — Church Conversion',
+    slug: 'chapel-lane',
     type: 'Heritage Conversion',
     location: 'Rayleigh, Essex',
     image: '/images/projects/project-9.webp',
