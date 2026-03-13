@@ -11,6 +11,7 @@
     <div class="step-dot" data-step-dot="3" style="width: 36px; height: 36px; border-radius: 50%; background: var(--color-border); color: var(--color-text-dark); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 600;">3</div>
   </div>
 
+  <p style="font-size: 0.78rem; color: rgba(44,44,46,0.55); text-align: center; margin-bottom: 24px;">Fields marked with <span class="text-red-600">*</span> are required</p>
   <form id="multi-step-form" novalidate>
     <!-- Step 1: Project Type -->
     <fieldset id="step-1" style="border: none; padding: 0; margin: 0;">
@@ -105,7 +106,7 @@
       <div style="display: flex; flex-direction: column; gap: 20px;">
         <div>
           <label for="contact-name" style="display: block; font-size: 0.85rem; font-weight: 500; color: var(--color-text-dark); margin-bottom: 6px;">
-            Full name <span aria-hidden="true">*</span>
+            Full name <span class="text-red-600">*</span>
           </label>
           <input
             type="text"
@@ -123,7 +124,7 @@
 
         <div>
           <label for="contact-email" style="display: block; font-size: 0.85rem; font-weight: 500; color: var(--color-text-dark); margin-bottom: 6px;">
-            Email address <span aria-hidden="true">*</span>
+            Email address <span class="text-red-600">*</span>
           </label>
           <input
             type="email"
@@ -141,7 +142,7 @@
 
         <div>
           <label for="contact-phone" style="display: block; font-size: 0.85rem; font-weight: 500; color: var(--color-text-dark); margin-bottom: 6px;">
-            Phone number <span aria-hidden="true">*</span>
+            Phone number <span class="text-red-600">*</span>
           </label>
           <input
             type="tel"

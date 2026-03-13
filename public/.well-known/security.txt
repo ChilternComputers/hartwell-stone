@@ -1,0 +1,3 @@
+Contact: mailto:info@hartwellandstone.co.uk
+Preferred-Languages: en
+Canonical: https://hartwell-stone.pages.dev/.well-known/security.txt

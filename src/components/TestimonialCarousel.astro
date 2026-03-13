@@ -35,8 +35,8 @@ const testimonials = allTestimonials.slice(0, 4);
         </div>
       ))}
 
-      <!-- Dot indicators -->
-      <div style="display: flex; justify-content: center; gap: 10px; margin-top: 32px;" id="testimonial-dots">
+      <!-- Controls: dots + pause -->
+      <div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 32px;" id="testimonial-dots">
         {testimonials.map((_, i) => (
           <button
             class={`testimonial-dot ${i === 0 ? 'active' : ''}`}
@@ -44,6 +44,13 @@ const testimonials = allTestimonials.slice(0, 4);
             aria-label={`Show testimonial ${i + 1}`}
           ></button>
         ))}
+        <button
+          id="carousel-pause"
+          aria-label="Pause testimonial carousel"
+          style="width: 44px; height: 44px; background: none; border: 1px solid var(--color-border); border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; margin-left: 8px; font-size: 0.85rem; color: var(--color-brass); transition: border-color 0.3s ease;"
+        >
+          ❚❚
+        </button>
       </div>
     </div>
 
@@ -111,6 +118,22 @@ const testimonials = allTestimonials.slice(0, 4);
     // Pause on hover
     const carousel = document.getElementById('testimonial-carousel');
     carousel?.addEventListener('mouseenter', () => clearInterval(interval));
-    carousel?.addEventListener('mouseleave', startAuto);
+    carousel?.addEventListener('mouseleave', () => { if (!paused) startAuto(); });
+
+    // Pause button for keyboard users
+    let paused = false;
+    const pauseBtn = document.getElementById('carousel-pause');
+    pauseBtn?.addEventListener('click', () => {
+      paused = !paused;
+      if (paused) {
+        clearInterval(interval);
+        pauseBtn.textContent = '▶';
+        pauseBtn.setAttribute('aria-label', 'Play testimonial carousel');
+      } else {
+        startAuto();
+        pauseBtn.textContent = '❚❚';
+        pauseBtn.setAttribute('aria-label', 'Pause testimonial carousel');
+      }
+    });
   }
 </script>
