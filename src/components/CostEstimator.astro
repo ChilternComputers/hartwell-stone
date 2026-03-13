@@ -128,8 +128,14 @@
     sizeVal.textContent = `${size} m²`;
   }
 
+  let rafId = 0;
+  function debouncedCalc() {
+    cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(calculate);
+  }
+
   typeSelect.addEventListener('change', calculate);
-  sizeSlider.addEventListener('input', calculate);
+  sizeSlider.addEventListener('input', debouncedCalc);
 
   finishBtns.forEach((btn) => {
     btn.addEventListener('click', () => {

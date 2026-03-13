@@ -29,8 +29,8 @@
   --color-charcoal: #1A1D23;
   --color-stone: #E8E0D4;
   --color-warm-white: #FAFAF8;
-  --color-brass: #B8860B;
-  --color-brass-light: #D4A843;
+  --color-brass: #946B08;
+  --color-brass-light: #B8860B;
   --color-text-dark: #2C2C2E;
   --color-text-light: #F0EDE8;
   --color-border: #e0d8cc;
@@ -236,11 +236,11 @@ html.lenis, html.lenis body {
 }
 
 .btn-fill {
-  background: #8B6914;
+  background: var(--color-brass);
   color: #ffffff;
 }
 .btn-fill:hover {
-  background: var(--color-brass);
+  background: #7A5907;
   color: #ffffff;
 }
 
@@ -386,12 +386,14 @@ html.lenis, html.lenis body {
   transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-.project-card:hover .project-card-overlay {
+.project-card:hover .project-card-overlay,
+.project-card:focus-within .project-card-overlay {
   opacity: 1;
   transform: translateY(0);
 }
 
-.project-card:hover .project-card-border {
+.project-card:hover .project-card-border,
+.project-card:focus-within .project-card-border {
   opacity: 1;
 }
 
@@ -497,7 +499,7 @@ html.lenis, html.lenis body {
   position: absolute;
   inset: 0;
   opacity: 0;
-  transition: opacity 0.01ms;
+  transition: opacity 0.4s ease;
 }
 
 .testimonial-slide.active {
@@ -506,17 +508,32 @@ html.lenis, html.lenis body {
 }
 
 .testimonial-dot {
-  width: 8px;
-  height: 8px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  border: 1px solid var(--color-brass);
+  border: 1px solid transparent;
   background: transparent;
   cursor: pointer;
   transition: background 0.3s ease;
   padding: 0;
+  position: relative;
 }
 
-.testimonial-dot.active {
+.testimonial-dot::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-brass);
+  background: transparent;
+  transition: background 0.3s ease;
+}
+
+.testimonial-dot.active::after {
   background: var(--color-brass);
 }
 

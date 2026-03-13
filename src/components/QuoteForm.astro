@@ -105,47 +105,56 @@
       <div style="display: flex; flex-direction: column; gap: 20px;">
         <div>
           <label for="contact-name" style="display: block; font-size: 0.85rem; font-weight: 500; color: var(--color-text-dark); margin-bottom: 6px;">
-            Full name *
+            Full name <span aria-hidden="true">*</span>
           </label>
           <input
             type="text"
             id="contact-name"
             name="name"
             required
+            aria-required="true"
+            aria-describedby="contact-name-error"
             autocomplete="name"
             placeholder="Your full name"
             style="width: 100%; padding: 12px 16px; border: 2px solid var(--color-border); background: var(--color-warm-white); font-family: var(--font-body); font-size: 0.9rem; color: var(--color-text-dark);"
           />
+          <span id="contact-name-error" role="alert" style="font-size: 0.78rem; color: #c0392b; display: none; margin-top: 4px;"></span>
         </div>
 
         <div>
           <label for="contact-email" style="display: block; font-size: 0.85rem; font-weight: 500; color: var(--color-text-dark); margin-bottom: 6px;">
-            Email address *
+            Email address <span aria-hidden="true">*</span>
           </label>
           <input
             type="email"
             id="contact-email"
             name="email"
             required
+            aria-required="true"
+            aria-describedby="contact-email-error"
             autocomplete="email"
             placeholder="you@example.com"
             style="width: 100%; padding: 12px 16px; border: 2px solid var(--color-border); background: var(--color-warm-white); font-family: var(--font-body); font-size: 0.9rem; color: var(--color-text-dark);"
           />
+          <span id="contact-email-error" role="alert" style="font-size: 0.78rem; color: #c0392b; display: none; margin-top: 4px;"></span>
         </div>
 
         <div>
           <label for="contact-phone" style="display: block; font-size: 0.85rem; font-weight: 500; color: var(--color-text-dark); margin-bottom: 6px;">
-            Phone number *
+            Phone number <span aria-hidden="true">*</span>
           </label>
           <input
             type="tel"
             id="contact-phone"
             name="phone"
             required
+            aria-required="true"
+            aria-describedby="contact-phone-error"
             autocomplete="tel"
             placeholder="01234 567 890"
             style="width: 100%; padding: 12px 16px; border: 2px solid var(--color-border); background: var(--color-warm-white); font-family: var(--font-body); font-size: 0.9rem; color: var(--color-text-dark);"
           />
+          <span id="contact-phone-error" role="alert" style="font-size: 0.78rem; color: #c0392b; display: none; margin-top: 4px;"></span>
         </div>
 
         <div>
@@ -174,7 +183,7 @@
     </fieldset>
 
     <!-- Success message -->
-    <div id="form-success" style="display: none; text-align: center; padding: 48px 24px;">
+    <div id="form-success" role="status" aria-live="polite" style="display: none; text-align: center; padding: 48px 24px;">
       <span style="font-size: 3rem; display: block; margin-bottom: 16px;" aria-hidden="true">&#10003;</span>
       <h3 class="font-heading" style="font-size: 1.5rem; color: var(--color-charcoal); margin-bottom: 12px;">Thank You</h3>
       <p style="font-size: 0.95rem; color: rgba(44,44,46,0.7); line-height: 1.7;">
@@ -227,8 +236,51 @@
     });
   });
 
+  function showError(id: string, msg: string) {
+    const el = document.getElementById(id);
+    const errEl = document.getElementById(id + '-error');
+    if (el && errEl) {
+      el.setAttribute('aria-invalid', 'true');
+      el.style.borderColor = '#c0392b';
+      errEl.textContent = msg;
+      errEl.style.display = 'block';
+    }
+  }
+
+  function clearErrors() {
+    ['contact-name', 'contact-email', 'contact-phone'].forEach((id) => {
+      const el = document.getElementById(id);
+      const errEl = document.getElementById(id + '-error');
+      if (el) {
+        el.removeAttribute('aria-invalid');
+        el.style.borderColor = '';
+      }
+      if (errEl) {
+        errEl.textContent = '';
+        errEl.style.display = 'none';
+      }
+    });
+  }
+
   form?.addEventListener('submit', (e) => {
     e.preventDefault();
+    clearErrors();
+
+    const name = (document.getElementById('contact-name') as HTMLInputElement)?.value.trim();
+    const email = (document.getElementById('contact-email') as HTMLInputElement)?.value.trim();
+    const phone = (document.getElementById('contact-phone') as HTMLInputElement)?.value.trim();
+    let valid = true;
+
+    if (!name) { showError('contact-name', 'Please enter your full name.'); valid = false; }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showError('contact-email', 'Please enter a valid email address.'); valid = false; }
+    if (!phone) { showError('contact-phone', 'Please enter your phone number.'); valid = false; }
+
+    if (!valid) {
+      const firstInvalid = form.querySelector('[aria-invalid="true"]') as HTMLElement;
+      firstInvalid?.focus();
+      return;
+    }
+
     // Demo — just show success
     form.style.display = 'none';
     if (successMsg) successMsg.style.display = 'block';

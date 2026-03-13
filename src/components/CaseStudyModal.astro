@@ -58,6 +58,7 @@ const caseStudies = projects.map((p) => ({
     result: string; duration: string; value: string;
   }>;
   let currentIndex = 0;
+  let triggerElement: HTMLElement | null = null;
 
   function esc(str: string): string {
     const d = document.createElement('div');
@@ -78,7 +79,7 @@ const caseStudies = projects.map((p) => ({
         <div style="position: absolute; bottom: 40px; left: 0; right: 0; max-width: 1200px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
           <span style="font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brass-light); display: inline-block; padding: 4px 12px; background: rgba(184,134,11,0.2); margin-bottom: 12px;">${esc(s.type)}</span>
           <h2 style="font-family: var(--font-heading); font-size: clamp(2rem, 4vw, 3rem); color: var(--color-text-light); margin-bottom: 4px;">${esc(s.title)}</h2>
-          <span style="font-size: 0.9rem; color: rgba(240,237,232,0.6);">${esc(s.value)} · ${esc(s.location)} · ${esc(s.duration)}</span>
+          <span style="font-size: 0.9rem; color: rgba(240,237,232,0.75);">${esc(s.value)} · ${esc(s.location)} · ${esc(s.duration)}</span>
         </div>
       </div>
       <div style="max-width: 800px; margin: 0 auto; padding: 56px clamp(24px, 4vw, 48px);">
@@ -101,28 +102,28 @@ const caseStudies = projects.map((p) => ({
         <div style="display: flex; gap: 32px; justify-content: center; padding: 28px; background: rgba(240,237,232,0.05); border: 1px solid rgba(240,237,232,0.08);">
           <div style="text-align: center;">
             <span style="font-family: var(--font-heading); font-size: 1.5rem; color: var(--color-brass-light); display: block;">${esc(s.value)}</span>
-            <span style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(240,237,232,0.5);">Value</span>
+            <span style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(240,237,232,0.7);">Value</span>
           </div>
           <div style="text-align: center;">
             <span style="font-family: var(--font-heading); font-size: 1.5rem; color: var(--color-brass-light); display: block;">${esc(s.duration)}</span>
-            <span style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(240,237,232,0.5);">Duration</span>
+            <span style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(240,237,232,0.7);">Duration</span>
           </div>
           <div style="text-align: center;">
             <span style="font-family: var(--font-heading); font-size: 1.5rem; color: var(--color-brass-light); display: block;">${esc(s.type)}</span>
-            <span style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(240,237,232,0.5);">Category</span>
+            <span style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(240,237,232,0.7);">Category</span>
           </div>
         </div>
       </div>
     `;
   }
 
-  function openModal(index: number) {
+  function openModal(index: number, trigger?: HTMLElement) {
+    triggerElement = trigger || document.activeElement as HTMLElement;
     renderCase(index);
     modal.classList.add('active');
     modal.scrollTo(0, 0);
     const lenis = (window as any).__lenis;
     if (lenis) lenis.stop();
-    // Override lenis-stopped overflow:hidden so the fixed modal can scroll
     document.documentElement.style.overflow = 'clip';
     modal.focus();
   }
@@ -132,6 +133,10 @@ const caseStudies = projects.map((p) => ({
     document.documentElement.style.overflow = '';
     const lenis = (window as any).__lenis;
     if (lenis) lenis.start();
+    if (triggerElement) {
+      triggerElement.focus();
+      triggerElement = null;
+    }
   }
 
   closeBtn.addEventListener('click', (e) => {

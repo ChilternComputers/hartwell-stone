@@ -19,20 +19,21 @@ import { SITE } from '@/config';
           alt="Grade II listed Georgian restoration in Chelmsford"
           width="800"
           height="600"
-          loading="lazy"
+          loading="eager"
+          fetchpriority="high"
           style="width: 100%; height: 100%; object-fit: cover; opacity: 0.8;"
         />
         <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 32px; background: linear-gradient(to top, rgba(26,29,35,0.9) 0%, transparent 100%);">
           <span class="eyebrow-light" style="display: block; margin-bottom: 6px;">Featured Project</span>
           <span class="font-heading" style="font-size: 1.4rem; color: var(--color-text-light);">The Willows — Georgian Restoration</span>
-          <span style="font-size: 0.82rem; color: rgba(240,237,232,0.6); display: block; margin-top: 4px;">£1.2M · Chelmsford</span>
+          <span style="font-size: 0.82rem; color: rgba(240,237,232,0.75); display: block; margin-top: 4px;">£1.2M · Chelmsford</span>
         </div>
       </div>
 
       <!-- Stat block — years in business -->
       <div class="geo-cut" style="background: var(--color-charcoal); padding: 36px 28px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;" data-stagger-child>
         <span class="font-heading" style="font-size: clamp(3rem, 5vw, 4rem); color: var(--color-brass-light); line-height: 1;">{SITE.yearsExperience}</span>
-        <span style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(240,237,232,0.6); margin-top: 8px;">Years of Excellence</span>
+        <span style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(240,237,232,0.75); margin-top: 8px;">Years of Excellence</span>
       </div>
 
       <!-- Testimonial quote block -->
