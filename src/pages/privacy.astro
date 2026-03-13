@@ -31,59 +31,59 @@ const schema = {
       <div style="display: flex; flex-direction: column; gap: 32px;">
         <div>
           <h2 class="font-heading" style="font-size: 1.5rem; margin-bottom: 12px;">1. Who We Are</h2>
-          <p style="font-size: 0.92rem; color: rgba(44,44,46,0.75); line-height: 1.8;">
+          <p style="font-size: 0.92rem; color: var(--color-text-secondary); line-height: 1.8;">
             {SITE.legalName} ("we", "our", "us") is the data controller for personal information collected through this website. Our registered address is {SITE.address.street}, {SITE.address.area}, {SITE.address.city} {SITE.address.postcode}.
           </p>
         </div>
 
         <div>
           <h2 class="font-heading" style="font-size: 1.5rem; margin-bottom: 12px;">2. Information We Collect</h2>
-          <p style="font-size: 0.92rem; color: rgba(44,44,46,0.75); line-height: 1.8; margin-bottom: 12px;">We may collect the following information:</p>
+          <p style="font-size: 0.92rem; color: var(--color-text-secondary); line-height: 1.8; margin-bottom: 12px;">We may collect the following information:</p>
           <ul style="padding-left: 20px; display: flex; flex-direction: column; gap: 6px;">
-            <li style="font-size: 0.92rem; color: rgba(44,44,46,0.75); line-height: 1.7;">Name, email address, phone number and postcode submitted through our contact form</li>
-            <li style="font-size: 0.92rem; color: rgba(44,44,46,0.75); line-height: 1.7;">Project details you provide in quote requests</li>
-            <li style="font-size: 0.92rem; color: rgba(44,44,46,0.75); line-height: 1.7;">Technical data such as browser type and IP address (via essential cookies only)</li>
+            <li style="font-size: 0.92rem; color: var(--color-text-secondary); line-height: 1.7;">Name, email address, phone number and postcode submitted through our contact form</li>
+            <li style="font-size: 0.92rem; color: var(--color-text-secondary); line-height: 1.7;">Project details you provide in quote requests</li>
+            <li style="font-size: 0.92rem; color: var(--color-text-secondary); line-height: 1.7;">Technical data such as browser type and IP address (via essential cookies only)</li>
           </ul>
         </div>
 
         <div>
           <h2 class="font-heading" style="font-size: 1.5rem; margin-bottom: 12px;">3. How We Use Your Information</h2>
-          <p style="font-size: 0.92rem; color: rgba(44,44,46,0.75); line-height: 1.8;">
+          <p style="font-size: 0.92rem; color: var(--color-text-secondary); line-height: 1.8;">
             We use your information solely to respond to enquiries, provide quotations, and manage construction projects. We do not use tracking cookies, advertising cookies, or share your data with third-party marketing services.
           </p>
         </div>
 
         <div>
           <h2 class="font-heading" style="font-size: 1.5rem; margin-bottom: 12px;">4. Legal Basis for Processing</h2>
-          <p style="font-size: 0.92rem; color: rgba(44,44,46,0.75); line-height: 1.8;">
+          <p style="font-size: 0.92rem; color: var(--color-text-secondary); line-height: 1.8;">
             We process your data based on: (a) your consent when submitting a form; (b) legitimate interest in responding to business enquiries; (c) contractual necessity when managing a construction project.
           </p>
         </div>
 
         <div>
           <h2 class="font-heading" style="font-size: 1.5rem; margin-bottom: 12px;">5. Data Retention</h2>
-          <p style="font-size: 0.92rem; color: rgba(44,44,46,0.75); line-height: 1.8;">
+          <p style="font-size: 0.92rem; color: var(--color-text-secondary); line-height: 1.8;">
             We retain enquiry data for up to 24 months. Project-related data is retained for the duration of any guarantees or warranties (up to 10 years). You may request deletion at any time.
           </p>
         </div>
 
         <div>
           <h2 class="font-heading" style="font-size: 1.5rem; margin-bottom: 12px;">6. Your Rights</h2>
-          <p style="font-size: 0.92rem; color: rgba(44,44,46,0.75); line-height: 1.8;">
+          <p style="font-size: 0.92rem; color: var(--color-text-secondary); line-height: 1.8;">
             Under UK GDPR, you have the right to access, rectify, erase, restrict processing, and port your personal data. To exercise these rights, contact us at <a href={`mailto:${SITE.email}`} style="color: var(--color-brass-dark);">{SITE.email}</a>.
           </p>
         </div>
 
         <div>
           <h2 class="font-heading" style="font-size: 1.5rem; margin-bottom: 12px;">7. Cookies</h2>
-          <p style="font-size: 0.92rem; color: rgba(44,44,46,0.75); line-height: 1.8;">
+          <p style="font-size: 0.92rem; color: var(--color-text-secondary); line-height: 1.8;">
             This website uses only essential cookies required for basic functionality (e.g., cookie consent preference stored in localStorage). We do not use analytics, advertising, or third-party tracking cookies.
           </p>
         </div>
 
         <div>
           <h2 class="font-heading" style="font-size: 1.5rem; margin-bottom: 12px;">8. Contact</h2>
-          <p style="font-size: 0.92rem; color: rgba(44,44,46,0.75); line-height: 1.8;">
+          <p style="font-size: 0.92rem; color: var(--color-text-secondary); line-height: 1.8;">
             For any privacy-related queries, contact us at <a href={`mailto:${SITE.email}`} style="color: var(--color-brass-dark);">{SITE.email}</a> or call <a href={`tel:${SITE.phone.replace(/\s/g, '')}`} style="color: var(--color-brass-dark);">{SITE.phone}</a>.
           </p>
         </div>

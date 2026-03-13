@@ -37,6 +37,7 @@
   --color-text-secondary: #4A4A4C;
   --color-text-muted: #525254;
   --color-border: #e0d8cc;
+  --color-error: #c0392b;
 
   --font-heading: 'DM Serif Display', Georgia, serif;
   --font-body: 'Inter', system-ui, sans-serif;
@@ -245,11 +246,11 @@ html.lenis, html.lenis body {
 
 .btn-fill {
   background: var(--color-brass);
-  color: #ffffff;
+  color: var(--color-warm-white);
 }
 .btn-fill:hover {
   background: var(--color-brass-dark);
-  color: #ffffff;
+  color: var(--color-warm-white);
 }
 
 .btn-outline {

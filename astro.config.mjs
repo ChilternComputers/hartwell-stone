@@ -4,6 +4,9 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
+  compilerOptions: {
+    generator: false,
+  },
   site: 'https://hartwell-stone.pages.dev',
   trailingSlash: 'always',
   build: {
