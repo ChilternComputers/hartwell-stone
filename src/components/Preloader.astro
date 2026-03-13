@@ -15,8 +15,9 @@
     preloader?.remove();
   } else {
     sessionStorage.setItem('hs-visited', '1');
-    const mono = document.getElementById('preloader-mono')!;
-    const line = document.getElementById('preloader-line')!;
+    const mono = document.getElementById('preloader-mono');
+    const line = document.getElementById('preloader-line');
+    if (!mono || !line) { preloader.remove(); } else {
 
     import('gsap').then(({ gsap }) => {
       const tl = gsap.timeline({
@@ -34,5 +35,6 @@
         .to(line, { width: '64px', duration: 0.6, ease: 'power3.inOut' }, '+=0.1')
         .to({}, { duration: 0.2 });
     });
+    }
   }
 </script>

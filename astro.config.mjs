@@ -7,7 +7,7 @@ export default defineConfig({
   site: 'https://hartwell-stone.pages.dev',
   trailingSlash: 'always',
   build: {
-    inlineStylesheets: 'auto',
+    inlineStylesheets: 'always',
   },
   integrations: [sitemap({
     filter: (page) => !page.includes('/privacy/') && !page.includes('/terms/'),

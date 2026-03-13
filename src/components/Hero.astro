@@ -102,39 +102,40 @@ import { SITE } from '@/config';
     const vid = document.querySelector('#hero-bg video') as HTMLVideoElement;
     if (vid) vid.pause();
   } else {
-    import('gsap').then(({ gsap }) => {
-      import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
-        gsap.registerPlugin(ScrollTrigger);
+    Promise.all([
+      import('gsap'),
+      import('gsap/ScrollTrigger'),
+    ]).then(([{ gsap }, { ScrollTrigger }]) => {
+      gsap.registerPlugin(ScrollTrigger);
 
-        // Staggered text reveal
-        const reveals = document.querySelectorAll('.hero-reveal');
-        gsap.to(reveals, {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          stagger: 0.2,
-          ease: 'power3.out',
-          delay: 1.4,
-        });
-        reveals.forEach((el) => {
-          (el as HTMLElement).style.transform = 'translateY(20px)';
-        });
-
-        // Parallax background on scroll
-        const heroBg = document.getElementById('hero-bg');
-        if (heroBg) {
-          gsap.to(heroBg, {
-            yPercent: -10,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: '#hero',
-              start: 'top top',
-              end: 'bottom top',
-              scrub: true,
-            },
-          });
-        }
+      // Staggered text reveal
+      const reveals = document.querySelectorAll('.hero-reveal');
+      gsap.to(reveals, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: 'power3.out',
+        delay: 1.4,
       });
+      reveals.forEach((el) => {
+        (el as HTMLElement).style.transform = 'translateY(20px)';
+      });
+
+      // Parallax background on scroll
+      const heroBg = document.getElementById('hero-bg');
+      if (heroBg) {
+        gsap.to(heroBg, {
+          yPercent: -10,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '#hero',
+            start: 'top top',
+            end: 'bottom top',
+            scrub: true,
+          },
+        });
+      }
     });
   }
 </script>

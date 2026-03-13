@@ -85,43 +85,44 @@ const steps = [
 
 <script>
   if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    import('gsap').then(({ gsap }) => {
-      import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
-        gsap.registerPlugin(ScrollTrigger);
+    Promise.all([
+      import('gsap'),
+      import('gsap/ScrollTrigger'),
+    ]).then(([{ gsap }, { ScrollTrigger }]) => {
+      gsap.registerPlugin(ScrollTrigger);
 
-        const steps = document.querySelectorAll('.timeline-step');
-        const progress = document.getElementById('timeline-progress');
+      const steps = document.querySelectorAll('.timeline-step');
+      const progress = document.getElementById('timeline-progress');
 
-        // Sequential step reveal
-        steps.forEach((step, i) => {
-          const num = step.querySelector('.timeline-step-number');
-          gsap.fromTo(
-            step,
-            { opacity: 0, y: 20 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.6,
-              ease: 'power3.out',
-              scrollTrigger: {
-                trigger: step,
-                start: 'top 85%',
-                once: true,
-                onEnter: () => {
-                  if (num) num.classList.add('revealed');
-                  // Advance progress bar on desktop
-                  if (progress && i < 5) {
-                    gsap.to(progress, {
-                      width: `${(i + 1) * 25}%`,
-                      duration: 0.5,
-                      ease: 'power2.out',
-                    });
-                  }
-                },
+      // Sequential step reveal
+      steps.forEach((step, i) => {
+        const num = step.querySelector('.timeline-step-number');
+        gsap.fromTo(
+          step,
+          { opacity: 0, y: 20 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: step,
+              start: 'top 85%',
+              once: true,
+              onEnter: () => {
+                if (num) num.classList.add('revealed');
+                // Advance progress bar on desktop
+                if (progress && i < 5) {
+                  gsap.to(progress, {
+                    width: `${(i + 1) * 25}%`,
+                    duration: 0.5,
+                    ease: 'power2.out',
+                  });
+                }
               },
-            }
-          );
-        });
+            },
+          }
+        );
       });
     });
   } else {
