@@ -15,15 +15,16 @@ interface Props {
   ogImage?: string;
   noindex?: boolean;
   schema?: Record<string, unknown> | Record<string, unknown>[];
+  preloadImage?: string;
 }
 
-const { title, description, canonical, ogImage, noindex, schema } = Astro.props;
+const { title, description, canonical, ogImage, noindex, schema, preloadImage } = Astro.props;
 const canonicalURL = canonical || new URL(Astro.url.pathname, SITE.url).href;
 const ogImageURL = ogImage || `${SITE.url}/og-image.jpg`;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en-GB">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -51,8 +52,7 @@ const ogImageURL = ogImage || `${SITE.url}/og-image.jpg`;
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageURL} />
 
-    <!-- Preload hero poster for LCP -->
-    <link rel="preload" as="image" href="/images/hero-new.webp" />
+    {preloadImage && <link rel="preload" as="image" href={preloadImage} />}
 
     <!-- Fonts — self-hosted (no external DNS) -->
     <link rel="preload" href="/fonts/dm-serif-display-latin.woff2" as="font" type="font/woff2" crossorigin />

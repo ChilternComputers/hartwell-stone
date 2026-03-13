@@ -208,106 +208,107 @@ const types = [...new Set(projects.map((p) => p.type))];
   const lightboxCaption = document.getElementById('lightbox-caption');
   const lightboxClose = document.getElementById('lightbox-close');
   const lightboxViewProject = document.getElementById('lightbox-view-project');
-  if (!lightbox || !lightboxImg || !lightboxCaption || !lightboxClose || !lightboxViewProject) throw new Error('Lightbox elements not found');
-  let currentProjectIndex = 0;
-  let triggerEl: Element | null = null;
+  if (lightbox && lightboxImg && lightboxCaption && lightboxClose && lightboxViewProject) {
+    let currentProjectIndex = 0;
+    let triggerEl: Element | null = null;
 
-  // Filter logic
-  filterBtns.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const filter = btn.getAttribute('data-filter');
+    // Filter logic
+    filterBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-filter');
 
-      filterBtns.forEach((b) => {
-        const el = b as HTMLElement;
-        if (b === btn) {
-          el.style.background = 'var(--color-brass)';
-          el.style.borderColor = 'var(--color-brass)';
-          el.style.color = 'var(--color-warm-white)';
-          el.setAttribute('aria-pressed', 'true');
-        } else {
-          el.style.background = 'transparent';
-          el.style.borderColor = 'var(--color-border)';
-          el.style.color = 'var(--color-text-dark)';
-          el.setAttribute('aria-pressed', 'false');
+        filterBtns.forEach((b) => {
+          const el = b as HTMLElement;
+          if (b === btn) {
+            el.style.background = 'var(--color-brass)';
+            el.style.borderColor = 'var(--color-brass)';
+            el.style.color = 'var(--color-warm-white)';
+            el.setAttribute('aria-pressed', 'true');
+          } else {
+            el.style.background = 'transparent';
+            el.style.borderColor = 'var(--color-border)';
+            el.style.color = 'var(--color-text-dark)';
+            el.setAttribute('aria-pressed', 'false');
+          }
+        });
+
+        galleryItems.forEach((item) => {
+          const el = item as HTMLElement;
+          const match = filter === 'all' || item.getAttribute('data-gallery-type') === filter;
+          el.style.display = match ? 'block' : 'none';
+        });
+      });
+    });
+
+    // Open lightbox handler
+    function openLightbox(item: Element) {
+      triggerEl = document.activeElement;
+      const img = item.querySelector('img') as HTMLImageElement;
+      const title = item.querySelector('.font-heading')?.textContent || '';
+      const projectIndex = parseInt(item.getAttribute('data-project-index') || '0');
+
+      const src = img.src.replace('-400w.webp', '-1200w.webp').replace('-800w.webp', '-1200w.webp');
+      lightboxImg.src = src;
+      lightboxImg.alt = item.getAttribute('aria-label') || img.alt || title;
+      lightboxCaption.textContent = title;
+      currentProjectIndex = projectIndex;
+
+      lightbox.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+      lightboxClose.focus();
+    }
+
+    // Click and keyboard to open lightbox
+    galleryItems.forEach((item) => {
+      item.addEventListener('click', () => openLightbox(item));
+      item.addEventListener('keydown', (e) => {
+        if ((e as KeyboardEvent).key === 'Enter' || (e as KeyboardEvent).key === ' ') {
+          (e as KeyboardEvent).preventDefault();
+          openLightbox(item);
         }
       });
-
-      galleryItems.forEach((item) => {
-        const el = item as HTMLElement;
-        const match = filter === 'all' || item.getAttribute('data-gallery-type') === filter;
-        el.style.display = match ? 'block' : 'none';
-      });
     });
-  });
 
-  // Open lightbox handler
-  function openLightbox(item: Element) {
-    triggerEl = document.activeElement;
-    const img = item.querySelector('img') as HTMLImageElement;
-    const title = item.querySelector('.font-heading')?.textContent || '';
-    const projectIndex = parseInt(item.getAttribute('data-project-index') || '0');
+    // Close lightbox
+    function closeLightbox() {
+      lightbox.style.display = 'none';
+      document.body.style.overflow = '';
+      (triggerEl as HTMLElement)?.focus();
+    }
 
-    const src = img.src.replace('-400w.webp', '-1200w.webp').replace('-800w.webp', '-1200w.webp');
-    lightboxImg.src = src;
-    lightboxImg.alt = item.getAttribute('aria-label') || img.alt || title;
-    lightboxCaption.textContent = title;
-    currentProjectIndex = projectIndex;
-
-    lightbox.style.display = 'block';
-    document.body.style.overflow = 'hidden';
-    lightboxClose.focus();
-  }
-
-  // Click and keyboard to open lightbox
-  galleryItems.forEach((item) => {
-    item.addEventListener('click', () => openLightbox(item));
-    item.addEventListener('keydown', (e) => {
-      if ((e as KeyboardEvent).key === 'Enter' || (e as KeyboardEvent).key === ' ') {
-        (e as KeyboardEvent).preventDefault();
-        openLightbox(item);
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox || (e.target as HTMLElement).closest('#lightbox > div:first-of-type') === e.target) {
+        closeLightbox();
       }
     });
-  });
 
-  // Close lightbox
-  function closeLightbox() {
-    lightbox.style.display = 'none';
-    document.body.style.overflow = '';
-    (triggerEl as HTMLElement)?.focus();
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightbox.style.display !== 'none') {
+        closeLightbox();
+      }
+    });
+
+    // Lightbox focus trap
+    lightbox.addEventListener('keydown', (e) => {
+      if (e.key !== 'Tab') return;
+      const focusable = lightbox.querySelectorAll<HTMLElement>('button');
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    });
+
+    // View project button — navigate to projects page and open case study
+    lightboxViewProject.addEventListener('click', () => {
+      closeLightbox();
+      window.location.href = `/projects/#project-${currentProjectIndex}`;
+    });
   }
-
-  lightboxClose.addEventListener('click', closeLightbox);
-  lightbox.addEventListener('click', (e) => {
-    if (e.target === lightbox || (e.target as HTMLElement).closest('#lightbox > div:first-of-type') === e.target) {
-      closeLightbox();
-    }
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && lightbox.style.display !== 'none') {
-      closeLightbox();
-    }
-  });
-
-  // Lightbox focus trap
-  lightbox.addEventListener('keydown', (e) => {
-    if (e.key !== 'Tab') return;
-    const focusable = lightbox.querySelectorAll<HTMLElement>('button');
-    if (!focusable.length) return;
-    const first = focusable[0];
-    const last = focusable[focusable.length - 1];
-    if (e.shiftKey && document.activeElement === first) {
-      e.preventDefault();
-      last.focus();
-    } else if (!e.shiftKey && document.activeElement === last) {
-      e.preventDefault();
-      first.focus();
-    }
-  });
-
-  // View project button — navigate to projects page and open case study
-  lightboxViewProject.addEventListener('click', () => {
-    closeLightbox();
-    window.location.href = `/projects/#project-${currentProjectIndex}`;
-  });
 </script>

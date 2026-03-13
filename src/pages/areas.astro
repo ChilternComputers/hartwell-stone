@@ -6,7 +6,7 @@ import CTABanner from '@/components/CTABanner.astro';
 const regions = [
   {
     name: 'Essex & East Anglia',
-    desc: 'Our heartland — where we\'ve been building for 37 years.',
+    desc: `Our heartland — where we've been building for ${SITE.yearsExperience} years.`,
     areas: [
       { name: 'Chelmsford', desc: 'Our home base and headquarters. Full range of services with the shortest lead times.' },
       { name: 'Brentwood', desc: 'One of our most active areas — premium residential construction in one of Essex\'s most desirable addresses.' },
@@ -109,8 +109,8 @@ const schema = {
         Wherever we work, our clients receive the same award-winning craftsmanship and personal service.
       </p>
       <div style="display: flex; justify-content: center; gap: 24px; flex-wrap: wrap;">
-        <a href="/services/" class="btn btn-primary" style="display: inline-block; padding: 14px 32px; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; text-decoration: none;">View Our Services</a>
-        <a href="/projects/" class="btn btn-secondary" style="display: inline-block; padding: 14px 32px; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; text-decoration: none;">See Our Projects</a>
+        <a href="/services/" class="btn-primary btn-fill" style="display: inline-block; padding: 14px 32px; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; text-decoration: none;">View Our Services</a>
+        <a href="/projects/" class="btn-primary btn-outline" style="display: inline-block; padding: 14px 32px; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; text-decoration: none;">See Our Projects</a>
       </div>
     </div>
   </section>

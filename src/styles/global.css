@@ -245,11 +245,11 @@ html.lenis, html.lenis body {
 }
 
 .btn-fill {
-  background: var(--color-brass);
+  background: var(--color-brass-dark);
   color: var(--color-warm-white);
 }
 .btn-fill:hover {
-  background: var(--color-brass-dark);
+  background: var(--color-brass);
   color: var(--color-warm-white);
 }
 

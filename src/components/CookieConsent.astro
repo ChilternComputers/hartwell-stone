@@ -50,7 +50,7 @@
     localStorage.setItem('cookie-consent', value);
     if (banner) {
       banner.style.display = 'none';
-      banner.setAttribute('aria-modal', 'false');
+      banner.removeAttribute('aria-modal');
     }
   }
 
