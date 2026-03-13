@@ -111,7 +111,7 @@ const schema = [
       <div style="aspect-ratio: 16/9; overflow: hidden;">
         <img
           src={project.image}
-          alt={project.title}
+          alt={`${project.title} — completed ${project.type.toLowerCase()} project in ${project.location}`}
           width="1200"
           height="675"
           loading="eager"
@@ -176,7 +176,7 @@ const schema = [
             <div style="aspect-ratio: 4/3; overflow: hidden;" data-stagger-child>
               <img
                 src={img}
-                alt={`${project.title} — detail ${i + 1}`}
+                alt={`${project.title} project gallery image ${i + 1}`}
                 width="600"
                 height="450"
                 loading="lazy"
@@ -222,7 +222,7 @@ const schema = [
               <div style="overflow: hidden; aspect-ratio: 16/9; margin-bottom: 16px;">
                 <img
                   src={rel.image}
-                  alt={rel.title}
+                  alt={`${rel.title} — ${rel.type.toLowerCase()} project in ${rel.location}`}
                   width="500"
                   height="281"
                   loading="lazy"
