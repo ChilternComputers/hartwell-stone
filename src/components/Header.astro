@@ -6,6 +6,7 @@ const currentPath = Astro.url.pathname;
 const navLinks = [
   { label: 'Services', href: '/services/' },
   { label: 'Projects', href: '/projects/' },
+  { label: 'Gallery', href: '/gallery/' },
   { label: 'About', href: '/about/' },
   { label: 'Insights', href: '/insights/' },
   { label: 'Testimonials', href: '/testimonials/' },
@@ -200,9 +201,9 @@ const navLinks = [
       const h1 = document.getElementById('ham-1');
       const h2 = document.getElementById('ham-2');
       const h3 = document.getElementById('ham-3');
-      if (h1) { h1.style.top = '4px'; h1.style.transform = 'none'; }
+      if (h1) { h1.style.top = '12px'; h1.style.transform = 'none'; }
       if (h2) { h2.style.opacity = '1'; }
-      if (h3) { h3.style.top = '20px'; h3.style.transform = 'none'; h3.style.width = '27px'; }
+      if (h3) { h3.style.top = '28px'; h3.style.transform = 'none'; h3.style.width = '27px'; }
     }
   }
 
