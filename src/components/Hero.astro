@@ -17,6 +17,8 @@ import { SITE } from '@/config';
       preload="metadata"
       poster="/images/hero-new.webp"
       fetchpriority="high"
+      width="1920"
+      height="1080"
       style="width: 100%; height: 100%; object-fit: cover;"
     >
       <img src="/images/hero-new.webp" alt="" width="1920" height="1080" style="width: 100%; height: 100%; object-fit: cover;" />
@@ -110,6 +112,9 @@ import { SITE } from '@/config';
 
       // Staggered text reveal
       const reveals = document.querySelectorAll('.hero-reveal');
+      reveals.forEach((el) => {
+        (el as HTMLElement).style.transform = 'translateY(20px)';
+      });
       gsap.to(reveals, {
         opacity: 1,
         y: 0,
@@ -117,9 +122,6 @@ import { SITE } from '@/config';
         stagger: 0.2,
         ease: 'power3.out',
         delay: 1.4,
-      });
-      reveals.forEach((el) => {
-        (el as HTMLElement).style.transform = 'translateY(20px)';
       });
 
       // Parallax background on scroll

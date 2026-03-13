@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /_astro/
 
 Sitemap: https://hartwell-stone.pages.dev/sitemap-index.xml

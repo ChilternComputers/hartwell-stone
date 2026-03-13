@@ -18,7 +18,7 @@ const schema = {
 
 <Layout
   title="Insights | Hartwell &amp; Stone — Construction Guides"
-  description="Expert guides on planning permission, building costs, heritage restoration, sustainable construction and choosing the right builder. Practical advice from 37 years of experience."
+  description={`Expert guides on planning, building costs, heritage restoration and choosing the right builder. Practical advice from ${SITE.yearsExperience} years of experience.`}
   schema={schema}
 >
   <!-- Page Header -->
@@ -65,6 +65,7 @@ const schema = {
       </div>
 
       <!-- Article grid -->
+      <h2 class="font-heading" style="font-size: 1.3rem; margin-bottom: 32px;">Latest Articles</h2>
       <div style="display: flex; flex-direction: column; gap: 32px;" id="insight-grid">
         {insights.map((article) => (
           <a

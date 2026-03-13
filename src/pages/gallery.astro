@@ -22,6 +22,7 @@ const galleryItems = projects.flatMap((project, index) => {
       type: project.type,
       location: project.location,
       value: project.value,
+      slug: project.slug,
       projectIndex: index,
       isMain: true,
     },
@@ -36,6 +37,7 @@ const galleryItems = projects.flatMap((project, index) => {
         type: project.type,
         location: project.location,
         value: project.value,
+        slug: project.slug,
         projectIndex: index,
         isMain: false,
       });
@@ -103,6 +105,7 @@ const types = [...new Set(projects.map((p) => p.type))];
             class="gallery-item"
             data-gallery-type={item.type}
             data-project-index={item.projectIndex}
+            data-project-slug={item.slug}
             tabindex="0"
             role="button"
             aria-label={`View ${item.title} — ${item.type}, ${item.location}`}
@@ -209,7 +212,7 @@ const types = [...new Set(projects.map((p) => p.type))];
   const lightboxClose = document.getElementById('lightbox-close');
   const lightboxViewProject = document.getElementById('lightbox-view-project');
   if (lightbox && lightboxImg && lightboxCaption && lightboxClose && lightboxViewProject) {
-    let currentProjectIndex = 0;
+    let currentSlug = '';
     let triggerEl: Element | null = null;
 
     // Filter logic
@@ -245,13 +248,13 @@ const types = [...new Set(projects.map((p) => p.type))];
       triggerEl = document.activeElement;
       const img = item.querySelector('img') as HTMLImageElement;
       const title = item.querySelector('.font-heading')?.textContent || '';
-      const projectIndex = parseInt(item.getAttribute('data-project-index') || '0');
+      const slug = item.getAttribute('data-project-slug') || '';
 
       const src = img.src.replace('-400w.webp', '-1200w.webp').replace('-800w.webp', '-1200w.webp');
       lightboxImg.src = src;
       lightboxImg.alt = item.getAttribute('aria-label') || img.alt || title;
       lightboxCaption.textContent = title;
-      currentProjectIndex = projectIndex;
+      currentSlug = slug;
 
       lightbox.style.display = 'block';
       document.body.style.overflow = 'hidden';
@@ -308,7 +311,7 @@ const types = [...new Set(projects.map((p) => p.type))];
     // View project button — navigate to projects page and open case study
     lightboxViewProject.addEventListener('click', () => {
       closeLightbox();
-      window.location.href = `/projects/#project-${currentProjectIndex}`;
+      window.location.href = `/projects/${currentSlug}/`;
     });
   }
 </script>
