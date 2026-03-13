@@ -1,0 +1,302 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { SITE } from '@/config';
+import { projects } from '@/data/projects';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url },
+    { '@type': 'ListItem', position: 2, name: 'Gallery', item: `${SITE.url}/gallery/` },
+  ],
+};
+
+// Build gallery items from projects — main image + gallery extras
+const galleryItems = projects.flatMap((project, index) => {
+  const items = [
+    {
+      src: project.image,
+      alt: `${project.title} — ${project.location}`,
+      title: project.title,
+      type: project.type,
+      location: project.location,
+      value: project.value,
+      projectIndex: index,
+      isMain: true,
+    },
+  ];
+
+  if (project.gallery) {
+    project.gallery.forEach((img, i) => {
+      items.push({
+        src: img,
+        alt: `${project.title} — detail ${i + 1}`,
+        title: project.title,
+        type: project.type,
+        location: project.location,
+        value: project.value,
+        projectIndex: index,
+        isMain: false,
+      });
+    });
+  }
+
+  return items;
+});
+
+const types = [...new Set(projects.map((p) => p.type))];
+---
+
+<Layout
+  title={`Gallery | ${SITE.name} — Project Photography`}
+  description="Explore our gallery of completed construction projects. From Georgian restorations to contemporary new builds, browse photography from across our portfolio."
+  schema={schema}
+>
+  <!-- Page Header -->
+  <section style="padding: 140px 0 64px; background: var(--color-charcoal);">
+    <div style="max-width: 900px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px); text-align: center;">
+      <span class="eyebrow eyebrow-light" style="display: block; margin-bottom: 12px;">Our Work</span>
+      <h1 class="font-heading" style="color: var(--color-text-light);">Project Gallery</h1>
+      <p style="font-size: 1rem; color: rgba(240,237,232,0.7); line-height: 1.8; margin-top: 16px; max-width: 600px; margin-left: auto; margin-right: auto;">
+        A visual journey through our portfolio — from heritage restorations to contemporary new builds. Click any image to view the full project case study.
+      </p>
+    </div>
+  </section>
+
+  <!-- Filter + Gallery Grid -->
+  <section style="padding: 64px 0 96px; background: var(--color-warm-white);">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
+      <!-- Filter buttons -->
+      <div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 48px;" id="gallery-filters">
+        <button
+          class="gallery-filter-btn active"
+          data-filter="all"
+          aria-pressed="true"
+          style="padding: 8px 16px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; border: 2px solid var(--color-brass); background: var(--color-brass); color: var(--color-warm-white); cursor: pointer; transition: all 0.3s ease; font-family: var(--font-body);"
+        >
+          All Projects
+        </button>
+        {types.map((type) => (
+          <button
+            class="gallery-filter-btn"
+            data-filter={type}
+            aria-pressed="false"
+            style="padding: 8px 16px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; border: 2px solid var(--color-border); background: transparent; color: var(--color-text-dark); cursor: pointer; transition: all 0.3s ease; font-family: var(--font-body);"
+          >
+            {type}
+          </button>
+        ))}
+      </div>
+
+      <!-- Masonry-style gallery grid -->
+      <div id="gallery-grid" style="columns: 1; column-gap: 16px;">
+        {galleryItems.map((item) => (
+          <div
+            class="gallery-item"
+            data-gallery-type={item.type}
+            data-project-index={item.projectIndex}
+            tabindex="0"
+            role="button"
+            aria-label={`View ${item.title} — ${item.type}, ${item.location}`}
+            style="break-inside: avoid; margin-bottom: 16px; cursor: pointer; position: relative; overflow: hidden;"
+          >
+            <div class="img-zoom" style="position: relative;">
+              <img
+                src={item.src}
+                srcset={`${item.src.replace('.webp', '-400w.webp')} 400w, ${item.src.replace('.webp', '-800w.webp')} 800w, ${item.src.replace('.webp', '-1200w.webp')} 1200w`}
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 400px"
+                alt={item.alt}
+                width="600"
+                height="400"
+                loading="lazy"
+                style="width: 100%; height: auto; display: block;"
+              />
+              <!-- Hover overlay -->
+              <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,29,35,0.9) 0%, rgba(26,29,35,0.4) 40%, transparent 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 24px; opacity: 0; transition: opacity 0.4s ease;">
+                <span style="font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brass-light); display: block; margin-bottom: 6px;">
+                  {item.type}
+                </span>
+                <span class="font-heading" style="font-size: 1.1rem; color: var(--color-text-light); display: block; margin-bottom: 4px;">
+                  {item.title}
+                </span>
+                <span style="font-size: 0.8rem; color: rgba(240,237,232,0.6); display: block; margin-bottom: 8px;">
+                  {item.value} · {item.location}
+                </span>
+                <span style="font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brass-light);">
+                  View Project &#8594;
+                </span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="padding: 80px 0; background: var(--color-charcoal); text-align: center;">
+    <div style="max-width: 700px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
+      <span class="eyebrow eyebrow-light" style="display: block; margin-bottom: 12px;">Start Your Project</span>
+      <h2 class="font-heading" style="color: var(--color-text-light); margin-bottom: 16px;">Inspired by What You See?</h2>
+      <p style="font-size: 1rem; color: rgba(240,237,232,0.7); line-height: 1.8; margin-bottom: 32px;">
+        Every project in our gallery began with a conversation. Book a complimentary consultation to discuss your vision.
+      </p>
+      <a href="/contact/" class="btn-primary btn-outline-light" style="padding: 14px 32px;">
+        Start a Conversation
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<!-- Lightbox modal -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Image lightbox" tabindex="-1"
+  style="display: none; position: fixed; inset: 0; z-index: 9000; background: rgba(26,29,35,0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);">
+  <button id="lightbox-close" aria-label="Close lightbox"
+    style="position: fixed; top: 20px; right: 24px; z-index: 9001; background: rgba(240,237,232,0.1); border: 1px solid rgba(240,237,232,0.2); color: var(--color-text-light); width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; cursor: pointer;">
+    &times;
+  </button>
+  <div style="display: flex; align-items: center; justify-content: center; height: 100%; padding: 60px 24px;">
+    <img id="lightbox-img" src="" alt="" style="max-width: 90vw; max-height: 80vh; object-fit: contain;" />
+  </div>
+  <div style="position: fixed; bottom: 24px; left: 0; right: 0; text-align: center;">
+    <span id="lightbox-caption" class="font-heading" style="font-size: 1.1rem; color: var(--color-text-light);"></span>
+    <br />
+    <button id="lightbox-view-project" class="btn-primary btn-outline-light" style="padding: 10px 24px; margin-top: 12px; font-size: 0.72rem;">
+      View Full Case Study &#8594;
+    </button>
+  </div>
+</div>
+
+<style>
+  /* Responsive columns */
+  @media (min-width: 640px) {
+    #gallery-grid {
+      columns: 2 !important;
+    }
+  }
+  @media (min-width: 1024px) {
+    #gallery-grid {
+      columns: 3 !important;
+    }
+  }
+
+  /* Gallery item hover/focus */
+  .gallery-item:hover div[style*="opacity: 0"],
+  .gallery-item:focus div[style*="opacity: 0"],
+  .gallery-item:focus-within div[style*="opacity: 0"] {
+    opacity: 1 !important;
+  }
+  .gallery-item:focus {
+    outline: 2px solid var(--color-brass);
+    outline-offset: 2px;
+  }
+</style>
+
+<script>
+  const filterBtns = document.querySelectorAll('.gallery-filter-btn');
+  const galleryItems = document.querySelectorAll('.gallery-item');
+  const lightbox = document.getElementById('lightbox')!;
+  const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
+  const lightboxCaption = document.getElementById('lightbox-caption')!;
+  const lightboxClose = document.getElementById('lightbox-close')!;
+  const lightboxViewProject = document.getElementById('lightbox-view-project')!;
+  let currentProjectIndex = 0;
+
+  // Filter logic
+  filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const filter = btn.getAttribute('data-filter');
+
+      filterBtns.forEach((b) => {
+        const el = b as HTMLElement;
+        if (b === btn) {
+          el.style.background = 'var(--color-brass)';
+          el.style.borderColor = 'var(--color-brass)';
+          el.style.color = 'var(--color-warm-white)';
+          el.setAttribute('aria-pressed', 'true');
+        } else {
+          el.style.background = 'transparent';
+          el.style.borderColor = 'var(--color-border)';
+          el.style.color = 'var(--color-text-dark)';
+          el.setAttribute('aria-pressed', 'false');
+        }
+      });
+
+      galleryItems.forEach((item) => {
+        const el = item as HTMLElement;
+        const match = filter === 'all' || item.getAttribute('data-gallery-type') === filter;
+        el.style.display = match ? 'block' : 'none';
+      });
+    });
+  });
+
+  // Open lightbox handler
+  function openLightbox(item: Element) {
+    const img = item.querySelector('img') as HTMLImageElement;
+    const title = item.querySelector('.font-heading')?.textContent || '';
+    const projectIndex = parseInt(item.getAttribute('data-project-index') || '0');
+
+    const src = img.src.replace('-400w.webp', '-1200w.webp').replace('-800w.webp', '-1200w.webp');
+    lightboxImg.src = src;
+    lightboxImg.alt = item.getAttribute('aria-label') || img.alt || title;
+    lightboxCaption.textContent = title;
+    currentProjectIndex = projectIndex;
+
+    lightbox.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    lightboxClose.focus();
+  }
+
+  // Click and keyboard to open lightbox
+  galleryItems.forEach((item) => {
+    item.addEventListener('click', () => openLightbox(item));
+    item.addEventListener('keydown', (e) => {
+      if ((e as KeyboardEvent).key === 'Enter' || (e as KeyboardEvent).key === ' ') {
+        (e as KeyboardEvent).preventDefault();
+        openLightbox(item);
+      }
+    });
+  });
+
+  // Close lightbox
+  function closeLightbox() {
+    lightbox.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox || (e.target as HTMLElement).closest('#lightbox > div:first-of-type') === e.target) {
+      closeLightbox();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightbox.style.display !== 'none') {
+      closeLightbox();
+    }
+  });
+
+  // Lightbox focus trap
+  lightbox.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab') return;
+    const focusable = lightbox.querySelectorAll<HTMLElement>('button');
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  });
+
+  // View project button — navigate to projects page and open case study
+  lightboxViewProject.addEventListener('click', () => {
+    closeLightbox();
+    window.location.href = `/projects/#project-${currentProjectIndex}`;
+  });
+</script>

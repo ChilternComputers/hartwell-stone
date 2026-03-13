@@ -3,47 +3,61 @@ import { SITE } from '@/config';
 ---
 
 <section
+  id="hero"
   style="position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; background: var(--color-charcoal); overflow: hidden;"
 >
-  <!-- Background image placeholder -->
-  <div style="position: absolute; inset: 0; background: linear-gradient(135deg, #1A1D23 0%, #2a2d33 50%, #1A1D23 100%);" aria-hidden="true">
-    <picture>
-      <source media="(max-width: 768px)" srcset="/images/hero-mobile.svg" />
-      <img
-        src="/images/hero.svg"
-        alt=""
-        width="1500"
-        height="900"
-        loading="eager"
-        fetchpriority="high"
-        decoding="async"
-        style="width: 100%; height: 100%; object-fit: cover; opacity: 0.5;"
-      />
-    </picture>
+  <!-- Video background -->
+  <div id="hero-bg" style="position: absolute; inset: 0; will-change: transform;" aria-hidden="true">
+    <video
+      id="hero-video"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+      poster="/images/hero-new.webp"
+      fetchpriority="high"
+      style="width: 100%; height: 100%; object-fit: cover;"
+    >
+      <img src="/images/hero-new.webp" alt="" style="width: 100%; height: 100%; object-fit: cover;" />
+    </video>
+    <script is:inline>
+      (function(){
+        var v = document.getElementById('hero-video');
+        if (!v) return;
+        var mobile = window.innerWidth < 768;
+        var webm = document.createElement('source');
+        webm.src = mobile ? '/images/hero-video-mobile.webm' : '/images/hero-video.webm';
+        webm.type = 'video/webm';
+        var mp4 = document.createElement('source');
+        mp4.src = mobile ? '/images/hero-video-mobile.mp4' : '/images/hero-video.mp4';
+        mp4.type = 'video/mp4';
+        v.prepend(mp4);
+        v.prepend(webm);
+        v.load();
+      })();
+    </script>
   </div>
 
-  <!-- Overlay gradient -->
-  <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(26,29,35,0.4) 0%, rgba(26,29,35,0.7) 100%);" aria-hidden="true"></div>
+  <!-- Overlay gradient for text readability -->
+  <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(26,29,35,0.5) 0%, rgba(26,29,35,0.7) 50%, rgba(26,29,35,0.85) 100%);" aria-hidden="true"></div>
 
   <!-- Content -->
   <div style="position: relative; z-index: 2; text-align: center; max-width: 900px; padding: 120px 24px 80px;">
-    <div class="eyebrow-light" style="margin-bottom: 20px; color: var(--color-brass-light);" data-reveal>
-      Premium Residential Construction
+    <div class="eyebrow-light hero-reveal" style="margin-bottom: 20px; color: var(--color-brass-light); opacity: 0;">
+      Award-Winning Residential Construction
     </div>
 
-    <h1 class="font-heading" style="color: var(--color-text-light); margin-bottom: 20px; line-height: 1.1;" data-reveal>
-      {SITE.name}
+    <h1 class="font-heading hero-reveal" style="color: var(--color-text-light); margin-bottom: 20px; line-height: 1.1; opacity: 0;">
+      Building Britain's Finest Homes Since 1987
     </h1>
 
-    <p style="font-size: clamp(1rem, 2vw, 1.25rem); color: rgba(240,237,232,0.8); margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.7;" data-reveal>
-      {SITE.tagline}. Trusted by homeowners across Essex for extensions, loft conversions, renovations and new builds.
+    <p class="hero-reveal" style="font-size: clamp(1rem, 2vw, 1.25rem); color: rgba(240,237,232,0.8); margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.7; opacity: 0;">
+      Bespoke new builds, heritage restorations, elegant extensions and barn conversions — crafted with uncompromising attention to detail across the South East and beyond.
     </p>
 
     <!-- Stats strip -->
-    <div
-      style="display: flex; justify-content: center; gap: 40px; margin-bottom: 40px; flex-wrap: wrap;"
-      data-reveal
-    >
+    <div class="hero-reveal" style="display: flex; justify-content: center; gap: 40px; margin-bottom: 40px; flex-wrap: wrap; opacity: 0;">
       <div style="text-align: center;">
         <span class="font-heading" style="font-size: 2rem; color: var(--color-brass-light); display: block; line-height: 1.2;">{SITE.yearsExperience}</span>
         <span style="font-size: 0.75rem; color: rgba(240,237,232,0.6); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500;">Years</span>
@@ -59,9 +73,9 @@ import { SITE } from '@/config';
     </div>
 
     <!-- CTAs -->
-    <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;" data-reveal>
+    <div class="hero-reveal" style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; opacity: 0;">
       <a href="/contact/" class="btn-primary btn-fill" style="padding: 16px 36px;">
-        Get a Free Quote
+        Discuss Your Project
       </a>
       <a href="/projects/" class="btn-primary btn-outline-light" style="padding: 16px 36px;">
         View Our Work
@@ -69,8 +83,58 @@ import { SITE } from '@/config';
     </div>
   </div>
 
-  <!-- Scroll indicator -->
+  <!-- Scroll indicator line -->
   <div style="position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); text-align: center;" aria-hidden="true">
     <div style="width: 1px; height: 48px; background: linear-gradient(to bottom, transparent, var(--color-brass-light)); margin: 0 auto;"></div>
   </div>
+
+  <!-- SCROLL text rotated on right edge -->
+  <span class="scroll-label" aria-hidden="true">Scroll</span>
 </section>
+
+<script>
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (prefersReducedMotion) {
+    document.querySelectorAll('.hero-reveal').forEach((el) => {
+      (el as HTMLElement).style.opacity = '1';
+    });
+    const vid = document.querySelector('#hero-bg video') as HTMLVideoElement;
+    if (vid) vid.pause();
+  } else {
+    import('gsap').then(({ gsap }) => {
+      import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Staggered text reveal
+        const reveals = document.querySelectorAll('.hero-reveal');
+        gsap.to(reveals, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.2,
+          ease: 'power3.out',
+          delay: 1.4,
+        });
+        reveals.forEach((el) => {
+          (el as HTMLElement).style.transform = 'translateY(20px)';
+        });
+
+        // Parallax background on scroll
+        const heroBg = document.getElementById('hero-bg');
+        if (heroBg) {
+          gsap.to(heroBg, {
+            yPercent: -10,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: '#hero',
+              start: 'top top',
+              end: 'bottom top',
+              scrub: true,
+            },
+          });
+        }
+      });
+    });
+  }
+</script>

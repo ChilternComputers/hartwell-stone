@@ -1,0 +1,31 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { SITE } from '@/config';
+---
+
+<Layout
+  title={`Page Not Found | ${SITE.name}`}
+  description="The page you're looking for doesn't exist. Return to our homepage to explore our construction services and project portfolio."
+  noindex={true}
+>
+  <section style="padding: 180px 0 120px; background: var(--color-charcoal); min-height: 80vh; display: flex; align-items: center;">
+    <div style="max-width: 600px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px); text-align: center;">
+      <span class="font-heading" style="font-size: clamp(5rem, 12vw, 8rem); color: var(--color-brass); opacity: 0.3; line-height: 1; display: block; margin-bottom: 16px;">404</span>
+      <h1 class="font-heading" style="font-size: 2rem; color: var(--color-text-light); margin-bottom: 16px;">Page Not Found</h1>
+      <p style="font-size: 1rem; color: rgba(240,237,232,0.7); line-height: 1.8; margin-bottom: 40px;">
+        The page you're looking for may have been moved or no longer exists. Let's get you back on track.
+      </p>
+      <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+        <a href="/" class="btn-primary btn-fill" style="padding: 14px 32px;">
+          Back to Home
+        </a>
+        <a href="/projects/" class="btn-primary btn-outline-light" style="padding: 14px 32px;">
+          View Projects
+        </a>
+        <a href="/contact/" class="btn-primary btn-outline-light" style="padding: 14px 32px;">
+          Contact Us
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

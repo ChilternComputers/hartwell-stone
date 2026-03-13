@@ -23,25 +23,26 @@ const schema = [
     author: { '@type': 'Person', name: t.name },
     reviewRating: { '@type': 'Rating', ratingValue: t.rating, bestRating: 5 },
     reviewBody: t.text,
+    datePublished: t.date,
     itemReviewed: { '@type': 'HomeAndConstructionBusiness', name: SITE.name },
   })),
 ];
 ---
 
 <Layout
-  title={`Client Testimonials | ${SITE.name}`}
-  description="Read what our clients say about working with Hartwell & Stone. 4.9/5 average rating from 127+ verified reviews."
+  title={`Client Testimonials | ${SITE.name} — What Our Clients Say`}
+  description="Read what our clients say about working with Hartwell & Stone. 4.9/5 average rating from 143 verified reviews across Google, Checkatrade and Trustpilot."
   schema={schema}
 >
   <!-- Page Header -->
   <section style="padding: 140px 0 64px; background: var(--color-charcoal);">
     <div style="max-width: 900px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px); text-align: center;">
-      <span class="eyebrow eyebrow-light" style="display: block; margin-bottom: 12px;">Reviews</span>
-      <h1 class="font-heading" style="color: var(--color-text-light);">Client Testimonials</h1>
+      <span class="eyebrow eyebrow-light" style="display: block; margin-bottom: 12px;">Client Reviews</span>
+      <h1 class="font-heading" style="color: var(--color-text-light);">What Our Clients Say</h1>
 
       <!-- Aggregate rating -->
       <div style="margin-top: 24px; display: flex; justify-content: center; align-items: center; gap: 16px; flex-wrap: wrap;">
-        <span style="font-size: 2rem; color: var(--color-brass-light); letter-spacing: 3px;">★★★★★</span>
+        <span style="font-size: 2rem; color: var(--color-brass-light); letter-spacing: 3px;">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
         <div>
           <span class="font-heading" style="font-size: 2rem; color: var(--color-text-light);">{SITE.reviews.rating}</span>
           <span style="font-size: 0.85rem; color: rgba(240,237,232,0.6);">/5 from {SITE.reviews.count} reviews</span>
@@ -59,18 +60,29 @@ const schema = [
             style="padding: 36px; background: var(--color-stone); border-left: 3px solid var(--color-brass); display: flex; flex-direction: column;"
             data-stagger-child
           >
-            <div style="color: var(--color-brass); font-size: 1rem; letter-spacing: 2px; margin-bottom: 16px;" aria-label={`${t.rating} out of 5 stars`}>
-              {stars(t.rating)}
+            <!-- Rating + Project type -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+              <span style="color: var(--color-brass); font-size: 1rem; letter-spacing: 2px;" aria-label={`${t.rating} out of 5 stars`}>
+                {stars(t.rating)}
+              </span>
+              <span style="font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(44,44,46,0.4);">
+                {t.projectType}
+              </span>
             </div>
             <p style="font-size: 0.92rem; color: var(--color-text-dark); line-height: 1.8; margin-bottom: 20px; font-style: italic; flex: 1;">
-              "{t.text}"
+              &ldquo;{t.text}&rdquo;
             </p>
-            <div>
-              <span style="font-weight: 600; color: var(--color-charcoal); display: block; font-size: 0.9rem;">
-                {t.name}
-              </span>
-              <span style="font-size: 0.78rem; color: rgba(44,44,46,0.6);">
-                {t.project} — {t.location}
+            <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+              <div>
+                <span style="font-weight: 600; color: var(--color-charcoal); display: block; font-size: 0.9rem;">
+                  {t.name}
+                </span>
+                <span style="font-size: 0.78rem; color: rgba(44,44,46,0.6);">
+                  {t.project} — {t.location}
+                </span>
+              </div>
+              <span style="font-size: 0.72rem; color: rgba(44,44,46,0.35);">
+                {new Date(t.date).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' })}
               </span>
             </div>
           </div>

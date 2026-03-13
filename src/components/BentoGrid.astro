@@ -1,0 +1,56 @@
+---
+import { SITE } from '@/config';
+---
+
+<section style="padding: 96px 0; background: var(--color-warm-white);">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
+    <div style="text-align: center; margin-bottom: 56px;" data-reveal="scale">
+      <span class="eyebrow" style="display: block; margin-bottom: 12px;">At a Glance</span>
+      <h2 class="font-heading">Why Hartwell & Stone</h2>
+    </div>
+
+    <div class="bento-grid" data-stagger-parent>
+      <!-- Large project image — spans 2 cols + 2 rows on desktop -->
+      <div class="bento-span-2 geo-cut-lg" style="position: relative; overflow: hidden; min-height: 320px; background: var(--color-charcoal);" data-stagger-child>
+        <img
+          src="/images/projects/project-1.webp"
+          srcset="/images/projects/project-1-400w.webp 400w, /images/projects/project-1-800w.webp 800w, /images/projects/project-1-1200w.webp 1200w"
+          sizes="(max-width: 768px) 100vw, 66vw"
+          alt="Grade II listed Georgian restoration in Chelmsford"
+          width="800"
+          height="600"
+          loading="lazy"
+          style="width: 100%; height: 100%; object-fit: cover; opacity: 0.8;"
+        />
+        <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 32px; background: linear-gradient(to top, rgba(26,29,35,0.9) 0%, transparent 100%);">
+          <span class="eyebrow-light" style="display: block; margin-bottom: 6px;">Featured Project</span>
+          <span class="font-heading" style="font-size: 1.4rem; color: var(--color-text-light);">The Willows — Georgian Restoration</span>
+          <span style="font-size: 0.82rem; color: rgba(240,237,232,0.6); display: block; margin-top: 4px;">£1.2M · Chelmsford</span>
+        </div>
+      </div>
+
+      <!-- Stat block — years in business -->
+      <div class="geo-cut" style="background: var(--color-charcoal); padding: 36px 28px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;" data-stagger-child>
+        <span class="font-heading" style="font-size: clamp(3rem, 5vw, 4rem); color: var(--color-brass-light); line-height: 1;">{SITE.yearsExperience}</span>
+        <span style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(240,237,232,0.6); margin-top: 8px;">Years of Excellence</span>
+      </div>
+
+      <!-- Testimonial quote block -->
+      <div style="background: var(--color-stone); padding: 36px 28px; display: flex; flex-direction: column; justify-content: center; border-left: 3px solid var(--color-brass);" data-stagger-child>
+        <span class="font-heading" style="font-size: 3rem; color: var(--color-brass); opacity: 0.2; line-height: 1; display: block;">&ldquo;</span>
+        <p style="font-size: 0.92rem; font-style: italic; color: var(--color-text-dark); line-height: 1.8; margin-top: -8px;">
+          They understood that this house deserved respect. Every detail was considered — from the lime mortar mix to matching the original crown mouldings.
+        </p>
+        <span style="font-size: 0.78rem; font-weight: 600; color: rgba(44,44,46,0.6); margin-top: 12px;">— Caroline & Richard Ashworth, Chelmsford</span>
+      </div>
+
+      <!-- CTA block -->
+      <div class="geo-cut" style="background: var(--color-brass); padding: 36px 28px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;" data-stagger-child>
+        <span class="font-heading" style="font-size: 1.3rem; color: var(--color-warm-white); margin-bottom: 16px; line-height: 1.3;">Let's Discuss Your Vision</span>
+        <a href="/contact/" class="btn-primary" style="padding: 14px 32px; background: var(--color-charcoal); color: var(--color-text-light);">
+          Start a Conversation
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

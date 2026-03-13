@@ -29,17 +29,17 @@ const schema = [
 ---
 
 <Layout
-  title={`Our Services | ${SITE.name}`}
-  description="Extensions, loft conversions, renovations, new builds, kitchens and bathrooms. Premium residential construction services across Essex."
+  title={`Our Services | ${SITE.name} — New Builds, Heritage, Extensions & Renovations`}
+  description="Bespoke new builds, heritage restorations, extensions, whole-house renovations and barn conversions. Award-winning residential construction across the South East."
   schema={schema}
 >
   <!-- Page Header -->
   <section style="padding: 140px 0 64px; background: var(--color-charcoal);">
     <div style="max-width: 900px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px); text-align: center;">
-      <span class="eyebrow eyebrow-light" style="display: block; margin-bottom: 12px;">What We Do</span>
-      <h1 class="font-heading" style="color: var(--color-text-light);">Our Services</h1>
+      <span class="eyebrow eyebrow-light" style="display: block; margin-bottom: 12px;">Our Expertise</span>
+      <h1 class="font-heading" style="color: var(--color-text-light);">What We Do</h1>
       <p style="font-size: 1rem; color: rgba(240,237,232,0.7); line-height: 1.8; margin-top: 16px; max-width: 600px; margin-left: auto; margin-right: auto;">
-        From single-storey extensions to complete new builds, we deliver premium residential construction across Essex.
+        From bespoke new builds to sensitive heritage restorations, we deliver construction of uncompromising quality — managed from first consultation to final handover.
       </p>
     </div>
   </section>
@@ -53,22 +53,36 @@ const schema = [
       <div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
         <div class={`grid grid-cols-1 lg:grid-cols-2`} style="gap: 48px; align-items: center;">
           <div style={i % 2 === 1 ? 'order: 2;' : ''} data-reveal>
-            <span class="eyebrow" style="display: block; margin-bottom: 12px;">{service.priceRange}</span>
+            <span class="eyebrow" style="display: block; margin-bottom: 12px;">{service.startingFrom}</span>
             <h2 class="font-heading" style="margin-bottom: 16px;">{service.title}</h2>
             <p style="font-size: 0.95rem; color: rgba(44,44,46,0.7); line-height: 1.8; margin-bottom: 24px;">
               {service.description}
             </p>
+
+            <!-- Key features tags -->
+            <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px;">
+              {service.keyFeatures.map((kf) => (
+                <span style="font-size: 0.72rem; padding: 4px 12px; background: rgba(184,134,11,0.1); color: var(--color-brass); font-weight: 600; letter-spacing: 0.04em;">{kf}</span>
+              ))}
+            </div>
+
             <ul style="list-style: none; padding: 0; margin: 0 0 24px 0; display: flex; flex-direction: column; gap: 8px;">
               {service.features.map((feature) => (
                 <li style="font-size: 0.88rem; color: var(--color-text-dark); display: flex; align-items: flex-start; gap: 10px;">
-                  <span style="color: var(--color-brass); font-weight: 700; flex-shrink: 0; margin-top: 2px;">✓</span>
+                  <span style="color: var(--color-brass); font-weight: 700; flex-shrink: 0; margin-top: 2px;">&#10003;</span>
                   {feature}
                 </li>
               ))}
             </ul>
-            <a href="/contact/" class="btn-primary btn-fill" style="padding: 14px 28px;">
-              Get a Quote
-            </a>
+
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+              <a href="/contact/" class="btn-primary btn-fill" style="padding: 14px 28px;">
+                Discuss This Service
+              </a>
+              <span style="font-size: 0.82rem; color: rgba(44,44,46,0.5);">
+                {service.priceRange}
+              </span>
+            </div>
           </div>
           <div style={i % 2 === 1 ? 'order: 1;' : ''} data-reveal>
             <img
@@ -79,6 +93,20 @@ const schema = [
               loading="lazy"
               style="width: 100%; height: auto; object-fit: cover;"
             />
+          </div>
+        </div>
+
+        <!-- Process steps -->
+        <div style="margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--color-border);" data-reveal>
+          <h3 style="font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-brass); margin-bottom: 16px;">Typical Process</h3>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            {service.process.map((step, si) => (
+              <span style="font-size: 0.78rem; color: rgba(44,44,46,0.6); display: flex; align-items: center; gap: 6px;">
+                <span style="font-weight: 700; color: var(--color-brass); font-size: 0.7rem;">{String(si + 1).padStart(2, '0')}</span>
+                {step}
+                {si < service.process.length - 1 && <span style="color: rgba(44,44,46,0.2); margin-left: 8px;">&#8594;</span>}
+              </span>
+            ))}
           </div>
         </div>
       </div>

@@ -6,6 +6,7 @@ const currentPath = Astro.url.pathname;
 const navLinks = [
   { label: 'Services', href: '/services/' },
   { label: 'Projects', href: '/projects/' },
+  { label: 'Gallery', href: '/gallery/' },
   { label: 'About', href: '/about/' },
   { label: 'Testimonials', href: '/testimonials/' },
   { label: 'Areas', href: '/areas/' },
@@ -24,8 +25,12 @@ const navLinks = [
       style="max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 80px;"
       id="nav-inner"
     >
-      <!-- Logo -->
-      <a href="/" aria-label={`${SITE.name} — Home`} style="z-index: 10; text-decoration: none; display: flex; align-items: center; gap: 12px;">
+      <!-- Logo with brand mark -->
+      <a href="/" aria-label="H&S Hartwell & Stone — Home" style="z-index: 10; text-decoration: none; display: flex; align-items: center; gap: 14px;">
+        <!-- CSS Monogram -->
+        <div style="width: 38px; height: 38px; border: 1.5px solid var(--color-brass-light); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: border-color 0.5s ease;" id="logo-mark">
+          <span class="font-heading" style="font-size: 0.85rem; letter-spacing: 0.06em; color: var(--color-brass-light); transition: color 0.5s ease; line-height: 1;" id="logo-mono">H&S</span>
+        </div>
         <span
           class="font-heading"
           style="font-size: 1.4rem; letter-spacing: 0.02em; font-weight: 400; color: var(--color-text-light); transition: color 0.5s ease; line-height: 1;"
@@ -36,7 +41,7 @@ const navLinks = [
       <!-- Desktop Nav -->
       <ul
         class="hidden lg:flex"
-        style="list-style: none; margin: 0; padding: 0; gap: 32px; align-items: center;"
+        style="list-style: none; margin: 0; padding: 0; gap: 36px; align-items: center;"
       >
         {navLinks.map((link) => (
           <li>
@@ -175,6 +180,9 @@ const navLinks = [
       menuToggle.setAttribute('aria-expanded', 'true');
       menuToggle.setAttribute('aria-label', 'Close menu');
       document.body.style.overflow = 'hidden';
+      // Focus first menu link
+      const firstLink = mobileMenu.querySelector('a') as HTMLElement;
+      if (firstLink) setTimeout(() => firstLink.focus(), 100);
 
       // X animation
       const h1 = document.getElementById('ham-1');
@@ -188,6 +196,7 @@ const navLinks = [
       menuToggle.setAttribute('aria-expanded', 'false');
       menuToggle.setAttribute('aria-label', 'Open menu');
       document.body.style.overflow = '';
+      menuToggle.focus();
 
       const h1 = document.getElementById('ham-1');
       const h2 = document.getElementById('ham-2');
@@ -203,6 +212,22 @@ const navLinks = [
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && menuOpen) {
       toggleMenu();
+    }
+  });
+
+  // Focus trap for mobile menu
+  mobileMenu?.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab') return;
+    const focusable = mobileMenu.querySelectorAll<HTMLElement>('a[href], button');
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
     }
   });
 

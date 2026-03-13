@@ -1,0 +1,26 @@
+---
+---
+
+<div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
+<script>
+  const bar = document.getElementById('scroll-progress');
+  if (bar && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let ticking = false;
+    const update = () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      bar.style.width = pct + '%';
+      ticking = false;
+    };
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(update);
+        ticking = true;
+      }
+    }, { passive: true });
+  } else {
+    bar?.remove();
+  }
+</script>

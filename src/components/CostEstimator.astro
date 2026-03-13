@@ -1,0 +1,154 @@
+---
+---
+
+<section style="padding: 96px 0; background: var(--color-charcoal); position: relative; overflow: hidden;">
+  <div style="position: absolute; top: 0; right: 0; width: 300px; height: 300px; background: radial-gradient(circle, rgba(184,134,11,0.08) 0%, transparent 70%);" aria-hidden="true"></div>
+
+  <div style="max-width: 800px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px); position: relative; z-index: 1;">
+    <div style="text-align: center; margin-bottom: 48px;" data-reveal="clip">
+      <span class="eyebrow eyebrow-light" style="display: block; margin-bottom: 12px;">Investment Guide</span>
+      <h2 class="font-heading" style="color: var(--color-text-light); margin-bottom: 16px;">
+        What Will Your Project Cost?
+      </h2>
+      <p style="font-size: 0.95rem; color: rgba(240,237,232,0.65); line-height: 1.8; max-width: 600px; margin-left: auto; margin-right: auto;">
+        Use our interactive guide for a ballpark estimate. Every project is unique — arrange a complimentary consultation for a detailed quotation.
+      </p>
+    </div>
+
+    <div class="geo-cut-lg" style="background: rgba(240,237,232,0.06); padding: 40px 32px; border: 1px solid rgba(240,237,232,0.08);" data-reveal="scale">
+      <!-- Project Type -->
+      <div style="margin-bottom: 32px;">
+        <label for="est-type" style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-brass-light); display: block; margin-bottom: 10px;">
+          Project Type
+        </label>
+        <select
+          id="est-type"
+          style="width: 100%; padding: 14px 16px; background: rgba(240,237,232,0.08); border: 1px solid rgba(240,237,232,0.15); color: var(--color-text-light); font-family: var(--font-body); font-size: 0.95rem; appearance: auto; cursor: pointer;"
+        >
+          <option value="extension" style="color: #1a1d23; background: #fff;">Extension</option>
+          <option value="newbuild" style="color: #1a1d23; background: #fff;">Bespoke New Build</option>
+          <option value="heritage" style="color: #1a1d23; background: #fff;">Listed Building / Heritage</option>
+          <option value="renovation" style="color: #1a1d23; background: #fff;">Whole-House Renovation</option>
+          <option value="conversion" style="color: #1a1d23; background: #fff;">Barn / Heritage Conversion</option>
+        </select>
+      </div>
+
+      <!-- Size slider -->
+      <div style="margin-bottom: 32px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px;">
+          <label for="est-size" style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-brass-light);">
+            Approximate Size
+          </label>
+          <span id="est-size-val" style="font-size: 1rem; color: var(--color-text-light); font-weight: 500;">
+            80 m&sup2;
+          </span>
+        </div>
+        <input type="range" id="est-size" class="cost-slider" min="20" max="400" value="80" step="10" />
+        <div style="display: flex; justify-content: space-between; margin-top: 6px;">
+          <span style="font-size: 0.7rem; color: rgba(240,237,232,0.4);">20 m&sup2;</span>
+          <span style="font-size: 0.7rem; color: rgba(240,237,232,0.4);">400 m&sup2;</span>
+        </div>
+      </div>
+
+      <!-- Finish level -->
+      <div style="margin-bottom: 36px;">
+        <label style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-brass-light); display: block; margin-bottom: 10px;">
+          Specification Level
+        </label>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;" id="est-finish">
+          <button class="finish-btn active" data-finish="standard" style="flex: 1; min-width: 100px; padding: 12px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; border: 1px solid var(--color-brass); background: var(--color-brass); color: var(--color-warm-white); cursor: pointer; transition: all 0.3s ease; font-family: var(--font-body);">
+            Standard
+          </button>
+          <button class="finish-btn" data-finish="premium" style="flex: 1; min-width: 100px; padding: 12px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; border: 1px solid rgba(240,237,232,0.2); background: transparent; color: var(--color-text-light); cursor: pointer; transition: all 0.3s ease; font-family: var(--font-body);">
+            Premium
+          </button>
+          <button class="finish-btn" data-finish="luxury" style="flex: 1; min-width: 100px; padding: 12px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; border: 1px solid rgba(240,237,232,0.2); background: transparent; color: var(--color-text-light); cursor: pointer; transition: all 0.3s ease; font-family: var(--font-body);">
+            Luxury
+          </button>
+        </div>
+      </div>
+
+      <!-- Result -->
+      <div style="text-align: center; padding: 28px; background: rgba(184,134,11,0.08); border: 1px solid rgba(184,134,11,0.2);">
+        <span style="font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brass-light); display: block; margin-bottom: 8px;">Estimated Investment</span>
+        <span id="est-result" class="font-heading" style="font-size: clamp(1.8rem, 4vw, 2.5rem); color: var(--color-text-light); display: block;">
+          £120,000 – £180,000
+        </span>
+      </div>
+    </div>
+
+    <!-- Disclaimer + CTA -->
+    <div style="text-align: center; margin-top: 28px;" data-reveal>
+      <p style="font-size: 0.8rem; color: rgba(240,237,232,0.45); margin-bottom: 20px; line-height: 1.7;">
+        This is a guide only. Actual costs depend on site conditions, specifications and planning requirements.
+      </p>
+      <a href="/contact/" class="btn-primary btn-fill" style="padding: 16px 36px;">
+        Arrange a Consultation
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Base costs per m² by project type (realistic premium market rates)
+  const baseCosts: Record<string, number> = {
+    extension: 1500,
+    newbuild: 2200,
+    heritage: 1800,
+    renovation: 1200,
+    conversion: 1600,
+  };
+
+  // Finish multipliers
+  const finishMult: Record<string, number> = {
+    standard: 1,
+    premium: 1.4,
+    luxury: 1.9,
+  };
+
+  const typeSelect = document.getElementById('est-type') as HTMLSelectElement;
+  const sizeSlider = document.getElementById('est-size') as HTMLInputElement;
+  const sizeVal = document.getElementById('est-size-val')!;
+  const resultEl = document.getElementById('est-result')!;
+  const finishBtns = document.querySelectorAll('.finish-btn');
+  let currentFinish = 'standard';
+
+  function formatGBP(n: number): string {
+    return '£' + n.toLocaleString('en-GB');
+  }
+
+  function calculate() {
+    const type = typeSelect.value;
+    const size = parseInt(sizeSlider.value);
+    const base = baseCosts[type] || 1500;
+    const mult = finishMult[currentFinish] || 1;
+    const low = Math.round(base * size * mult);
+    const high = Math.round(low * 1.5);
+    resultEl.textContent = `${formatGBP(low)} – ${formatGBP(high)}`;
+    sizeVal.textContent = `${size} m²`;
+  }
+
+  typeSelect.addEventListener('change', calculate);
+  sizeSlider.addEventListener('input', calculate);
+
+  finishBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      currentFinish = btn.getAttribute('data-finish') || 'standard';
+      finishBtns.forEach((b) => {
+        const el = b as HTMLElement;
+        if (b === btn) {
+          el.style.background = 'var(--color-brass)';
+          el.style.borderColor = 'var(--color-brass)';
+          el.style.color = 'var(--color-warm-white)';
+        } else {
+          el.style.background = 'transparent';
+          el.style.borderColor = 'rgba(240,237,232,0.2)';
+          el.style.color = 'var(--color-text-light)';
+        }
+      });
+      calculate();
+    });
+  });
+
+  calculate();
+</script>

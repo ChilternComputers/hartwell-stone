@@ -3,6 +3,9 @@ import { SITE } from '@/config';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
 import CookieConsent from '@/components/CookieConsent.astro';
+import Preloader from '@/components/Preloader.astro';
+import ScrollProgress from '@/components/ScrollProgress.astro';
+import MobileCTA from '@/components/MobileCTA.astro';
 import '@/styles/global.css';
 
 interface Props {
@@ -16,7 +19,7 @@ interface Props {
 
 const { title, description, canonical, ogImage, noindex, schema } = Astro.props;
 const canonicalURL = canonical || new URL(Astro.url.pathname, SITE.url).href;
-const ogImageURL = ogImage || `${SITE.url}/og-image.svg`;
+const ogImageURL = ogImage || `${SITE.url}/og-image.png`;
 ---
 
 <!doctype html>
@@ -46,28 +49,9 @@ const ogImageURL = ogImage || `${SITE.url}/og-image.svg`;
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageURL} />
 
-    <!-- Fonts — self-hosted for best performance -->
+    <!-- Fonts — self-hosted (no external DNS) -->
     <link rel="preload" href="/fonts/dm-serif-display-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
-
-    <style is:inline>
-      @font-face {
-        font-family: 'DM Serif Display';
-        font-style: normal;
-        font-weight: 400;
-        font-display: swap;
-        src: url('/fonts/dm-serif-display-latin.woff2') format('woff2');
-        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-      }
-      @font-face {
-        font-family: 'Inter';
-        font-style: normal;
-        font-weight: 300 700;
-        font-display: swap;
-        src: url('/fonts/inter-latin.woff2') format('woff2');
-        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-      }
-    </style>
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -83,6 +67,9 @@ const ogImageURL = ogImage || `${SITE.url}/og-image.svg`;
     )}
   </head>
   <body>
+    <Preloader />
+    <ScrollProgress />
+
     <a href="#main-content" class="skip-link" style="padding: 10px 20px;">
       Skip to main content
     </a>
@@ -94,70 +81,100 @@ const ogImageURL = ogImage || `${SITE.url}/og-image.svg`;
     </main>
 
     <Footer />
+    <MobileCTA />
     <CookieConsent />
 
     <script>
-      import { gsap } from 'gsap';
-      import { ScrollTrigger } from 'gsap/ScrollTrigger';
-      import Lenis from 'lenis';
-
-      gsap.registerPlugin(ScrollTrigger);
-
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       if (!prefersReducedMotion) {
-        const lenis = new Lenis({
-          duration: 1.2,
-          easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          touchMultiplier: 2,
-        });
+        Promise.all([
+          import('gsap'),
+          import('gsap/ScrollTrigger'),
+          import('lenis'),
+        ]).then(([{ gsap }, { ScrollTrigger }, { default: Lenis }]) => {
+          gsap.registerPlugin(ScrollTrigger);
 
-        lenis.on('scroll', ScrollTrigger.update);
+          (window as any).__lenis = new Lenis({
+            duration: 1.2,
+            easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            touchMultiplier: 2,
+          });
 
-        gsap.ticker.add((time: number) => {
-          lenis.raf(time * 1000);
-        });
+          const lenis = (window as any).__lenis;
+          lenis.on('scroll', ScrollTrigger.update);
 
-        gsap.ticker.lagSmoothing(0);
+          gsap.ticker.add((time: number) => {
+            lenis.raf(time * 1000);
+          });
 
-        // Fade-up reveals
-        gsap.utils.toArray<HTMLElement>('[data-reveal]').forEach((el) => {
-          gsap.fromTo(
-            el,
-            { opacity: 0, y: 40 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 1,
-              ease: 'power3.out',
+          gsap.ticker.lagSmoothing(0);
+
+          // VARIED REVEAL ANIMATIONS — different per data-reveal type
+          gsap.utils.toArray<HTMLElement>('[data-reveal]').forEach((el) => {
+            const type = el.getAttribute('data-reveal') || 'up';
+            let from: Record<string, number> = {};
+            let to: Record<string, number | string> = { opacity: 1, duration: 1, ease: 'power3.out' };
+
+            switch (type) {
+              case 'right':
+                from = { opacity: 0, x: -50 };
+                to = { ...to, x: 0 };
+                break;
+              case 'left':
+                from = { opacity: 0, x: 50 };
+                to = { ...to, x: 0 };
+                break;
+              case 'scale':
+                from = { opacity: 0, scale: 0.9 };
+                to = { ...to, scale: 1 };
+                break;
+              case 'clip':
+                from = { opacity: 0, y: 60 };
+                to = { ...to, y: 0, duration: 1.2, ease: 'power4.out' };
+                break;
+              case 'fade':
+                from = { opacity: 0 };
+                to = { ...to, duration: 0.8 };
+                break;
+              default:
+                from = { opacity: 0, y: 35 };
+                to = { ...to, y: 0 };
+                break;
+            }
+
+            gsap.fromTo(el, from, {
+              ...to,
               scrollTrigger: {
                 trigger: el,
                 start: 'top 85%',
                 once: true,
               },
-            }
-          );
-        });
+            });
+          });
 
-        // Staggered reveals
-        gsap.utils.toArray<HTMLElement>('[data-stagger-parent]').forEach((parent) => {
-          const children = parent.querySelectorAll('[data-stagger-child]');
-          gsap.fromTo(
-            children,
-            { opacity: 0, y: 30 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.8,
-              stagger: 0.15,
-              ease: 'power3.out',
-              scrollTrigger: {
-                trigger: parent,
-                start: 'top 80%',
-                once: true,
-              },
-            }
-          );
+          // Staggered reveals — alternating entry directions
+          gsap.utils.toArray<HTMLElement>('[data-stagger-parent]').forEach((parent, idx) => {
+            const children = parent.querySelectorAll('[data-stagger-child]');
+            const fromRight = idx % 2 === 1;
+            gsap.fromTo(
+              children,
+              { opacity: 0, y: 20, x: fromRight ? 15 : -15 },
+              {
+                opacity: 1,
+                y: 0,
+                x: 0,
+                duration: 0.7,
+                stagger: 0.12,
+                ease: 'power3.out',
+                scrollTrigger: {
+                  trigger: parent,
+                  start: 'top 80%',
+                  once: true,
+                },
+              }
+            );
+          });
         });
       } else {
         // Show everything immediately

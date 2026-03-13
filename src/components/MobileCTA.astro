@@ -1,0 +1,43 @@
+---
+import { SITE } from '@/config';
+---
+
+<div class="mobile-cta" id="mobile-cta" role="complementary" aria-label="Quick contact">
+  <a
+    href={`tel:${SITE.phone.replace(/\s/g, '')}`}
+    class="btn-primary btn-fill"
+    style="flex: 1; padding: 14px; text-align: center;"
+  >
+    Call Now
+  </a>
+  <a
+    href="/contact/"
+    class="btn-primary btn-outline-light"
+    style="flex: 1; padding: 14px; text-align: center;"
+  >
+    Free Quote
+  </a>
+</div>
+
+<script>
+  const bar = document.getElementById('mobile-cta');
+  if (bar && window.innerWidth < 1024) {
+    let shown = false;
+    const checkScroll = () => {
+      const past = window.scrollY > 300;
+      const cookieVisible = document.getElementById('cookie-consent')?.offsetParent !== null;
+      const shouldShow = past && !cookieVisible;
+      if (shouldShow !== shown) {
+        shown = shouldShow;
+        bar.classList.toggle('visible', shouldShow);
+      }
+    };
+    window.addEventListener('scroll', checkScroll, { passive: true });
+    // Re-check when cookie consent dismissed
+    document.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).closest('#cookie-consent')) {
+        setTimeout(checkScroll, 350);
+      }
+    });
+  }
+</script>

@@ -1,68 +1,139 @@
 ---
 const testimonials = [
   {
-    name: 'Sarah & James Mitchell',
+    name: 'Caroline & Richard Ashworth',
     location: 'Chelmsford',
-    project: 'Rear Extension',
-    rating: 5,
-    text: 'Hartwell & Stone transformed our home beyond anything we imagined. The team were professional, tidy and communicated brilliantly throughout. Our new kitchen-diner is the heart of our home.',
+    project: 'Georgian Townhouse Restoration',
+    text: 'They understood that this house deserved respect. Every detail was considered — from the lime mortar mix to matching the original crown mouldings. It felt less like a building project and more like a collaboration.',
   },
   {
-    name: 'David Thompson',
+    name: 'Dr Michael Chen',
+    location: 'Ingatestone',
+    project: 'Contemporary New Build',
+    text: 'The project management was exemplary — fortnightly reports, cost tracking to the penny, and they finished three weeks ahead of programme. The build quality is outstanding.',
+  },
+  {
+    name: 'Sarah & David Blackwell',
     location: 'Brentwood',
-    project: 'Loft Conversion',
-    rating: 5,
-    text: 'From the initial consultation to handover, the entire experience was first class. The quality of craftsmanship is outstanding — our loft conversion looks like it was always part of the original house.',
+    project: 'Double-Storey Extension',
+    text: 'It doesn\'t feel like an extension — it feels like the house was always meant to be this way. Their joiners matched the original Arts and Crafts detailing so perfectly that our neighbours can\'t tell where old ends and new begins.',
   },
   {
-    name: 'Emma & Richard Clarke',
-    location: 'Billericay',
-    project: 'Full Renovation',
-    rating: 5,
-    text: 'We entrusted Hartwell & Stone with a complete renovation of our 1930s property. They exceeded every expectation. Incredible attention to detail and a genuine passion for quality.',
+    name: 'Hugh & Margaret Prentice',
+    location: 'Writtle',
+    project: 'Grain Store Barn Conversion',
+    text: 'We\'d been told by two other builders it couldn\'t be done within our budget. Hartwell & Stone found a way — clever design, honest pricing and not a single wasted pound.',
   },
 ];
-
-function stars(count: number) {
-  return '★'.repeat(count) + '☆'.repeat(5 - count);
-}
 ---
 
 <section style="padding: 96px 0; background: var(--color-warm-white);">
-  <div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
-    <div style="text-align: center; margin-bottom: 56px;" data-reveal>
-      <span class="eyebrow" style="display: block; margin-bottom: 12px;">Testimonials</span>
+  <div style="max-width: 900px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
+    <div style="text-align: center; margin-bottom: 56px;" data-reveal="fade">
+      <span class="eyebrow" style="display: block; margin-bottom: 12px;">Client Testimonials</span>
       <h2 class="font-heading">What Our Clients Say</h2>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3" style="gap: 24px;" data-stagger-parent>
-      {testimonials.map((t) => (
-        <div
-          style="padding: 36px 28px; background: var(--color-stone); border-left: 3px solid var(--color-brass);"
-          data-stagger-child
-        >
-          <div style="color: var(--color-brass); font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 16px;" aria-label={`${t.rating} out of 5 stars`}>
-            {stars(t.rating)}
-          </div>
-          <p style="font-size: 0.92rem; color: var(--color-text-dark); line-height: 1.8; margin-bottom: 20px; font-style: italic;">
-            "{t.text}"
-          </p>
-          <div>
-            <span style="font-weight: 600; color: var(--color-charcoal); display: block; font-size: 0.9rem;">
-              {t.name}
-            </span>
-            <span style="font-size: 0.78rem; color: rgba(44,44,46,0.6);">
-              {t.project} — {t.location}
-            </span>
+    <!-- Carousel container -->
+    <div id="testimonial-carousel" style="position: relative; min-height: 220px;" data-reveal="scale">
+      {testimonials.map((t, i) => (
+        <div class={`testimonial-slide ${i === 0 ? 'active' : ''}`} data-slide={i}>
+          <div style="text-align: center;">
+            <!-- Large quote mark -->
+            <span class="font-heading" style="font-size: clamp(4rem, 8vw, 6rem); color: var(--color-brass); opacity: 0.15; line-height: 1; display: block;" aria-hidden="true">&ldquo;</span>
+            <!-- Quote text -->
+            <p style="font-size: clamp(1.1rem, 2vw, 1.35rem); font-style: italic; color: var(--color-text-dark); line-height: 1.8; max-width: 720px; margin: -24px auto 28px; font-family: var(--font-heading); font-weight: 400;">
+              {t.text}
+            </p>
+            <!-- Attribution -->
+            <div>
+              <span style="font-weight: 600; color: var(--color-charcoal); display: block; font-size: 0.95rem;">
+                {t.name}
+              </span>
+              <span style="font-size: 0.8rem; color: rgba(44,44,46,0.55);">
+                {t.project} — {t.location}
+              </span>
+            </div>
           </div>
         </div>
       ))}
+
+      <!-- Dot indicators -->
+      <div style="display: flex; justify-content: center; gap: 10px; margin-top: 32px;" id="testimonial-dots">
+        {testimonials.map((_, i) => (
+          <button
+            class={`testimonial-dot ${i === 0 ? 'active' : ''}`}
+            data-dot={i}
+            aria-label={`Show testimonial ${i + 1}`}
+          ></button>
+        ))}
+      </div>
     </div>
 
-    <div style="text-align: center; margin-top: 40px;" data-reveal>
+    <div style="text-align: center; margin-top: 40px;" data-reveal="up">
       <a href="/testimonials/" class="btn-primary btn-outline" style="padding: 14px 32px;">
         Read More Reviews
       </a>
     </div>
   </div>
 </section>
+
+<!-- Static fallback for reduced motion -->
+<noscript>
+  <style>
+    .testimonial-slide { position: relative !important; opacity: 1 !important; margin-bottom: 32px; }
+    #testimonial-dots { display: none !important; }
+  </style>
+</noscript>
+
+<script>
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const slides = document.querySelectorAll('.testimonial-slide');
+  const dots = document.querySelectorAll('.testimonial-dot');
+  let current = 0;
+  let interval: ReturnType<typeof setInterval>;
+
+  if (prefersReducedMotion) {
+    // Show all slides statically
+    slides.forEach((s) => {
+      (s as HTMLElement).style.position = 'relative';
+      (s as HTMLElement).style.opacity = '1';
+      (s as HTMLElement).style.marginBottom = '48px';
+    });
+    const dotsContainer = document.getElementById('testimonial-dots');
+    if (dotsContainer) dotsContainer.style.display = 'none';
+  } else {
+    const goTo = (index: number) => {
+      slides.forEach((s, i) => {
+        s.classList.toggle('active', i === index);
+      });
+      dots.forEach((d, i) => {
+        d.classList.toggle('active', i === index);
+      });
+      current = index;
+    };
+
+    // Click on dots
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        const i = parseInt(dot.getAttribute('data-dot') || '0');
+        goTo(i);
+        clearInterval(interval);
+        startAuto();
+      });
+    });
+
+    // Auto-rotate
+    const startAuto = () => {
+      interval = setInterval(() => {
+        goTo((current + 1) % slides.length);
+      }, 5000);
+    };
+    startAuto();
+
+    // Pause on hover
+    const carousel = document.getElementById('testimonial-carousel');
+    carousel?.addEventListener('mouseenter', () => clearInterval(interval));
+    carousel?.addEventListener('mouseleave', startAuto);
+  }
+</script>

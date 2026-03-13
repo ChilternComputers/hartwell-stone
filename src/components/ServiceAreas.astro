@@ -1,8 +1,14 @@
 ---
-const areas = [
-  'Chelmsford', 'Brentwood', 'Billericay', 'Romford',
-  'Hornchurch', 'Basildon', 'Southend', 'Colchester',
-  'Maldon', 'Rayleigh', 'Wickford', 'Ingatestone',
+const regions = [
+  { name: 'Essex & East Anglia', areas: ['Chelmsford', 'Brentwood', 'Colchester', 'Maldon'] },
+  { name: 'London & South East', areas: ['East London', 'Home Counties', 'Kent', 'Surrey'] },
+  { name: 'Midlands & Beyond', areas: ['Nationwide by arrangement'] },
+];
+
+const featureAreas = [
+  'Chelmsford', 'Brentwood', 'Billericay', 'Ingatestone',
+  'Maldon', 'Colchester', 'Writtle', 'Shenfield',
+  'Rayleigh', 'Southend', 'Romford', 'East London',
 ];
 ---
 
@@ -11,9 +17,12 @@ const areas = [
     <div class="grid grid-cols-1 lg:grid-cols-2" style="gap: 48px; align-items: center;">
       <div data-reveal>
         <span class="eyebrow" style="display: block; margin-bottom: 12px;">Coverage</span>
-        <h2 class="font-heading" style="margin-bottom: 20px;">Serving Essex & Beyond</h2>
-        <p style="font-size: 0.95rem; color: rgba(44,44,46,0.7); line-height: 1.8; margin-bottom: 24px;">
-          Based in Chelmsford, we serve homeowners across Essex and into East London. From the coast to the countryside, our team delivers the same exceptional quality wherever your project is located.
+        <h2 class="font-heading" style="margin-bottom: 20px;">Based in Essex, Working Nationwide</h2>
+        <p style="font-size: 0.95rem; color: rgba(44,44,46,0.7); line-height: 1.8; margin-bottom: 16px;">
+          Our headquarters in Chelmsford places us at the heart of Essex, with easy reach across the South East. For larger commissions — typically new builds and heritage projects above £500,000 — we work nationwide by arrangement.
+        </p>
+        <p style="font-size: 0.88rem; color: rgba(44,44,46,0.55); line-height: 1.7; margin-bottom: 24px; font-style: italic;">
+          Current furthest project: barn conversion in the Cotswolds
         </p>
         <a href="/areas/" class="btn-primary btn-outline" style="padding: 12px 28px;">
           View All Areas
@@ -22,7 +31,7 @@ const areas = [
 
       <div data-reveal>
         <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-          {areas.map((area) => (
+          {featureAreas.map((area) => (
             <a
               href="/areas/"
               style="padding: 10px 20px; background: var(--color-warm-white); border: 1px solid var(--color-border); font-size: 0.85rem; font-weight: 500; color: var(--color-text-dark); transition: all 0.3s ease; text-decoration: none;"

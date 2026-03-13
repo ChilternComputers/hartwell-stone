@@ -1,62 +1,73 @@
 ---
 const services = [
   {
-    title: 'Extensions',
-    description: 'Single, double, rear, side and wrap-around extensions that seamlessly blend with your existing home.',
-    icon: '⊞',
-    href: '/services/#extensions',
-  },
-  {
-    title: 'Loft Conversions',
-    description: 'Dormer, hip-to-gable, Velux and L-shaped conversions to maximise your living space.',
-    icon: '△',
-    href: '/services/#lofts',
-  },
-  {
-    title: 'Renovations',
-    description: 'Complete home transformations, from period property restoration to contemporary refurbishments.',
-    icon: '◈',
-    href: '/services/#renovations',
-  },
-  {
-    title: 'New Builds',
-    description: 'Bespoke new-build homes designed and constructed to the highest standards.',
+    title: 'Bespoke New Builds',
+    description: 'From contemporary country houses to elegant urban residences, designed and built to endure for generations.',
     icon: '⬡',
     href: '/services/#new-builds',
+    price: 'From £350k',
   },
   {
-    title: 'Kitchens',
-    description: 'Luxury kitchen installations, from structural work to the final finishing touches.',
-    icon: '▣',
-    href: '/services/#kitchens',
+    title: 'Extensions & Additions',
+    description: 'Single-storey, double-storey and wrap-around extensions that feel like a natural continuation of the original architecture.',
+    icon: '⊞',
+    href: '/services/#extensions',
+    price: 'From £60k',
   },
   {
-    title: 'Bathrooms',
-    description: 'Premium bathroom design and fitting, including plumbing, tiling and fixtures.',
+    title: 'Listed Buildings & Heritage',
+    description: 'Specialist conservation work on listed buildings and heritage properties, with traditional materials and techniques.',
+    icon: '◈',
+    href: '/services/#heritage',
+    price: 'From £80k',
+  },
+  {
+    title: 'Whole-House Renovations',
+    description: 'Complete transformations — from structural remodelling and rewiring to decoration and landscaping. One team, one programme.',
     icon: '◉',
-    href: '/services/#bathrooms',
+    href: '/services/#renovations',
+    price: 'From £120k',
+  },
+  {
+    title: 'Heritage & Barn Conversions',
+    description: 'Barns, chapels, warehouses and maltings transformed into exceptional homes that celebrate their original character.',
+    icon: '⬢',
+    href: '/services/#conversions',
+    price: 'From £250k',
+  },
+  {
+    title: 'Project Management',
+    description: 'Dedicated project management for clients with their own design team — coordinating every trade, controlling costs, ensuring quality.',
+    icon: '▣',
+    href: '/services/#project-management',
+    price: 'From 12%',
   },
 ];
 ---
 
 <section style="padding: 96px 0; background: var(--color-warm-white);">
   <div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
-    <div style="text-align: center; margin-bottom: 56px;" data-reveal>
-      <span class="eyebrow" style="display: block; margin-bottom: 12px;">What We Do</span>
-      <h2 class="font-heading">Our Services</h2>
+    <div style="text-align: center; margin-bottom: 56px;" data-reveal="right">
+      <span class="eyebrow" style="display: block; margin-bottom: 12px;">Our Expertise</span>
+      <h2 class="font-heading">What We Do</h2>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style="gap: 24px;" data-stagger-parent>
       {services.map((service) => (
         <a
           href={service.href}
-          class="group"
-          style="display: block; padding: 36px 28px; background: var(--color-stone); border: 1px solid transparent; transition: all 0.3s ease; text-decoration: none;"
+          class="group geo-cut"
+          style="display: block; padding: 36px 28px; background: var(--color-stone); border: 1px solid transparent; transition: all 0.4s ease; text-decoration: none; position: relative;"
           data-stagger-child
         >
-          <span style="font-size: 1.8rem; display: block; margin-bottom: 16px; color: var(--color-brass);" aria-hidden="true">
-            {service.icon}
-          </span>
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+            <span style="font-size: 1.8rem; color: var(--color-brass);" aria-hidden="true">
+              {service.icon}
+            </span>
+            <span style="font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; color: rgba(44,44,46,0.5); text-transform: uppercase;">
+              {service.price}
+            </span>
+          </div>
           <h3 class="font-heading" style="font-size: 1.35rem; margin-bottom: 10px; color: var(--color-charcoal);">
             {service.title}
           </h3>
@@ -64,7 +75,7 @@ const services = [
             {service.description}
           </p>
           <span style="display: inline-block; margin-top: 16px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brass); transition: color 0.3s ease;">
-            Learn More →
+            Learn More &#8594;
           </span>
         </a>
       ))}

@@ -1,0 +1,36 @@
+---
+---
+
+<div class="preloader" id="preloader" aria-hidden="true">
+  <span class="preloader-monogram" id="preloader-mono">H&S</span>
+  <div class="preloader-line" id="preloader-line"></div>
+</div>
+
+<script>
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const preloader = document.getElementById('preloader');
+
+  if (prefersReducedMotion || !preloader) {
+    preloader?.remove();
+  } else {
+    const mono = document.getElementById('preloader-mono')!;
+    const line = document.getElementById('preloader-line')!;
+
+    import('gsap').then(({ gsap }) => {
+      const tl = gsap.timeline({
+        onComplete: () => {
+          gsap.to(preloader, {
+            opacity: 0,
+            duration: 0.4,
+            ease: 'power2.inOut',
+            onComplete: () => preloader.remove(),
+          });
+        },
+      });
+
+      tl.to(mono, { opacity: 1, duration: 0.4, ease: 'power2.out' })
+        .to(line, { width: '64px', duration: 0.6, ease: 'power3.inOut' }, '+=0.1')
+        .to({}, { duration: 0.2 });
+    });
+  }
+</script>

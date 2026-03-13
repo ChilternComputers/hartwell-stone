@@ -1,0 +1,178 @@
+---
+import { projects } from '@/data/projects';
+
+const caseStudies = projects.map((p) => ({
+  title: p.title,
+  type: p.type,
+  location: p.location,
+  image: p.image,
+  description: p.description,
+  challenge: p.challenges || '',
+  approach: p.solutions || '',
+  result: p.clientTestimonial || '',
+  duration: p.duration,
+  value: p.value,
+}));
+---
+
+<!-- Case study modal -->
+<div class="case-modal" id="case-modal" role="dialog" aria-modal="true" aria-label="Project case study" tabindex="-1" data-lenis-prevent>
+  <div style="min-height: 100vh;">
+    <!-- Close button -->
+    <button
+      id="case-close"
+      style="position: fixed; top: 20px; right: 24px; z-index: 9001; background: rgba(240,237,232,0.1); border: 1px solid rgba(240,237,232,0.2); color: var(--color-text-light); width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; cursor: pointer; transition: background 0.3s ease;"
+      aria-label="Close case study"
+    >
+      &times;
+    </button>
+
+    <!-- Content populated by JS -->
+    <div id="case-content"></div>
+
+    <!-- Prev / Next nav -->
+    <div style="display: flex; justify-content: space-between; max-width: 1200px; margin: 0 auto; padding: 48px clamp(24px, 4vw, 48px) 80px;">
+      <button id="case-prev" class="btn-primary btn-outline-light" style="padding: 12px 28px;">
+        &larr; Previous
+      </button>
+      <button id="case-next" class="btn-primary btn-outline-light" style="padding: 12px 28px;">
+        Next &rarr;
+      </button>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ caseStudies }}>
+  window.__caseStudies = caseStudies;
+</script>
+
+<script>
+  const modal = document.getElementById('case-modal')!;
+  const content = document.getElementById('case-content')!;
+  const closeBtn = document.getElementById('case-close')!;
+  const prevBtn = document.getElementById('case-prev')!;
+  const nextBtn = document.getElementById('case-next')!;
+  const studies = (window as any).__caseStudies as Array<{
+    title: string; type: string; location: string; image: string;
+    description: string; challenge: string; approach: string;
+    result: string; duration: string; value: string;
+  }>;
+  let currentIndex = 0;
+
+  function esc(str: string): string {
+    const d = document.createElement('div');
+    d.textContent = str;
+    return d.innerHTML;
+  }
+
+  function renderCase(i: number) {
+    const s = studies[i];
+    currentIndex = i;
+    const imgSrc = esc(s.image);
+    const srcset800 = esc(s.image.replace('.webp', '-800w.webp'));
+    const srcset1200 = esc(s.image.replace('.webp', '-1200w.webp'));
+    content.innerHTML = `
+      <div style="position: relative; height: 50vh; min-height: 300px; overflow: hidden;">
+        <img src="${imgSrc}" alt="${esc(s.title)}" srcset="${srcset800} 800w, ${srcset1200} 1200w" sizes="100vw" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.6;" />
+        <div style="position: absolute; inset: 0; background: linear-gradient(to top, var(--color-charcoal) 0%, transparent 60%);"></div>
+        <div style="position: absolute; bottom: 40px; left: 0; right: 0; max-width: 1200px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
+          <span style="font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brass-light); display: inline-block; padding: 4px 12px; background: rgba(184,134,11,0.2); margin-bottom: 12px;">${esc(s.type)}</span>
+          <h2 style="font-family: var(--font-heading); font-size: clamp(2rem, 4vw, 3rem); color: var(--color-text-light); margin-bottom: 4px;">${esc(s.title)}</h2>
+          <span style="font-size: 0.9rem; color: rgba(240,237,232,0.6);">${esc(s.value)} · ${esc(s.location)} · ${esc(s.duration)}</span>
+        </div>
+      </div>
+      <div style="max-width: 800px; margin: 0 auto; padding: 56px clamp(24px, 4vw, 48px);">
+        <p style="font-size: 1.05rem; color: rgba(240,237,232,0.8); line-height: 1.8; margin-bottom: 40px;">${esc(s.description)}</p>
+        ${s.challenge ? `
+        <div style="margin-bottom: 40px;">
+          <h3 style="font-family: var(--font-heading); font-size: 1.3rem; color: var(--color-brass-light); margin-bottom: 12px;">The Challenge</h3>
+          <p style="font-size: 0.95rem; color: rgba(240,237,232,0.7); line-height: 1.8;">${esc(s.challenge)}</p>
+        </div>` : ''}
+        ${s.approach ? `
+        <div style="margin-bottom: 40px;">
+          <h3 style="font-family: var(--font-heading); font-size: 1.3rem; color: var(--color-brass-light); margin-bottom: 12px;">Our Solution</h3>
+          <p style="font-size: 0.95rem; color: rgba(240,237,232,0.7); line-height: 1.8;">${esc(s.approach)}</p>
+        </div>` : ''}
+        ${s.result ? `
+        <div style="margin-bottom: 48px; padding: 28px; border-left: 3px solid var(--color-brass); background: rgba(240,237,232,0.04);">
+          <span style="font-family: var(--font-heading); font-size: 2rem; color: var(--color-brass); opacity: 0.3; line-height: 1; display: block;">&ldquo;</span>
+          <p style="font-size: 1rem; color: rgba(240,237,232,0.8); line-height: 1.8; font-style: italic; margin-top: -8px;">${esc(s.result)}</p>
+        </div>` : ''}
+        <div style="display: flex; gap: 32px; justify-content: center; padding: 28px; background: rgba(240,237,232,0.05); border: 1px solid rgba(240,237,232,0.08);">
+          <div style="text-align: center;">
+            <span style="font-family: var(--font-heading); font-size: 1.5rem; color: var(--color-brass-light); display: block;">${esc(s.value)}</span>
+            <span style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(240,237,232,0.5);">Value</span>
+          </div>
+          <div style="text-align: center;">
+            <span style="font-family: var(--font-heading); font-size: 1.5rem; color: var(--color-brass-light); display: block;">${esc(s.duration)}</span>
+            <span style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(240,237,232,0.5);">Duration</span>
+          </div>
+          <div style="text-align: center;">
+            <span style="font-family: var(--font-heading); font-size: 1.5rem; color: var(--color-brass-light); display: block;">${esc(s.type)}</span>
+            <span style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(240,237,232,0.5);">Category</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function openModal(index: number) {
+    renderCase(index);
+    modal.classList.add('active');
+    modal.scrollTo(0, 0);
+    const lenis = (window as any).__lenis;
+    if (lenis) lenis.stop();
+    // Override lenis-stopped overflow:hidden so the fixed modal can scroll
+    document.documentElement.style.overflow = 'clip';
+    modal.focus();
+  }
+
+  function closeModal() {
+    modal.classList.remove('active');
+    document.documentElement.style.overflow = '';
+    const lenis = (window as any).__lenis;
+    if (lenis) lenis.start();
+  }
+
+  closeBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    closeModal();
+  });
+
+  prevBtn.addEventListener('click', () => {
+    const prev = (currentIndex - 1 + studies.length) % studies.length;
+    renderCase(prev);
+    modal.scrollTo(0, 0);
+  });
+
+  nextBtn.addEventListener('click', () => {
+    const next = (currentIndex + 1) % studies.length;
+    renderCase(next);
+    modal.scrollTo(0, 0);
+  });
+
+  // Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+      closeModal();
+    }
+  });
+
+  // Focus trap
+  modal.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab') return;
+    const focusable = modal.querySelectorAll<HTMLElement>('button, a, [tabindex]:not([tabindex="-1"])');
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  });
+
+  // Expose open function globally for project cards
+  (window as any).__openCaseStudy = openModal;
+</script>

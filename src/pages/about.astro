@@ -5,6 +5,23 @@ import { team } from '@/data/team';
 import StatsCounter from '@/components/StatsCounter.astro';
 import CTABanner from '@/components/CTABanner.astro';
 
+const milestones = [
+  { year: '1987', title: 'Founded', desc: 'James Hartwell establishes the company with two employees and a single van, working from a rented lock-up in Chelmsford.' },
+  { year: '1994', title: 'First Major Contract', desc: 'Awarded our first project exceeding £500,000 — a six-bedroom new build in Ingatestone. Team grows to 12.' },
+  { year: '2003', title: 'Heritage Division', desc: 'Launch of dedicated heritage and conservation team, beginning with the restoration of a Grade II* farmhouse in Writtle.' },
+  { year: '2008', title: 'Commercial Growth', desc: 'Victoria Ashworth joins as Commercial Director, professionalising estimating and contract management. Team exceeds 30.' },
+  { year: '2015', title: 'Conversions Specialism', desc: 'Establish barn and heritage conversion division, completing our first chapel-to-home project in Rayleigh.' },
+  { year: '2019', title: 'LABC Recognition', desc: 'Shortlisted for LABC Building Excellence Awards for the first time — for a Georgian restoration in Chelmsford.' },
+  { year: '2024', title: 'Award-Winning', desc: 'Win LABC Building Excellence Award for Best Residential Renovation. Team now exceeds 45 directly employed staff.' },
+];
+
+const values = [
+  { num: '01', title: 'Craftsmanship', desc: 'We employ skilled tradespeople directly — not subcontractors. Every joint, every finish, every detail reflects a pride in the work that can\'t be outsourced.' },
+  { num: '02', title: 'Integrity', desc: 'Fixed-price quotations, milestone-based payments, fortnightly progress reports. No surprises, no hidden costs, no excuses.' },
+  { num: '03', title: 'Innovation', desc: 'From BIM coordination to air-source heat pumps and MVHR systems, we embrace technologies that deliver better homes without compromising character.' },
+  { num: '04', title: 'Sustainability', desc: 'Responsibly sourced materials, waste reduction targets on every site, and a commitment to achieving the highest possible EPC ratings.' },
+];
+
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -16,8 +33,8 @@ const schema = {
 ---
 
 <Layout
-  title={`About Us | ${SITE.name}`}
-  description="Learn about Hartwell & Stone Construction — 38 years of premium residential building in Essex. Meet our team and discover our values."
+  title={`About Us | ${SITE.name} — Award-Winning Construction Since 1987`}
+  description="Founded in 1987, Hartwell & Stone has grown from a two-person operation to one of the South East's most respected construction companies. 45+ staff, 487 projects, award-winning craftsmanship."
   schema={schema}
 >
   <!-- Page Header -->
@@ -33,40 +50,56 @@ const schema = {
     <div style="max-width: 900px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
       <div class="grid grid-cols-1 lg:grid-cols-2" style="gap: 48px; align-items: start;">
         <div data-reveal>
-          <h2 class="font-heading" style="margin-bottom: 20px;">Building Excellence Since 1987</h2>
+          <h2 class="font-heading" style="margin-bottom: 20px;">Building Britain's Finest Homes Since 1987</h2>
           <p style="font-size: 0.95rem; color: rgba(44,44,46,0.7); line-height: 1.9; margin-bottom: 16px;">
-            Founded by James Hartwell in Chelmsford, Hartwell & Stone began as a two-person operation with a simple philosophy: build every project as if it were our own home.
+            James Hartwell founded this company in 1987 with a simple conviction: that every project — regardless of scale — deserves the same uncompromising standard of craftsmanship. He started with two employees, a Bedford van and a reputation built on doing things properly.
           </p>
           <p style="font-size: 0.95rem; color: rgba(44,44,46,0.7); line-height: 1.9; margin-bottom: 16px;">
-            Nearly four decades later, that principle still guides everything we do. We've grown into one of Essex's most respected residential construction companies, but we've never lost the personal touch that built our reputation.
+            Nearly four decades later, Hartwell & Stone has grown into one of the South East's most respected construction companies, with over 45 directly employed staff and a portfolio spanning bespoke new builds, heritage restorations, elegant extensions and barn conversions. We've won industry awards, earned the trust of architects across the region, and completed 487 projects — but we've never lost the personal approach that built our reputation.
+          </p>
+          <p style="font-size: 0.95rem; color: rgba(44,44,46,0.7); line-height: 1.9; margin-bottom: 16px;">
+            What sets us apart is simple: we directly employ our tradespeople. Our carpenters, bricklayers, plasterers and heritage specialists are part of the Hartwell & Stone team — not subcontractors who move between sites. This means consistent quality, clear accountability and a genuine pride in the work that clients notice immediately.
           </p>
           <p style="font-size: 0.95rem; color: rgba(44,44,46,0.7); line-height: 1.9;">
-            Every project is led by a dedicated project manager. Every client has direct access to our team. Every build is backed by our 10-year structural guarantee. That's the Hartwell & Stone difference.
+            Every project is led by a dedicated project manager. Every client has direct access to our senior team. Every build is backed by our 10-year structural guarantee. Over 60% of our work comes from referrals and returning clients — and that, more than any award, is the measure we're most proud of.
           </p>
         </div>
         <div data-reveal>
           <div style="background: var(--color-stone); padding: 36px; border-left: 3px solid var(--color-brass);">
             <h3 class="font-heading" style="font-size: 1.3rem; margin-bottom: 20px;">Our Values</h3>
-            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 14px;">
-              <li style="font-size: 0.9rem; color: var(--color-text-dark); display: flex; gap: 12px;">
-                <span style="color: var(--color-brass); font-weight: 700; flex-shrink: 0;">01</span>
-                <span><strong>Quality Without Compromise</strong> — We use premium materials and employ skilled tradespeople.</span>
-              </li>
-              <li style="font-size: 0.9rem; color: var(--color-text-dark); display: flex; gap: 12px;">
-                <span style="color: var(--color-brass); font-weight: 700; flex-shrink: 0;">02</span>
-                <span><strong>Transparent Communication</strong> — Clear pricing, regular updates and honest timelines.</span>
-              </li>
-              <li style="font-size: 0.9rem; color: var(--color-text-dark); display: flex; gap: 12px;">
-                <span style="color: var(--color-brass); font-weight: 700; flex-shrink: 0;">03</span>
-                <span><strong>Respect for Your Home</strong> — We keep sites clean, minimise disruption and protect your property.</span>
-              </li>
-              <li style="font-size: 0.9rem; color: var(--color-text-dark); display: flex; gap: 12px;">
-                <span style="color: var(--color-brass); font-weight: 700; flex-shrink: 0;">04</span>
-                <span><strong>Long-Term Relationships</strong> — Over 60% of our work comes from referrals and repeat clients.</span>
-              </li>
+            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 18px;">
+              {values.map((v) => (
+                <li style="font-size: 0.9rem; color: var(--color-text-dark); display: flex; gap: 12px;">
+                  <span style="color: var(--color-brass); font-weight: 700; flex-shrink: 0;">{v.num}</span>
+                  <span><strong>{v.title}</strong> — {v.desc}</span>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section style="padding: 80px 0; background: var(--color-charcoal);">
+    <div style="max-width: 800px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
+      <div style="text-align: center; margin-bottom: 48px;" data-reveal>
+        <span class="eyebrow eyebrow-light" style="display: block; margin-bottom: 12px;">Milestones</span>
+        <h2 class="font-heading" style="color: var(--color-text-light);">Our Journey</h2>
+      </div>
+
+      <div style="position: relative; padding-left: 48px;" data-stagger-parent>
+        <div style="position: absolute; top: 0; left: 16px; width: 2px; bottom: 0; background: rgba(184,134,11,0.2);" aria-hidden="true"></div>
+        {milestones.map((m, i) => (
+          <div style={`position: relative; ${i < milestones.length - 1 ? 'padding-bottom: 36px;' : ''}`} data-stagger-child>
+            <div style="position: absolute; left: -48px; top: 4px; width: 32px; height: 32px; background: var(--color-charcoal); border: 2px solid var(--color-brass); display: flex; align-items: center; justify-content: center; z-index: 2;">
+              <span style="font-size: 0.6rem; font-weight: 700; color: var(--color-brass); letter-spacing: 0.02em;">{m.year}</span>
+            </div>
+            <h3 class="font-heading" style="font-size: 1.05rem; color: var(--color-text-light); margin-bottom: 6px;">{m.title}</h3>
+            <p style="font-size: 0.85rem; color: rgba(240,237,232,0.55); line-height: 1.7;">{m.desc}</p>
+          </div>
+        ))}
       </div>
     </div>
   </section>
@@ -77,16 +110,18 @@ const schema = {
   <section style="padding: 96px 0; background: var(--color-warm-white);">
     <div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
       <div style="text-align: center; margin-bottom: 56px;" data-reveal>
-        <span class="eyebrow" style="display: block; margin-bottom: 12px;">Our Team</span>
-        <h2 class="font-heading">Meet the Team</h2>
+        <span class="eyebrow" style="display: block; margin-bottom: 12px;">Our People</span>
+        <h2 class="font-heading">Meet the Leadership Team</h2>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" style="gap: 24px;" data-stagger-parent>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" style="gap: 32px;" data-stagger-parent>
         {team.map((member) => (
           <div style="text-align: center;" data-stagger-child>
             <div style="width: 100%; aspect-ratio: 3/4; background: var(--color-stone); margin-bottom: 20px; overflow: hidden;">
               <img
                 src={member.image}
+                srcset={`${member.image.replace('.webp', '-400w.webp')} 400w, ${member.image.replace('.webp', '-600w.webp')} 600w`}
+                sizes="(max-width: 768px) 50vw, 200px"
                 alt={member.name}
                 width="300"
                 height="400"
@@ -95,42 +130,66 @@ const schema = {
               />
             </div>
             <h3 class="font-heading" style="font-size: 1.15rem; margin-bottom: 4px;">{member.name}</h3>
-            <span style="font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-brass); display: block; margin-bottom: 12px;">
+            <span style="font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-brass); display: block; margin-bottom: 8px;">
               {member.role}
             </span>
-            <p style="font-size: 0.85rem; color: rgba(44,44,46,0.65); line-height: 1.7;">
+            <p style="font-size: 0.85rem; color: rgba(44,44,46,0.65); line-height: 1.7; margin-bottom: 8px;">
               {member.bio}
             </p>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 6px;">
+              {member.qualifications.map((q) => (
+                <span style="font-size: 0.68rem; padding: 3px 8px; background: var(--color-stone); color: rgba(44,44,46,0.6); font-weight: 500;">{q}</span>
+              ))}
+            </div>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Accreditations -->
+  <!-- Awards & Accreditations -->
   <section style="padding: 80px 0; background: var(--color-stone);">
     <div style="max-width: 900px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
       <div style="text-align: center; margin-bottom: 48px;" data-reveal>
-        <span class="eyebrow" style="display: block; margin-bottom: 12px;">Credentials</span>
-        <h2 class="font-heading">Accreditations & Memberships</h2>
+        <span class="eyebrow" style="display: block; margin-bottom: 12px;">Recognition</span>
+        <h2 class="font-heading">Awards & Accreditations</h2>
       </div>
 
+      <!-- Awards -->
+      <div style="margin-bottom: 40px;" data-reveal>
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <div style="padding: 24px; background: var(--color-warm-white); border-left: 3px solid var(--color-brass);">
+            <h3 style="font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; color: var(--color-charcoal); margin-bottom: 4px;">LABC Building Excellence Award 2024</h3>
+            <p style="font-size: 0.85rem; color: rgba(44,44,46,0.65);">Best Residential Renovation — The Willows, Chelmsford</p>
+          </div>
+          <div style="padding: 24px; background: var(--color-warm-white); border-left: 3px solid var(--color-brass);">
+            <h3 style="font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; color: var(--color-charcoal); margin-bottom: 4px;">FMB Master Builder of the Year 2023</h3>
+            <p style="font-size: 0.85rem; color: rgba(44,44,46,0.65);">South East Region — Residential Construction</p>
+          </div>
+          <div style="padding: 24px; background: var(--color-warm-white); border-left: 3px solid var(--color-brass);">
+            <h3 style="font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; color: var(--color-charcoal); margin-bottom: 4px;">Checkatrade Rated People Award 2022</h3>
+            <p style="font-size: 0.85rem; color: rgba(44,44,46,0.65);">Top-rated builder in Essex — 9.8/10 average from 140+ reviews</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Accreditations -->
       <div class="grid grid-cols-1 md:grid-cols-2" style="gap: 20px;" data-stagger-parent>
         <div style="padding: 28px; background: var(--color-warm-white); border: 1px solid var(--color-border);" data-stagger-child>
           <h3 style="font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; color: var(--color-charcoal); margin-bottom: 8px;">Federation of Master Builders</h3>
-          <p style="font-size: 0.85rem; color: rgba(44,44,46,0.65); line-height: 1.7;">{SITE.accreditations.fmb}. Independently vetted and bound by a strict code of practice.</p>
+          <p style="font-size: 0.85rem; color: rgba(44,44,46,0.65); line-height: 1.7;">{SITE.accreditations.fmb}. Independently vetted and bound by a strict code of practice, with insurance-backed warranty protection.</p>
         </div>
         <div style="padding: 28px; background: var(--color-warm-white); border: 1px solid var(--color-border);" data-stagger-child>
           <h3 style="font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; color: var(--color-charcoal); margin-bottom: 8px;">TrustMark</h3>
-          <p style="font-size: 0.85rem; color: rgba(44,44,46,0.65); line-height: 1.7;">{SITE.accreditations.trustmark}. Government-endorsed quality scheme with financial protection.</p>
+          <p style="font-size: 0.85rem; color: rgba(44,44,46,0.65); line-height: 1.7;">{SITE.accreditations.trustmark}. Government-endorsed quality scheme with financial protection for consumers.</p>
         </div>
         <div style="padding: 28px; background: var(--color-warm-white); border: 1px solid var(--color-border);" data-stagger-child>
-          <h3 style="font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; color: var(--color-charcoal); margin-bottom: 8px;">Checkatrade</h3>
-          <p style="font-size: 0.85rem; color: rgba(44,44,46,0.65); line-height: 1.7;">Verified member with 120+ verified reviews and a 9.8/10 average rating.</p>
+          <h3 style="font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; color: var(--color-charcoal); margin-bottom: 8px;">NHBC</h3>
+          <p style="font-size: 0.85rem; color: rgba(44,44,46,0.65); line-height: 1.7;">Registered new-build house builder. All new builds covered by NHBC Buildmark 10-year warranty.</p>
         </div>
         <div style="padding: 28px; background: var(--color-warm-white); border: 1px solid var(--color-border);" data-stagger-child>
           <h3 style="font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; color: var(--color-charcoal); margin-bottom: 8px;">LABC</h3>
-          <p style="font-size: 0.85rem; color: rgba(44,44,46,0.65); line-height: 1.7;">Local Authority Building Control partner. All builds inspected and certified.</p>
+          <p style="font-size: 0.85rem; color: rgba(44,44,46,0.65); line-height: 1.7;">Registered Building Control partner. All builds inspected and certified to the highest standard.</p>
         </div>
       </div>
     </div>

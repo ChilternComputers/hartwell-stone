@@ -5,39 +5,45 @@ import CTABanner from '@/components/CTABanner.astro';
 
 const regions = [
   {
-    name: 'Central Essex',
+    name: 'Essex & East Anglia',
+    desc: 'Our heartland — where we\'ve been building for 37 years.',
     areas: [
-      { name: 'Chelmsford', desc: 'Our home base. Full range of construction services in the county town.' },
-      { name: 'Broomfield', desc: 'Extensions, loft conversions and renovations for this popular residential area.' },
-      { name: 'Writtle', desc: 'Serving the village and surrounding rural properties with bespoke builds.' },
-      { name: 'Springfield', desc: 'Close to our offices — quick response times for consultations and builds.' },
+      { name: 'Chelmsford', desc: 'Our home base and headquarters. Full range of services with the shortest lead times.' },
+      { name: 'Brentwood', desc: 'One of our most active areas — premium residential construction in one of Essex\'s most desirable addresses.' },
+      { name: 'Billericay', desc: 'Extensions, renovations and new builds for this thriving market town and surrounding villages.' },
+      { name: 'Ingatestone', desc: 'Bespoke construction services for village properties and rural estates.' },
+      { name: 'Maldon', desc: 'Heritage conversions and residential projects in the Blackwater estuary area.' },
+      { name: 'Colchester', desc: 'Serving north Essex with the same exacting standards and personal service.' },
     ],
   },
   {
-    name: 'West Essex',
+    name: 'London & Home Counties',
+    desc: 'Easy access from our Chelmsford base for projects across the capital and surrounding counties.',
     areas: [
-      { name: 'Brentwood', desc: 'Premium residential construction in one of Essex\'s most desirable areas.' },
-      { name: 'Billericay', desc: 'Extensions, renovations and new builds for this thriving market town.' },
-      { name: 'Ingatestone', desc: 'Bespoke construction services for village and rural properties.' },
-      { name: 'Shenfield', desc: 'High-quality residential builds in this commuter-friendly location.' },
+      { name: 'East London', desc: 'Extensions, renovations and conversions across Romford, Hornchurch, Ilford and surrounding boroughs.' },
+      { name: 'North London', desc: 'Heritage restoration and new build projects in Enfield, Barnet and the northern boroughs.' },
+      { name: 'Hertfordshire', desc: 'Bespoke residential construction in Bishop\'s Stortford, Ware, Hertford and surrounding areas.' },
+      { name: 'Kent', desc: 'Selected projects in north Kent, including Sevenoaks, Tonbridge and the Weald.' },
     ],
   },
   {
-    name: 'South Essex',
+    name: 'South East & East Anglia',
+    desc: 'Extended coverage for larger commissions.',
     areas: [
-      { name: 'Basildon', desc: 'Full construction services across Basildon and surrounding areas.' },
-      { name: 'Southend-on-Sea', desc: 'Extensions and renovations along the Essex coast.' },
-      { name: 'Rayleigh', desc: 'Loft conversions, extensions and bathroom installations.' },
-      { name: 'Wickford', desc: 'Residential construction and home improvement projects.' },
+      { name: 'Suffolk', desc: 'Barn conversions and heritage projects in Lavenham, Long Melford, Bury St Edmunds and surrounds.' },
+      { name: 'Cambridge', desc: 'New builds and renovation projects in the city and surrounding villages.' },
+      { name: 'Surrey', desc: 'Selected projects in Guildford, Farnham, Esher and the Surrey Hills.' },
+      { name: 'Sussex', desc: 'Heritage and new build projects in Chichester, Lewes, Brighton and the South Downs.' },
     ],
   },
   {
-    name: 'East London & Beyond',
+    name: 'Nationwide by Arrangement',
+    desc: 'For projects typically exceeding £500,000, we work nationwide.',
     areas: [
-      { name: 'Romford', desc: 'Extensions, loft conversions and full renovations across Romford.' },
-      { name: 'Hornchurch', desc: 'Premium construction services for this popular residential borough.' },
-      { name: 'Colchester', desc: 'Serving north Essex with the same high standards and personal service.' },
-      { name: 'Maldon', desc: 'Construction projects in the Blackwater estuary area and surrounds.' },
+      { name: 'The Cotswolds', desc: 'Stone barn conversions and period property renovations. Current furthest active project.' },
+      { name: 'The Midlands', desc: 'New builds and large-scale residential projects across the region.' },
+      { name: 'The South West', desc: 'Heritage projects in Bath, Bristol, Dorset and Devon by arrangement.' },
+      { name: 'Nationwide', desc: 'Contact us for any project above £500,000 — we\'ll assess feasibility and logistics.' },
     ],
   },
 ];
@@ -53,17 +59,17 @@ const schema = {
 ---
 
 <Layout
-  title={`Service Areas | ${SITE.name}`}
-  description="Hartwell & Stone serves Chelmsford, Brentwood, Billericay, Romford, Basildon, Southend and all of Essex. Find your local builder."
+  title={`Service Areas | ${SITE.name} — Essex, London, South East & Nationwide`}
+  description="Based in Chelmsford, Hartwell & Stone serves Essex, London, the Home Counties and East Anglia. Nationwide coverage for larger projects by arrangement."
   schema={schema}
 >
   <!-- Page Header -->
   <section style="padding: 140px 0 64px; background: var(--color-charcoal);">
     <div style="max-width: 900px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px); text-align: center;">
       <span class="eyebrow eyebrow-light" style="display: block; margin-bottom: 12px;">Coverage</span>
-      <h1 class="font-heading" style="color: var(--color-text-light);">Our Service Areas</h1>
+      <h1 class="font-heading" style="color: var(--color-text-light);">Where We Work</h1>
       <p style="font-size: 1rem; color: rgba(240,237,232,0.7); line-height: 1.8; margin-top: 16px; max-width: 600px; margin-left: auto; margin-right: auto;">
-        Based in Chelmsford, we provide premium residential construction across Essex and into East London.
+        Based in Chelmsford, we work across Essex, London and the South East as standard. For larger commissions, we operate nationwide by arrangement.
       </p>
     </div>
   </section>
@@ -72,10 +78,13 @@ const schema = {
   {regions.map((region, i) => (
     <section style={`padding: 64px 0; background: ${i % 2 === 0 ? 'var(--color-warm-white)' : 'var(--color-stone)'};`}>
       <div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
-        <h2 class="font-heading" style="font-size: 1.8rem; margin-bottom: 32px; text-align: center;" data-reveal>{region.name}</h2>
+        <div style="text-align: center; margin-bottom: 32px;" data-reveal>
+          <h2 class="font-heading" style="font-size: 1.8rem; margin-bottom: 8px;">{region.name}</h2>
+          <p style="font-size: 0.9rem; color: rgba(44,44,46,0.55); font-style: italic;">{region.desc}</p>
+        </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4" style="gap: 20px;" data-stagger-parent>
           {region.areas.map((area) => (
-            <div style="padding: 24px; background: var(--color-warm-white); border: 1px solid var(--color-border);" data-stagger-child>
+            <div style={`padding: 24px; background: var(--color-warm-white); border: 1px solid var(--color-border);`} data-stagger-child>
               <h3 style="font-family: var(--font-body); font-size: 1rem; font-weight: 600; color: var(--color-charcoal); margin-bottom: 8px;">{area.name}</h3>
               <p style="font-size: 0.85rem; color: rgba(44,44,46,0.65); line-height: 1.7;">{area.desc}</p>
             </div>

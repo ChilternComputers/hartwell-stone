@@ -2,28 +2,28 @@
 const steps = [
   {
     number: '01',
-    title: 'Consultation',
-    description: 'Free site visit to discuss your vision, assess feasibility and provide initial guidance.',
+    title: 'Initial Consultation',
+    description: 'A complimentary site visit to understand your vision, assess feasibility and discuss your aspirations for the project.',
   },
   {
     number: '02',
-    title: 'Design',
-    description: 'Detailed plans and 3D visualisations. We work with architects to perfect every detail.',
+    title: 'Design Development',
+    description: 'Working with your architect or our design partners to refine plans, select materials and resolve technical details.',
   },
   {
     number: '03',
-    title: 'Planning',
-    description: 'We handle all planning applications, building regulations and party wall agreements.',
+    title: 'Planning & Approvals',
+    description: 'We manage all planning applications, Listed Building Consent, Building Regulations and party wall agreements on your behalf.',
   },
   {
     number: '04',
-    title: 'Build',
-    description: 'Expert construction by our in-house team. Regular updates and a dedicated project manager.',
+    title: 'Construction',
+    description: 'Expert build by our directly employed teams, with fortnightly progress reports and a dedicated project manager throughout.',
   },
   {
     number: '05',
-    title: 'Handover',
-    description: 'Final snagging, deep clean and handover. Your project backed by our 10-year guarantee.',
+    title: 'Handover & Aftercare',
+    description: 'Rigorous snagging, professional clean, full documentation and our 10-year structural guarantee. We remain on hand long after completion.',
   },
 ];
 ---
@@ -35,21 +35,98 @@ const steps = [
       <h2 class="font-heading" style="color: var(--color-text-light);">How We Work</h2>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-5" style="gap: 32px;" data-stagger-parent>
-      {steps.map((step) => (
-        <div style="text-align: center;" data-stagger-child>
-          <span class="font-heading" style="font-size: 2.5rem; color: var(--color-brass); display: block; line-height: 1; margin-bottom: 12px;">
-            {step.number}
-          </span>
-          <div class="line-accent" style="margin: 0 auto 16px;" aria-hidden="true"></div>
-          <h3 class="font-heading" style="font-size: 1.15rem; color: var(--color-text-light); margin-bottom: 10px;">
-            {step.title}
-          </h3>
-          <p style="font-size: 0.85rem; color: rgba(240,237,232,0.6); line-height: 1.7;">
-            {step.description}
-          </p>
+    <!-- Desktop: horizontal connected timeline -->
+    <div class="hidden md:block" id="timeline-desktop">
+      <div style="position: relative; display: flex; justify-content: space-between; align-items: flex-start;">
+        <!-- Connecting line behind steps -->
+        <div style="position: absolute; top: 28px; left: 28px; right: 28px; height: 2px; background: rgba(184,134,11,0.2);" aria-hidden="true">
+          <div id="timeline-progress" style="width: 0%; height: 100%; background: var(--color-brass); transition: width 0.01ms;"></div>
         </div>
-      ))}
+
+        {steps.map((step) => (
+          <div class="timeline-step" style="flex: 1; text-align: center; position: relative; max-width: 200px;">
+            <div class="timeline-step-number" style="margin: 0 auto 20px;">
+              {step.number}
+            </div>
+            <h3 class="font-heading" style="font-size: 1.1rem; color: var(--color-text-light); margin-bottom: 10px;">
+              {step.title}
+            </h3>
+            <p style="font-size: 0.82rem; color: rgba(240,237,232,0.55); line-height: 1.7;">
+              {step.description}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Mobile: vertical connected timeline -->
+    <div class="md:hidden" id="timeline-mobile">
+      <div style="position: relative; padding-left: 48px;">
+        <!-- Vertical connecting line -->
+        <div style="position: absolute; top: 0; left: 23px; width: 2px; bottom: 0; background: rgba(184,134,11,0.2);" aria-hidden="true"></div>
+
+        {steps.map((step, i) => (
+          <div class="timeline-step" style={`position: relative; ${i < steps.length - 1 ? 'padding-bottom: 40px;' : ''}`}>
+            <div class="timeline-step-number" style="position: absolute; left: -48px; top: 0; width: 48px; height: 48px; font-size: 1.1rem;">
+              {step.number}
+            </div>
+            <h3 class="font-heading" style="font-size: 1.05rem; color: var(--color-text-light); margin-bottom: 8px;">
+              {step.title}
+            </h3>
+            <p style="font-size: 0.82rem; color: rgba(240,237,232,0.55); line-height: 1.7;">
+              {step.description}
+            </p>
+          </div>
+        ))}
+      </div>
     </div>
   </div>
 </section>
+
+<script>
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    import('gsap').then(({ gsap }) => {
+      import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        const steps = document.querySelectorAll('.timeline-step');
+        const progress = document.getElementById('timeline-progress');
+
+        // Sequential step reveal
+        steps.forEach((step, i) => {
+          const num = step.querySelector('.timeline-step-number');
+          gsap.fromTo(
+            step,
+            { opacity: 0, y: 20 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.6,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: step,
+                start: 'top 85%',
+                once: true,
+                onEnter: () => {
+                  if (num) num.classList.add('revealed');
+                  // Advance progress bar on desktop
+                  if (progress && i < 5) {
+                    gsap.to(progress, {
+                      width: `${(i + 1) * 25}%`,
+                      duration: 0.5,
+                      ease: 'power2.out',
+                    });
+                  }
+                },
+              },
+            }
+          );
+        });
+      });
+    });
+  } else {
+    document.querySelectorAll('.timeline-step').forEach((el) => {
+      (el as HTMLElement).style.opacity = '1';
+    });
+  }
+</script>

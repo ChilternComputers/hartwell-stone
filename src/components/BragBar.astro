@@ -1,22 +1,46 @@
 ---
 const badges = [
-  { name: 'FMB', label: 'Federation of Master Builders' },
-  { name: 'TrustMark', label: 'Government Endorsed Quality' },
-  { name: 'Checkatrade', label: 'Vetted & Reviewed' },
-  { name: 'LABC', label: 'Building Control Partner' },
+  { name: 'FMB', label: 'Member No. 48291' },
+  { name: 'TrustMark', label: 'Reg. TM39841' },
+  { name: 'Checkatrade', label: '9.8/10 Average' },
+  { name: 'LABC', label: 'Registered Partner' },
+  { name: 'NHBC', label: 'Registered Builder' },
   { name: 'Which?', label: 'Trusted Trader' },
 ];
 ---
 
-<section style="background: var(--color-stone); border-top: 1px solid rgba(184,134,11,0.15); border-bottom: 1px solid rgba(184,134,11,0.15);">
-  <div style="max-width: 1200px; margin: 0 auto; padding: 32px clamp(24px, 4vw, 48px);">
-    <div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 32px 48px;" data-reveal>
+<section class="brag-bar" style="background: var(--color-stone); border-top: 1px solid rgba(184,134,11,0.15); border-bottom: 1px solid rgba(184,134,11,0.15); position: relative; overflow: hidden;">
+  <div class="brag-sweep"></div>
+  <div style="max-width: 1200px; margin: 0 auto; padding: 32px clamp(24px, 4vw, 48px); position: relative; z-index: 1;">
+    <div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 32px 48px;" data-stagger-parent>
       {badges.map((badge) => (
-        <div style="text-align: center; opacity: 0.7;">
-          <span style="font-size: 0.85rem; font-weight: 600; color: var(--color-text-dark); letter-spacing: 0.05em; display: block;">{badge.name}</span>
+        <div style="text-align: center;" data-stagger-child>
+          <span style="font-size: 0.85rem; font-weight: 600; color: var(--color-text-dark); letter-spacing: 0.05em; display: block; transition: color 0.3s ease;">{badge.name}</span>
           <span style="font-size: 0.68rem; color: rgba(44,44,46,0.6); display: block; margin-top: 2px;">{badge.label}</span>
         </div>
       ))}
     </div>
   </div>
 </section>
+
+<style>
+  .brag-sweep {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent 0%, rgba(184,134,11,0.1) 40%, rgba(184,134,11,0.18) 50%, rgba(184,134,11,0.1) 60%, transparent 100%);
+    animation: brag-sweep-anim 8s ease-in-out infinite;
+    z-index: 0;
+    pointer-events: none;
+  }
+  @keyframes brag-sweep-anim {
+    0% { left: -100%; }
+    50% { left: 100%; }
+    100% { left: 100%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .brag-sweep { animation: none; display: none; }
+  }
+</style>

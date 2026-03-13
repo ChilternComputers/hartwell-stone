@@ -3,6 +3,7 @@ import Layout from '@/layouts/Layout.astro';
 import { SITE } from '@/config';
 import { projects } from '@/data/projects';
 import ProjectCard from '@/components/ProjectCard.astro';
+import CaseStudyModal from '@/components/CaseStudyModal.astro';
 import CTABanner from '@/components/CTABanner.astro';
 
 const types = [...new Set(projects.map((p) => p.type))];
@@ -18,17 +19,17 @@ const schema = {
 ---
 
 <Layout
-  title={`Our Projects | ${SITE.name}`}
-  description="Browse our portfolio of extensions, loft conversions, renovations and new builds across Essex. See the quality of our work."
+  title={`Our Projects | ${SITE.name} — Portfolio of Award-Winning Construction`}
+  description="Browse our portfolio of bespoke new builds, heritage restorations, barn conversions and elegant extensions. Each project tells a story of craftsmanship and collaboration."
   schema={schema}
 >
   <!-- Page Header -->
   <section style="padding: 140px 0 64px; background: var(--color-charcoal);">
     <div style="max-width: 900px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px); text-align: center;">
-      <span class="eyebrow eyebrow-light" style="display: block; margin-bottom: 12px;">Portfolio</span>
+      <span class="eyebrow eyebrow-light" style="display: block; margin-bottom: 12px;">Selected Work</span>
       <h1 class="font-heading" style="color: var(--color-text-light);">Our Projects</h1>
       <p style="font-size: 1rem; color: rgba(240,237,232,0.7); line-height: 1.8; margin-top: 16px; max-width: 600px; margin-left: auto; margin-right: auto;">
-        Explore our portfolio of completed projects across Essex. Each one built to the highest standards.
+        Each project represents a unique collaboration between our team and our clients. Click any project to explore the full case study.
       </p>
     </div>
   </section>
@@ -37,11 +38,11 @@ const schema = {
   <section style="padding: 64px 0 96px; background: var(--color-warm-white);">
     <div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
       <!-- Filter buttons -->
-      <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 48px;" id="project-filters">
+      <div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 48px;" id="project-filters">
         <button
           class="filter-btn active"
           data-filter="all"
-          style="padding: 10px 22px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; border: 2px solid var(--color-brass); background: var(--color-brass); color: var(--color-warm-white); cursor: pointer; transition: all 0.3s ease;"
+          style="padding: 8px 16px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; border: 2px solid var(--color-brass); background: var(--color-brass); color: var(--color-warm-white); cursor: pointer; transition: all 0.3s ease; font-family: var(--font-body);"
         >
           All
         </button>
@@ -49,7 +50,7 @@ const schema = {
           <button
             class="filter-btn"
             data-filter={type}
-            style="padding: 10px 22px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; border: 2px solid var(--color-border); background: transparent; color: var(--color-text-dark); cursor: pointer; transition: all 0.3s ease;"
+            style="padding: 8px 16px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; border: 2px solid var(--color-border); background: transparent; color: var(--color-text-dark); cursor: pointer; transition: all 0.3s ease; font-family: var(--font-body);"
           >
             {type}
           </button>
@@ -57,10 +58,10 @@ const schema = {
       </div>
 
       <!-- Project grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style="gap: 24px;" id="project-grid" data-stagger-parent>
-        {projects.map((project) => (
-          <div data-project-type={project.type} data-stagger-child>
-            <ProjectCard {...project} />
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style="gap: 24px;" id="project-grid">
+        {projects.map((project, i) => (
+          <div data-project-type={project.type} class="project-item" data-index={i} style="cursor: pointer;">
+            <ProjectCard {...project} index={i} />
           </div>
         ))}
       </div>
@@ -68,11 +69,13 @@ const schema = {
   </section>
 
   <CTABanner />
+  <CaseStudyModal />
 </Layout>
 
 <script>
   const filterBtns = document.querySelectorAll('.filter-btn');
-  const projectCards = document.querySelectorAll('[data-project-type]');
+  const projectItems = document.querySelectorAll('.project-item');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   filterBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -92,15 +95,45 @@ const schema = {
         }
       });
 
-      // Filter cards
-      projectCards.forEach((card) => {
+      // Animated filter transition
+      projectItems.forEach((card) => {
         const el = card as HTMLElement;
-        if (filter === 'all' || card.getAttribute('data-project-type') === filter) {
-          el.style.display = 'block';
+        const match = filter === 'all' || card.getAttribute('data-project-type') === filter;
+
+        if (!match) {
+          if (!prefersReducedMotion) {
+            el.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            el.style.opacity = '0';
+            el.style.transform = 'scale(0.95)';
+            setTimeout(() => { el.style.display = 'none'; }, 300);
+          } else {
+            el.style.display = 'none';
+          }
         } else {
-          el.style.display = 'none';
+          el.style.display = 'block';
+          if (!prefersReducedMotion) {
+            el.style.opacity = '0';
+            el.style.transform = 'scale(0.95)';
+            requestAnimationFrame(() => {
+              el.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+              el.style.opacity = '1';
+              el.style.transform = 'scale(1)';
+            });
+          } else {
+            el.style.opacity = '1';
+          }
         }
       });
+    });
+  });
+
+  // Click to open case study modal
+  projectItems.forEach((item) => {
+    item.addEventListener('click', () => {
+      const index = parseInt(item.getAttribute('data-index') || '0');
+      if (typeof (window as any).__openCaseStudy === 'function') {
+        (window as any).__openCaseStudy(index);
+      }
     });
   });
 </script>

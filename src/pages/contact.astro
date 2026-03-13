@@ -14,17 +14,17 @@ const schema = {
 ---
 
 <Layout
-  title={`Contact Us | ${SITE.name}`}
-  description="Get a free, no-obligation quote for your construction project. Call us, email, or fill in our online form. Serving Essex and beyond."
+  title={`Contact Us | ${SITE.name} — Arrange a Complimentary Consultation`}
+  description="Arrange a complimentary site consultation. Call, email or submit a project enquiry. We'll visit your property, listen to your aspirations and provide honest guidance — no obligation."
   schema={schema}
 >
   <!-- Page Header -->
   <section style="padding: 140px 0 64px; background: var(--color-charcoal);">
     <div style="max-width: 900px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px); text-align: center;">
       <span class="eyebrow eyebrow-light" style="display: block; margin-bottom: 12px;">Get In Touch</span>
-      <h1 class="font-heading" style="color: var(--color-text-light);">Contact Us</h1>
+      <h1 class="font-heading" style="color: var(--color-text-light);">Start a Conversation</h1>
       <p style="font-size: 1rem; color: rgba(240,237,232,0.7); line-height: 1.8; margin-top: 16px;">
-        Ready to discuss your project? Get in touch for a free, no-obligation consultation.
+        Every exceptional home begins with a conversation. Arrange a complimentary site consultation — we'll listen to your aspirations and provide honest, expert guidance.
       </p>
     </div>
   </section>
@@ -61,7 +61,7 @@ const schema = {
             </div>
 
             <div>
-              <span style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brass); display: block; margin-bottom: 6px;">Address</span>
+              <span style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brass); display: block; margin-bottom: 6px;">Office</span>
               <p style="font-size: 0.95rem; color: var(--color-text-dark); line-height: 1.7;">
                 {SITE.address.street}<br />
                 {SITE.address.area}, {SITE.address.city}<br />
@@ -81,16 +81,16 @@ const schema = {
 
           <div style="padding: 24px; background: var(--color-stone); border-left: 3px solid var(--color-brass);">
             <p style="font-size: 0.88rem; color: var(--color-text-dark); line-height: 1.7;">
-              <strong>Free consultations</strong> — We offer free site visits across Essex. No hard sell, just honest advice about your project.
+              <strong>Complimentary consultations</strong> — We offer free site visits across Essex and the South East. No hard sell — just honest, expert advice about your project's potential.
             </p>
           </div>
         </div>
 
-        <!-- Quote Form (3 cols) -->
+        <!-- Project Enquiry Form (3 cols) -->
         <div class="lg:col-span-3" style="background: var(--color-stone); padding: 40px;" data-reveal>
-          <h2 class="font-heading" style="font-size: 1.5rem; margin-bottom: 8px; text-align: center;">Request a Free Quote</h2>
+          <h2 class="font-heading" style="font-size: 1.5rem; margin-bottom: 8px; text-align: center;">Project Enquiry</h2>
           <p style="font-size: 0.88rem; color: rgba(44,44,46,0.6); text-align: center; margin-bottom: 32px;">
-            Tell us about your project and we'll get back to you within 24 hours.
+            Tell us about your project and a member of our team will be in touch within 24 hours.
           </p>
           <QuoteForm />
         </div>
@@ -98,27 +98,4 @@ const schema = {
       </div>
     </div>
   </section>
-
-  <!-- Sticky mobile CTA -->
-  <div
-    class="lg:hidden"
-    style="position: fixed; bottom: 0; left: 0; right: 0; z-index: 40; background: var(--color-charcoal); padding: 12px 16px; display: flex; gap: 12px; border-top: 1px solid rgba(184,134,11,0.3);"
-  >
-    <a
-      href={`tel:${SITE.phone.replace(/\s/g, '')}`}
-      class="btn-primary btn-fill"
-      style="flex: 1; padding: 14px; text-align: center;"
-    >
-      Call Now
-    </a>
-    <a
-      href={`https://wa.me/${SITE.whatsapp}`}
-      target="_blank"
-      rel="noopener noreferrer"
-      class="btn-primary btn-outline-light"
-      style="flex: 1; padding: 14px; text-align: center;"
-    >
-      WhatsApp
-    </a>
-  </div>
 </Layout>
