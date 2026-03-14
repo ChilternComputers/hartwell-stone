@@ -64,7 +64,7 @@ export const insights: Insight[] = [
     title: 'Barn Conversions in Essex: What to Expect',
     slug: 'barn-conversions-essex',
     category: 'Heritage',
-    excerpt: 'Essex has hundreds of agricultural buildings with conversion potential. Here is a realistic guide to the process, costs and pitfalls of barn conversion projects.',
+    excerpt: 'Essex has hundreds of agricultural buildings with conversion potential. A realistic guide to the process, costs and pitfalls of barn conversions.',
     content: [
       'Essex\'s agricultural heritage has left the county with a remarkable stock of barns, granaries, cart lodges and oast houses — many of which are suitable for residential conversion. Since the introduction of Class Q permitted development rights in 2014, converting agricultural buildings to dwellings has become more accessible, but the process is rarely straightforward.',
       'Class Q permits the change of use of agricultural buildings to dwellinghouses without a full planning application, subject to a prior approval process. However, the building must have been in agricultural use on 20 March 2013, the floor area must not exceed 465m², and the conversion must be achievable through building operations that are reasonably necessary — not a wholesale rebuild.',
@@ -81,7 +81,7 @@ export const insights: Insight[] = [
     title: 'Choosing the Right Builder: 10 Questions to Ask',
     slug: 'choosing-the-right-builder',
     category: 'Advice',
-    excerpt: 'Selecting a builder for a significant construction project is one of the most important decisions you will make as a homeowner. Here are the questions that matter.',
+    excerpt: 'Selecting a builder for a major project is one of the most important decisions you will make. Here are the questions that matter.',
     content: [
       'A building project is often the largest investment a homeowner makes after purchasing their property. Yet many people spend more time choosing a kitchen supplier than vetting the contractor who will manage a six-figure build. Here are ten questions that will separate the professionals from the rest.',
       '1. Are you a member of the Federation of Master Builders? FMB membership requires independent vetting, proof of insurance and adherence to a code of practice. It is not a guarantee of quality, but it is a meaningful filter. Ask for the membership number and verify it on the FMB website.',
@@ -120,7 +120,7 @@ export const insights: Insight[] = [
     title: 'Loft Conversions: Types, Costs and Planning Requirements',
     slug: 'loft-conversions-guide',
     category: 'Cost Guides',
-    excerpt: 'A loft conversion is one of the most cost-effective ways to add space and value to your home. Here is an honest guide to the options, costs and considerations.',
+    excerpt: 'A loft conversion is one of the most cost-effective ways to add space and value. An honest guide to the options, costs and considerations.',
     content: [
       'A well-executed loft conversion can add 10–20% to the value of a property while providing genuinely useful living space. In Essex and the wider South East, where land values make moving expensive, converting your loft is often the smartest investment you can make.',
       'There are four main types of loft conversion. A Velux (or rooflight) conversion is the simplest and most affordable: roof windows are installed into the existing roof structure without altering the external profile. This works best where there is already sufficient headroom — typically 2.2m from joist to ridge. Costs range from £35,000 to £50,000.',

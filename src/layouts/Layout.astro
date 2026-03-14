@@ -33,7 +33,7 @@ const ogImageURL = ogImage || `${SITE.url}/og-image.jpg`;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
-    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    {noindex && <meta name="robots" content="noindex" />}
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
