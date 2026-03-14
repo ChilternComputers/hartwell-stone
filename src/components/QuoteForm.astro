@@ -12,7 +12,7 @@
   </div>
 
   <p style="font-size: 0.78rem; color: var(--color-text-muted); text-align: center; margin-bottom: 24px;">Fields marked with <span class="text-red-600">*</span> are required</p>
-  <form id="multi-step-form" novalidate>
+  <form id="multi-step-form">
     <!-- Step 1: Project Type -->
     <fieldset id="step-1" style="border: none; padding: 0; margin: 0;">
       <legend class="font-heading" style="font-size: 1.5rem; color: var(--color-charcoal); margin-bottom: 24px; display: block;">What type of project are you considering?</legend>
@@ -34,7 +34,7 @@
     </fieldset>
 
     <!-- Step 2: Project Details -->
-    <fieldset id="step-2" style="border: none; padding: 0; margin: 0; display: none;">
+    <fieldset id="step-2" style="border: none; padding: 0; margin: 0;">
       <legend class="font-heading" style="font-size: 1.5rem; color: var(--color-charcoal); margin-bottom: 24px; display: block;">Tell us about your project</legend>
 
       <div style="display: flex; flex-direction: column; gap: 20px;">
@@ -100,7 +100,7 @@
     </fieldset>
 
     <!-- Step 3: Contact Info -->
-    <fieldset id="step-3" style="border: none; padding: 0; margin: 0; display: none;">
+    <fieldset id="step-3" style="border: none; padding: 0; margin: 0;">
       <legend class="font-heading" style="font-size: 1.5rem; color: var(--color-charcoal); margin-bottom: 24px; display: block;">Your contact details</legend>
 
       <div style="display: flex; flex-direction: column; gap: 20px;">
@@ -208,6 +208,10 @@
   ];
   const dots = document.querySelectorAll('.step-dot');
   const successMsg = document.getElementById('form-success');
+
+  // Hide steps 2-3 via JS so form degrades gracefully without JS
+  if (steps[1]) steps[1].style.display = 'none';
+  if (steps[2]) steps[2].style.display = 'none';
 
   function showStep(n: number) {
     steps.forEach((s, i) => {

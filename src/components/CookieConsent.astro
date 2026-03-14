@@ -3,7 +3,6 @@
   id="cookie-consent"
   role="dialog"
   aria-label="Cookie consent"
-  aria-modal="true"
   style="display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 9999; background: var(--color-charcoal); border-top: 1px solid rgba(184, 134, 11, 0.3); padding: 20px 24px;"
 >
   <div style="max-width: 960px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
@@ -40,7 +39,6 @@
     requestAnimationFrame(() => {
       if (banner) {
         banner.style.display = 'block';
-        banner.setAttribute('aria-modal', 'true');
         // Move focus into the dialog after page settles so keyboard users discover it
         setTimeout(() => {
           if (privacyLink) privacyLink.focus();
@@ -53,7 +51,6 @@
     localStorage.setItem('cookie-consent', value);
     if (banner) {
       banner.style.display = 'none';
-      banner.removeAttribute('aria-modal');
     }
   }
 
