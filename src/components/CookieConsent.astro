@@ -41,6 +41,10 @@
       if (banner) {
         banner.style.display = 'block';
         banner.setAttribute('aria-modal', 'true');
+        // Move focus into the dialog after page settles so keyboard users discover it
+        setTimeout(() => {
+          if (privacyLink) privacyLink.focus();
+        }, 500);
       }
     });
   }

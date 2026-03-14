@@ -4,6 +4,7 @@ import { SITE } from '@/config';
 import { testimonials } from '@/data/testimonials';
 import { projects } from '@/data/projects';
 import CTABanner from '@/components/CTABanner.astro';
+import PageHeader from '@/components/PageHeader.astro';
 
 function stars(count: number) {
   return '★'.repeat(count) + '☆'.repeat(5 - count);
@@ -38,21 +39,16 @@ const schema = [
   description="Read what our clients say about working with Hartwell & Stone. 4.9/5 average rating from 143 verified reviews across Google, Checkatrade and Trustpilot."
   schema={schema}
 >
-  <!-- Page Header -->
-  <section style="padding: 140px 0 64px; background: var(--color-charcoal);">
-    <div style="max-width: 900px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px); text-align: center;">
-      <nav aria-label="Breadcrumb" style="margin-bottom: 12px;">
-        <ol style="list-style: none; display: flex; gap: 8px; font-size: 0.8rem; justify-content: center; padding: 0; margin: 0;">
-          <li><a href="/" style="color: rgba(240,237,232,0.85);">Home</a></li>
-          <li aria-hidden="true" style="color: rgba(240,237,232,0.5);">/</li>
-          <li aria-current="page" style="color: rgba(240,237,232,0.85);">Testimonials</li>
-        </ol>
-      </nav>
-      <span class="eyebrow eyebrow-light" style="display: block; margin-bottom: 12px;">Client Reviews</span>
-      <h1 class="font-heading" style="color: var(--color-text-light);">What Our Clients Say</h1>
+  <PageHeader
+    breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Testimonials' }]}
+    eyebrow="Client Reviews"
+    title="What Our Clients Say"
+  />
 
-      <!-- Aggregate rating -->
-      <div style="margin-top: 24px; display: flex; justify-content: center; align-items: center; gap: 16px; flex-wrap: wrap;">
+  <!-- Aggregate rating -->
+  <section style="padding: 0 0 64px; background: var(--color-charcoal); margin-top: -64px;">
+    <div style="max-width: 900px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px); text-align: center;">
+      <div style="display: flex; justify-content: center; align-items: center; gap: 16px; flex-wrap: wrap;">
         <span style="font-size: 2rem; color: var(--color-brass-light); letter-spacing: 3px;">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
         <div>
           <span class="font-heading" style="font-size: 2rem; color: var(--color-text-light);">{SITE.reviews.rating}</span>

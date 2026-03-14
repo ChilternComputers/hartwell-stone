@@ -3,6 +3,7 @@ import Layout from '@/layouts/Layout.astro';
 import { SITE } from '@/config';
 import { faqs } from '@/data/faqs';
 import CTABanner from '@/components/CTABanner.astro';
+import PageHeader from '@/components/PageHeader.astro';
 
 const schema = [
   {
@@ -33,27 +34,12 @@ const schema = [
   description="Answers to common questions about working with Hartwell & Stone — project costs, planning permission, timescales, guarantees, listed buildings and more."
   schema={schema}
 >
-  <!-- Page Header -->
-  <section style="padding: 140px 0 64px; background: var(--color-charcoal);">
-    <div style="max-width: 900px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px); text-align: center;">
-      <nav aria-label="Breadcrumb" style="margin-bottom: 24px;">
-        <ol style="list-style: none; padding: 0; margin: 0; display: flex; justify-content: center; gap: 8px;">
-          <li>
-            <a href="/" style="font-size: 0.78rem; color: rgba(240,237,232,0.85); transition: color 0.3s ease;" class="hover:text-text-light">Home</a>
-            <span style="color: rgba(240,237,232,0.4); margin-left: 8px;" aria-hidden="true">/</span>
-          </li>
-          <li aria-current="page">
-            <span style="font-size: 0.78rem; color: var(--color-brass-light);">FAQ</span>
-          </li>
-        </ol>
-      </nav>
-      <span class="eyebrow eyebrow-light" style="display: block; margin-bottom: 12px;">Common Questions</span>
-      <h1 class="font-heading" style="color: var(--color-text-light);">Frequently Asked Questions</h1>
-      <p style="font-size: 1rem; color: rgba(240,237,232,0.85); line-height: 1.8; margin-top: 16px; max-width: 600px; margin-left: auto; margin-right: auto;">
-        Honest answers to the questions we hear most often. If yours isn't here, we're always happy to talk.
-      </p>
-    </div>
-  </section>
+  <PageHeader
+    breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'FAQ' }]}
+    eyebrow="Common Questions"
+    title="Frequently Asked Questions"
+    description="Honest answers to the questions we hear most often. If yours isn't here, we're always happy to talk."
+  />
 
   <!-- FAQ Accordion -->
   <section style="padding: 80px 0; background: var(--color-warm-white);">

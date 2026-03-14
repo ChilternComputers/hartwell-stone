@@ -2,6 +2,7 @@
 import Layout from '@/layouts/Layout.astro';
 import { SITE } from '@/config';
 import { projects } from '@/data/projects';
+import PageHeader from '@/components/PageHeader.astro';
 
 const schema = {
   '@context': 'https://schema.org',
@@ -55,23 +56,12 @@ const types = [...new Set(projects.map((p) => p.type))];
   description="Explore our gallery of completed construction projects. From Georgian restorations to contemporary new builds, browse photography from across our portfolio."
   schema={schema}
 >
-  <!-- Page Header -->
-  <section style="padding: 140px 0 64px; background: var(--color-charcoal);">
-    <div style="max-width: 900px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px); text-align: center;">
-      <nav aria-label="Breadcrumb" style="margin-bottom: 12px;">
-        <ol style="list-style: none; display: flex; gap: 8px; font-size: 0.8rem; justify-content: center; padding: 0; margin: 0;">
-          <li><a href="/" style="color: rgba(240,237,232,0.85);">Home</a></li>
-          <li aria-hidden="true" style="color: rgba(240,237,232,0.5);">/</li>
-          <li aria-current="page" style="color: rgba(240,237,232,0.85);">Gallery</li>
-        </ol>
-      </nav>
-      <span class="eyebrow eyebrow-light" style="display: block; margin-bottom: 12px;">Our Work</span>
-      <h1 class="font-heading" style="color: var(--color-text-light);">Project Gallery</h1>
-      <p style="font-size: 1rem; color: rgba(240,237,232,0.85); line-height: 1.8; margin-top: 16px; max-width: 600px; margin-left: auto; margin-right: auto;">
-        A visual journey through our portfolio — from heritage restorations to contemporary new builds. Click any image to view the full project case study.
-      </p>
-    </div>
-  </section>
+  <PageHeader
+    breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Gallery' }]}
+    eyebrow="Our Work"
+    title="Project Gallery"
+    description="A visual journey through our portfolio — from heritage restorations to contemporary new builds. Click any image to view the full project case study."
+  />
 
   <!-- Filter + Gallery Grid -->
   <section style="padding: 64px 0 96px; background: var(--color-warm-white);">

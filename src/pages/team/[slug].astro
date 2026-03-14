@@ -4,6 +4,7 @@ import { SITE } from '@/config';
 import { team } from '@/data/team';
 import { projects } from '@/data/projects';
 import CTABanner from '@/components/CTABanner.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
 
 export function getStaticPaths() {
   return team.map((member) => ({
@@ -45,21 +46,7 @@ const schema = [
   <!-- Header -->
   <section style="padding: 140px 0 64px; background: var(--color-charcoal);">
     <div style="max-width: 900px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px); text-align: center;">
-      <nav aria-label="Breadcrumb" style="margin-bottom: 24px;">
-        <ol style="list-style: none; padding: 0; margin: 0; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;">
-          <li>
-            <a href="/" style="font-size: 0.78rem; color: rgba(240,237,232,0.85); transition: color 0.3s ease;" class="hover:text-text-light">Home</a>
-            <span style="color: rgba(240,237,232,0.4); margin-left: 8px;" aria-hidden="true">/</span>
-          </li>
-          <li>
-            <a href="/about/" style="font-size: 0.78rem; color: rgba(240,237,232,0.85); transition: color 0.3s ease;" class="hover:text-text-light">About</a>
-            <span style="color: rgba(240,237,232,0.4); margin-left: 8px;" aria-hidden="true">/</span>
-          </li>
-          <li aria-current="page">
-            <span style="font-size: 0.78rem; color: var(--color-brass-light);">{member.name}</span>
-          </li>
-        </ol>
-      </nav>
+      <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'About', href: '/about/' }, { label: member.name }]} />
       <span class="eyebrow eyebrow-light" style="display: block; margin-bottom: 12px;">{member.role}</span>
       <h1 class="font-heading" style="color: var(--color-text-light);">{member.name}</h1>
     </div>

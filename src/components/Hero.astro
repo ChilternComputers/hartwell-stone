@@ -10,23 +10,15 @@ import { SITE } from '@/config';
   <div id="hero-bg" style="position: absolute; inset: 0; will-change: transform;" aria-hidden="true">
     <video
       id="hero-video"
-      autoplay
       muted
       loop
       playsinline
-      preload="metadata"
+      preload="none"
       poster="/images/hero-new.webp"
-      fetchpriority="high"
       width="1920"
       height="1080"
       style="width: 100%; height: 100%; object-fit: cover;"
     >
-      <!-- Desktop sources -->
-      <source src="/images/hero-video.webm" type="video/webm" media="(min-width: 768px)" />
-      <source src="/images/hero-video.mp4" type="video/mp4" media="(min-width: 768px)" />
-      <!-- Mobile sources -->
-      <source src="/images/hero-video-mobile.webm" type="video/webm" />
-      <source src="/images/hero-video-mobile.mp4" type="video/mp4" />
       <img src="/images/hero-new.webp" alt="" width="1920" height="1080" style="width: 100%; height: 100%; object-fit: cover;" />
     </video>
   </div>
@@ -87,12 +79,34 @@ import { SITE } from '@/config';
 <script>
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // Defer video loading until after page is interactive
+  const heroVideo = document.getElementById('hero-video') as HTMLVideoElement;
+  if (heroVideo && !prefersReducedMotion) {
+    const loadVideo = () => {
+      const mobile = window.innerWidth < 768;
+      const webm = document.createElement('source');
+      webm.src = mobile ? '/images/hero-video-mobile.webm' : '/images/hero-video.webm';
+      webm.type = 'video/webm';
+      const mp4 = document.createElement('source');
+      mp4.src = mobile ? '/images/hero-video-mobile.mp4' : '/images/hero-video.mp4';
+      mp4.type = 'video/mp4';
+      heroVideo.prepend(mp4);
+      heroVideo.prepend(webm);
+      heroVideo.load();
+      heroVideo.play().catch(() => {});
+    };
+    if (document.readyState === 'complete') {
+      loadVideo();
+    } else {
+      window.addEventListener('load', loadVideo);
+    }
+  }
+
   if (prefersReducedMotion) {
     document.querySelectorAll('.hero-reveal').forEach((el) => {
       (el as HTMLElement).style.opacity = '1';
     });
-    const vid = document.querySelector('#hero-bg video') as HTMLVideoElement;
-    if (vid) vid.pause();
+    if (heroVideo) heroVideo.pause();
   } else {
     Promise.all([
       import('gsap'),

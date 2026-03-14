@@ -93,7 +93,7 @@ const navLinks = [
   id="mobile-menu"
   role="dialog"
   aria-label="Mobile navigation"
-  style="display: none; position: fixed; inset: 0; z-index: 45; background: var(--color-charcoal);"
+  style="position: fixed; inset: 0; z-index: 45; background: var(--color-charcoal); opacity: 0; visibility: hidden; transition: opacity 0.35s ease, visibility 0.35s ease;"
 >
   <!-- Close button inside dialog for focus trap -->
   <button
@@ -188,7 +188,8 @@ const navLinks = [
     if (!mobileMenu || !menuToggle) return;
 
     if (menuOpen) {
-      mobileMenu.style.display = 'block';
+      mobileMenu.style.opacity = '1';
+      mobileMenu.style.visibility = 'visible';
       mobileMenu.setAttribute('aria-modal', 'true');
       menuToggle.setAttribute('aria-expanded', 'true');
       menuToggle.setAttribute('aria-label', 'Close menu');
@@ -202,7 +203,8 @@ const navLinks = [
       if (hamLine2) { hamLine2.style.opacity = '0'; }
       if (hamLine3) { hamLine3.style.top = '12px'; hamLine3.style.transform = 'rotate(-45deg)'; hamLine3.style.width = '32px'; }
     } else {
-      mobileMenu.style.display = 'none';
+      mobileMenu.style.opacity = '0';
+      mobileMenu.style.visibility = 'hidden';
       mobileMenu.removeAttribute('aria-modal');
       menuToggle.setAttribute('aria-expanded', 'false');
       menuToggle.setAttribute('aria-label', 'Open menu');

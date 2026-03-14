@@ -2,25 +2,10 @@
 import Layout from '@/layouts/Layout.astro';
 import { SITE, getAccreditation } from '@/config';
 import { team } from '@/data/team';
+import { milestones, values } from '@/data/about';
 import StatsCounter from '@/components/StatsCounter.astro';
+import PageHeader from '@/components/PageHeader.astro';
 import CTABanner from '@/components/CTABanner.astro';
-
-const milestones = [
-  { year: '1987', title: 'Founded', desc: 'James Hartwell establishes the company with two employees and a single van, working from a rented lock-up in Chelmsford.' },
-  { year: '1994', title: 'First Major Contract', desc: 'Awarded our first project exceeding £500,000 — a six-bedroom new build in Ingatestone. Team grows to 12.' },
-  { year: '2003', title: 'Heritage Division', desc: 'Launch of dedicated heritage and conservation team, beginning with the restoration of a Grade II* farmhouse in Writtle.' },
-  { year: '2008', title: 'Commercial Growth', desc: 'Victoria Ashworth joins as Commercial Director, professionalising estimating and contract management. Team exceeds 30.' },
-  { year: '2015', title: 'Conversions Specialism', desc: 'Establish barn and heritage conversion division, completing our first chapel-to-home project in Rayleigh.' },
-  { year: '2019', title: 'LABC Recognition', desc: 'Shortlisted for LABC Building Excellence Awards for the first time — for a Georgian restoration in Chelmsford.' },
-  { year: '2024', title: 'Award-Winning', desc: 'Win LABC Building Excellence Award for Best Residential Renovation. Team now exceeds 45 directly employed staff.' },
-];
-
-const values = [
-  { num: '01', title: 'Craftsmanship', desc: 'We employ skilled tradespeople directly — not subcontractors. Every joint, every finish, every detail reflects a pride in the work that can\'t be outsourced.' },
-  { num: '02', title: 'Integrity', desc: 'Fixed-price quotations, milestone-based payments, fortnightly progress reports. No surprises, no hidden costs, no excuses.' },
-  { num: '03', title: 'Innovation', desc: 'From BIM coordination to air-source heat pumps and MVHR systems, we embrace technologies that deliver better homes without compromising character.' },
-  { num: '04', title: 'Sustainability', desc: 'Responsibly sourced materials, waste reduction targets on every site, and a commitment to achieving the highest possible EPC ratings.' },
-];
 
 const schema = {
   '@context': 'https://schema.org',
@@ -37,20 +22,11 @@ const schema = {
   description={`Founded in 1987, ${SITE.name} has grown from two people to one of the South East's most respected construction firms. ${SITE.numberOfEmployees} staff, ${SITE.projects} projects.`}
   schema={schema}
 >
-  <!-- Page Header -->
-  <section style="padding: 140px 0 64px; background: var(--color-charcoal);">
-    <div style="max-width: 900px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px); text-align: center;">
-      <nav aria-label="Breadcrumb" style="margin-bottom: 12px;">
-        <ol style="list-style: none; display: flex; gap: 8px; font-size: 0.8rem; justify-content: center; padding: 0; margin: 0;">
-          <li><a href="/" style="color: rgba(240,237,232,0.85);">Home</a></li>
-          <li aria-hidden="true" style="color: rgba(240,237,232,0.5);">/</li>
-          <li aria-current="page" style="color: rgba(240,237,232,0.85);">About</li>
-        </ol>
-      </nav>
-      <span class="eyebrow eyebrow-light" style="display: block; margin-bottom: 12px;">Our Story</span>
-      <h1 class="font-heading" style="color: var(--color-text-light);">About Hartwell & Stone</h1>
-    </div>
-  </section>
+  <PageHeader
+    breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'About' }]}
+    eyebrow="Our Story"
+    title="About Hartwell & Stone"
+  />
 
   <!-- Story -->
   <section style="padding: 80px 0; background: var(--color-warm-white);">

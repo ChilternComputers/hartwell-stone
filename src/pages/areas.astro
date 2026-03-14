@@ -2,6 +2,7 @@
 import Layout from '@/layouts/Layout.astro';
 import { SITE } from '@/config';
 import CTABanner from '@/components/CTABanner.astro';
+import PageHeader from '@/components/PageHeader.astro';
 
 const regions = [
   {
@@ -63,23 +64,12 @@ const schema = {
   description="Based in Chelmsford, Hartwell & Stone serves Essex, London, the Home Counties and East Anglia. Nationwide coverage for larger projects by arrangement."
   schema={schema}
 >
-  <!-- Page Header -->
-  <section style="padding: 140px 0 64px; background: var(--color-charcoal);">
-    <div style="max-width: 900px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px); text-align: center;">
-      <nav aria-label="Breadcrumb" style="margin-bottom: 12px;">
-        <ol style="list-style: none; display: flex; gap: 8px; font-size: 0.8rem; justify-content: center; padding: 0; margin: 0;">
-          <li><a href="/" style="color: rgba(240,237,232,0.85);">Home</a></li>
-          <li aria-hidden="true" style="color: rgba(240,237,232,0.5);">/</li>
-          <li aria-current="page" style="color: rgba(240,237,232,0.85);">Service Areas</li>
-        </ol>
-      </nav>
-      <span class="eyebrow eyebrow-light" style="display: block; margin-bottom: 12px;">Coverage</span>
-      <h1 class="font-heading" style="color: var(--color-text-light);">Where We Work</h1>
-      <p style="font-size: 1rem; color: rgba(240,237,232,0.85); line-height: 1.8; margin-top: 16px; max-width: 600px; margin-left: auto; margin-right: auto;">
-        Based in Chelmsford, we work across Essex, London and the South East as standard. For larger commissions, we operate nationwide by arrangement.
-      </p>
-    </div>
-  </section>
+  <PageHeader
+    breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Service Areas' }]}
+    eyebrow="Coverage"
+    title="Where We Work"
+    description="Based in Chelmsford, we work across Essex, London and the South East as standard. For larger commissions, we operate nationwide by arrangement."
+  />
 
   <!-- Areas -->
   {regions.map((region, i) => (
