@@ -18,7 +18,7 @@ const schema = [
 ---
 
 <Layout
-  title="Services | Hartwell &amp; Stone — Builds, Heritage &amp; More"
+  title={`Services | ${SITE.name} — Builds, Heritage & More`}
   description="Bespoke new builds, heritage restorations, extensions, whole-house renovations and barn conversions. Award-winning residential construction across the South East."
   schema={schema}
 >
@@ -86,6 +86,8 @@ const schema = [
           <div style={i % 2 === 1 ? 'order: 1;' : ''} data-reveal>
             <img
               src={service.image}
+              srcset={`${service.image.replace('.webp', '-400w.webp')} 400w, ${service.image.replace('.webp', '-800w.webp')} 800w, ${service.image.replace('.webp', '-1200w.webp')} 1200w`}
+              sizes="(max-width: 768px) 100vw, 50vw"
               alt={`Example of ${service.title.toLowerCase()} by Hartwell & Stone`}
               width="600"
               height="400"

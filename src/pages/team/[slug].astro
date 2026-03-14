@@ -147,6 +147,8 @@ const schema = [
             <div style="aspect-ratio: 3/4; overflow: hidden; margin-bottom: 12px;">
               <img
                 src={t.image}
+                srcset={`${t.image.replace('.webp', '-400w.webp')} 400w, ${t.image.replace('.webp', '-800w.webp')} 800w`}
+                sizes="(max-width: 640px) 50vw, 25vw"
                 alt={`Portrait of ${t.name}, ${t.role}`}
                 width="200"
                 height="267"

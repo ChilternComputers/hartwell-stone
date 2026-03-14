@@ -14,6 +14,7 @@ export default defineConfig({
   },
   integrations: [sitemap({
     filter: (page) => !page.includes('/privacy/') && !page.includes('/terms/'),
+    serialize: (item) => ({ ...item, lastmod: new Date().toISOString() }),
   })],
   vite: {
     plugins: [tailwindcss()],

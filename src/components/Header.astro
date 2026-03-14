@@ -93,7 +93,6 @@ const navLinks = [
   id="mobile-menu"
   role="dialog"
   aria-label="Mobile navigation"
-  aria-modal="true"
   style="display: none; position: fixed; inset: 0; z-index: 45; background: var(--color-charcoal);"
 >
   <nav
@@ -130,6 +129,9 @@ const navLinks = [
   const hamLines = document.querySelectorAll('.hamburger-line');
   const menuToggle = document.getElementById('menu-toggle');
   const mobileMenu = document.getElementById('mobile-menu');
+  const h1 = document.getElementById('ham-1');
+  const h2 = document.getElementById('ham-2');
+  const h3 = document.getElementById('ham-3');
   let lastScroll = 0;
   let ticking = false;
   let scrolled = false;
@@ -177,6 +179,7 @@ const navLinks = [
 
     if (menuOpen) {
       mobileMenu.style.display = 'block';
+      mobileMenu.setAttribute('aria-modal', 'true');
       menuToggle.setAttribute('aria-expanded', 'true');
       menuToggle.setAttribute('aria-label', 'Close menu');
       document.body.style.overflow = 'hidden';
@@ -185,22 +188,17 @@ const navLinks = [
       if (firstLink) setTimeout(() => firstLink.focus(), 100);
 
       // X animation
-      const h1 = document.getElementById('ham-1');
-      const h2 = document.getElementById('ham-2');
-      const h3 = document.getElementById('ham-3');
       if (h1) { h1.style.top = '12px'; h1.style.transform = 'rotate(45deg)'; }
       if (h2) { h2.style.opacity = '0'; }
       if (h3) { h3.style.top = '12px'; h3.style.transform = 'rotate(-45deg)'; h3.style.width = '32px'; }
     } else {
       mobileMenu.style.display = 'none';
+      mobileMenu.removeAttribute('aria-modal');
       menuToggle.setAttribute('aria-expanded', 'false');
       menuToggle.setAttribute('aria-label', 'Open menu');
       document.body.style.overflow = '';
       menuToggle.focus();
 
-      const h1 = document.getElementById('ham-1');
-      const h2 = document.getElementById('ham-2');
-      const h3 = document.getElementById('ham-3');
       if (h1) { h1.style.top = '12px'; h1.style.transform = 'none'; }
       if (h2) { h2.style.opacity = '1'; }
       if (h3) { h3.style.top = '28px'; h3.style.transform = 'none'; h3.style.width = '27px'; }

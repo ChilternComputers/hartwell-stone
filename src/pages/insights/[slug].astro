@@ -58,7 +58,7 @@ const schema = [
 ---
 
 <Layout
-  title={`${article.title.length > 50 ? article.title.slice(0, article.title.lastIndexOf(' ', 50)) + '…' : article.title} | ${SITE.name}`}
+  title={`${article.title.length > 38 ? article.title.slice(0, article.title.lastIndexOf(' ', 38)) + '…' : article.title} | ${SITE.name}`}
   description={article.excerpt}
   ogImage={`${SITE.url}${article.image}`}
   schema={schema}

@@ -51,7 +51,7 @@ const testimonials = allTestimonials.slice(0, 4);
           aria-label="Pause testimonial carousel"
           style="width: 44px; height: 44px; background: none; border: 1px solid var(--color-border); border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; margin-left: 8px; font-size: 0.85rem; color: var(--color-brass-dark); transition: border-color 0.3s ease;"
         >
-          ❚❚
+          <span aria-hidden="true">❚❚</span>
         </button>
       </div>
     </div>
@@ -129,11 +129,11 @@ const testimonials = allTestimonials.slice(0, 4);
       paused = !paused;
       if (paused) {
         clearInterval(interval);
-        pauseBtn.textContent = '▶';
+        pauseBtn.innerHTML = '<span aria-hidden="true">▶</span>';
         pauseBtn.setAttribute('aria-label', 'Play testimonial carousel');
       } else {
         startAuto();
-        pauseBtn.textContent = '❚❚';
+        pauseBtn.innerHTML = '<span aria-hidden="true">❚❚</span>';
         pauseBtn.setAttribute('aria-label', 'Pause testimonial carousel');
       }
     });

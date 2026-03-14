@@ -177,6 +177,8 @@ const schema = [
             <div style="aspect-ratio: 4/3; overflow: hidden;" data-stagger-child>
               <img
                 src={img}
+                srcset={`${img.replace('.webp', '-400w.webp')} 400w, ${img.replace('.webp', '-800w.webp')} 800w, ${img.replace('.webp', '-1200w.webp')} 1200w`}
+                sizes="(max-width: 768px) 100vw, 50vw"
                 alt={`${project.title} project gallery image ${i + 1}`}
                 width="600"
                 height="450"
@@ -223,6 +225,8 @@ const schema = [
               <div style="overflow: hidden; aspect-ratio: 16/9; margin-bottom: 16px;">
                 <img
                   src={rel.image}
+                  srcset={`${rel.image.replace('.webp', '-400w.webp')} 400w, ${rel.image.replace('.webp', '-800w.webp')} 800w, ${rel.image.replace('.webp', '-1200w.webp')} 1200w`}
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   alt={`${rel.title} — ${rel.type.toLowerCase()} project in ${rel.location}`}
                   width="500"
                   height="281"
