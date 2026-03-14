@@ -204,44 +204,24 @@ const types = [...new Set(projects.map((p) => p.type))];
 </style>
 
 <script>
-  const filterBtns = document.querySelectorAll('.gallery-filter-btn');
+  import { initFilter } from '@/lib/filter';
+
   const galleryItems = document.querySelectorAll('.gallery-item');
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement | null;
   const lightboxCaption = document.getElementById('lightbox-caption');
   const lightboxClose = document.getElementById('lightbox-close');
   const lightboxViewProject = document.getElementById('lightbox-view-project');
+
+  initFilter(
+    document.querySelectorAll('.gallery-filter-btn'),
+    galleryItems,
+    'data-gallery-type',
+  );
+
   if (lightbox && lightboxImg && lightboxCaption && lightboxClose && lightboxViewProject) {
     let currentSlug = '';
     let triggerEl: Element | null = null;
-
-    // Filter logic
-    filterBtns.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const filter = btn.getAttribute('data-filter');
-
-        filterBtns.forEach((b) => {
-          const el = b as HTMLElement;
-          if (b === btn) {
-            el.style.background = 'var(--color-brass)';
-            el.style.borderColor = 'var(--color-brass)';
-            el.style.color = 'var(--color-warm-white)';
-            el.setAttribute('aria-pressed', 'true');
-          } else {
-            el.style.background = 'transparent';
-            el.style.borderColor = 'var(--color-border)';
-            el.style.color = 'var(--color-text-dark)';
-            el.setAttribute('aria-pressed', 'false');
-          }
-        });
-
-        galleryItems.forEach((item) => {
-          const el = item as HTMLElement;
-          const match = filter === 'all' || item.getAttribute('data-gallery-type') === filter;
-          el.style.display = match ? 'block' : 'none';
-        });
-      });
-    });
 
     // Open lightbox handler
     function openLightbox(item: Element) {

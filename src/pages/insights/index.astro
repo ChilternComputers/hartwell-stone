@@ -101,33 +101,11 @@ const schema = {
 </style>
 
 <script>
-  const filterBtns = document.querySelectorAll('#insight-filters .filter-btn');
-  const items = document.querySelectorAll('.insight-item');
-
-  filterBtns.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const filter = btn.getAttribute('data-filter');
-
-      filterBtns.forEach((b) => {
-        const el = b as HTMLElement;
-        if (b === btn) {
-          el.style.background = 'var(--color-brass)';
-          el.style.borderColor = 'var(--color-brass)';
-          el.style.color = 'var(--color-warm-white)';
-          el.setAttribute('aria-pressed', 'true');
-        } else {
-          el.style.background = 'transparent';
-          el.style.borderColor = 'var(--color-border)';
-          el.style.color = 'var(--color-text-dark)';
-          el.setAttribute('aria-pressed', 'false');
-        }
-      });
-
-      items.forEach((item) => {
-        const el = item as HTMLElement;
-        const match = filter === 'all' || item.getAttribute('data-category') === filter;
-        el.style.display = match ? 'grid' : 'none';
-      });
-    });
-  });
+  import { initFilter } from '@/lib/filter';
+  initFilter(
+    document.querySelectorAll('#insight-filters .filter-btn'),
+    document.querySelectorAll('.insight-item'),
+    'data-category',
+    'grid',
+  );
 </script>

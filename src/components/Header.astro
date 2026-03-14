@@ -95,6 +95,15 @@ const navLinks = [
   aria-label="Mobile navigation"
   style="display: none; position: fixed; inset: 0; z-index: 45; background: var(--color-charcoal);"
 >
+  <!-- Close button inside dialog for focus trap -->
+  <button
+    id="menu-close"
+    class="lg:hidden"
+    aria-label="Close menu"
+    style="position: absolute; top: 18px; right: clamp(24px, 4vw, 48px); background: none; border: none; cursor: pointer; padding: 10px; z-index: 10; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;"
+  >
+    <span style="color: var(--color-text-light); font-size: 1.5rem;" aria-hidden="true">&#10005;</span>
+  </button>
   <nav
     aria-label="Mobile navigation"
     style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; gap: 32px;"
@@ -128,10 +137,11 @@ const navLinks = [
   const navLinksEls = document.querySelectorAll('[data-nav-link]');
   const hamLines = document.querySelectorAll('.hamburger-line');
   const menuToggle = document.getElementById('menu-toggle');
+  const menuClose = document.getElementById('menu-close');
   const mobileMenu = document.getElementById('mobile-menu');
-  const h1 = document.getElementById('ham-1');
-  const h2 = document.getElementById('ham-2');
-  const h3 = document.getElementById('ham-3');
+  const hamLine1 = document.getElementById('ham-1');
+  const hamLine2 = document.getElementById('ham-2');
+  const hamLine3 = document.getElementById('ham-3');
   let lastScroll = 0;
   let ticking = false;
   let scrolled = false;
@@ -188,9 +198,9 @@ const navLinks = [
       if (firstLink) setTimeout(() => firstLink.focus(), 100);
 
       // X animation
-      if (h1) { h1.style.top = '12px'; h1.style.transform = 'rotate(45deg)'; }
-      if (h2) { h2.style.opacity = '0'; }
-      if (h3) { h3.style.top = '12px'; h3.style.transform = 'rotate(-45deg)'; h3.style.width = '32px'; }
+      if (hamLine1) { hamLine1.style.top = '12px'; hamLine1.style.transform = 'rotate(45deg)'; }
+      if (hamLine2) { hamLine2.style.opacity = '0'; }
+      if (hamLine3) { hamLine3.style.top = '12px'; hamLine3.style.transform = 'rotate(-45deg)'; hamLine3.style.width = '32px'; }
     } else {
       mobileMenu.style.display = 'none';
       mobileMenu.removeAttribute('aria-modal');
@@ -199,13 +209,14 @@ const navLinks = [
       document.body.style.overflow = '';
       menuToggle.focus();
 
-      if (h1) { h1.style.top = '12px'; h1.style.transform = 'none'; }
-      if (h2) { h2.style.opacity = '1'; }
-      if (h3) { h3.style.top = '28px'; h3.style.transform = 'none'; h3.style.width = '27px'; }
+      if (hamLine1) { hamLine1.style.top = '12px'; hamLine1.style.transform = 'none'; }
+      if (hamLine2) { hamLine2.style.opacity = '1'; }
+      if (hamLine3) { hamLine3.style.top = '28px'; hamLine3.style.transform = 'none'; hamLine3.style.width = '27px'; }
     }
   }
 
   menuToggle?.addEventListener('click', toggleMenu);
+  menuClose?.addEventListener('click', toggleMenu);
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && menuOpen) {
@@ -213,7 +224,7 @@ const navLinks = [
     }
   });
 
-  // Focus trap for mobile menu
+  // Focus trap for mobile menu (close button is now inside the dialog)
   mobileMenu?.addEventListener('keydown', (e) => {
     if (e.key !== 'Tab') return;
     const focusable = mobileMenu.querySelectorAll<HTMLElement>('a[href], button');

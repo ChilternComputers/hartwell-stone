@@ -21,24 +21,14 @@ import { SITE } from '@/config';
       height="1080"
       style="width: 100%; height: 100%; object-fit: cover;"
     >
+      <!-- Desktop sources -->
+      <source src="/images/hero-video.webm" type="video/webm" media="(min-width: 768px)" />
+      <source src="/images/hero-video.mp4" type="video/mp4" media="(min-width: 768px)" />
+      <!-- Mobile sources -->
+      <source src="/images/hero-video-mobile.webm" type="video/webm" />
+      <source src="/images/hero-video-mobile.mp4" type="video/mp4" />
       <img src="/images/hero-new.webp" alt="" width="1920" height="1080" style="width: 100%; height: 100%; object-fit: cover;" />
     </video>
-    <script is:inline>
-      (function(){
-        var v = document.getElementById('hero-video');
-        if (!v) return;
-        var mobile = window.innerWidth < 768;
-        var webm = document.createElement('source');
-        webm.src = mobile ? '/images/hero-video-mobile.webm' : '/images/hero-video.webm';
-        webm.type = 'video/webm';
-        var mp4 = document.createElement('source');
-        mp4.src = mobile ? '/images/hero-video-mobile.mp4' : '/images/hero-video.mp4';
-        mp4.type = 'video/mp4';
-        v.prepend(mp4);
-        v.prepend(webm);
-        v.load();
-      })();
-    </script>
   </div>
 
   <!-- Overlay gradient for text readability -->

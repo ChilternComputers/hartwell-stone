@@ -231,6 +231,22 @@
   document.querySelectorAll('[data-next]').forEach((btn) => {
     btn.addEventListener('click', () => {
       const next = parseInt(btn.getAttribute('data-next') || '1');
+      // Validate Step 1: require project type selection
+      if (next === 2) {
+        const selected = document.querySelector<HTMLInputElement>('input[name="project-type"]:checked');
+        if (!selected) {
+          const legend = document.querySelector('#step-1 legend') as HTMLElement;
+          if (legend) {
+            legend.style.color = 'var(--color-error)';
+            legend.textContent = 'Please select a project type';
+            setTimeout(() => {
+              legend.style.color = 'var(--color-charcoal)';
+              legend.textContent = 'What type of project are you considering?';
+            }, 3000);
+          }
+          return;
+        }
+      }
       showStep(next);
     });
   });
