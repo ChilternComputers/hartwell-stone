@@ -1,0 +1,94 @@
+---
+interface Props {
+  src: string;
+  poster: string;
+  title: string;
+}
+
+const { src, poster, title } = Astro.props;
+const id = `video-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<div
+  class="video-player"
+  id={id}
+  style="position: relative; aspect-ratio: 16/9; overflow: hidden; background: var(--color-charcoal); cursor: pointer;"
+  data-video-src={src}
+  data-reveal
+>
+  <!-- Poster image -->
+  <img
+    src={poster}
+    alt={`Video thumbnail: ${title}`}
+    width="1200"
+    height="675"
+    loading="lazy"
+    style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;"
+    class="video-poster"
+  />
+
+  <!-- Play button overlay -->
+  <button
+    type="button"
+    class="video-play-btn"
+    aria-label={`Play video: ${title}`}
+    style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(26,29,35,0.35); border: none; cursor: pointer; transition: background 0.3s ease;"
+  >
+    <div style="width: 72px; height: 72px; border-radius: 50%; background: var(--color-brass); display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease, background 0.3s ease;">
+      <svg width="24" height="28" viewBox="0 0 24 28" fill="none" aria-hidden="true">
+        <path d="M4 2l18 12L4 26V2z" fill="var(--color-warm-white)"/>
+      </svg>
+    </div>
+  </button>
+
+  <!-- Reduced motion fallback message -->
+  <noscript>
+    <p style="position: absolute; bottom: 16px; left: 16px; font-size: 0.82rem; color: var(--color-text-light); background: rgba(0,0,0,0.7); padding: 8px 16px;">
+      Video requires JavaScript to play.
+    </p>
+  </noscript>
+</div>
+
+<style>
+  .video-player:hover .video-play-btn {
+    background: rgba(26,29,35,0.2);
+  }
+  .video-player:hover .video-play-btn div {
+    transform: scale(1.1);
+  }
+  .video-player:hover .video-poster {
+    transform: scale(1.03);
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.video-player').forEach((player) => {
+    const btn = player.querySelector('.video-play-btn');
+    const src = player.getAttribute('data-video-src');
+
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion || !src) return;
+
+    function playVideo() {
+      if (!src) return;
+      const video = document.createElement('video');
+      video.src = src;
+      video.controls = true;
+      video.autoplay = true;
+      video.playsInline = true;
+      video.style.cssText = 'position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;';
+
+      // Remove poster and play button
+      const poster = player.querySelector('.video-poster');
+      if (poster) poster.remove();
+      if (btn) btn.remove();
+
+      player.appendChild(video);
+      (player as HTMLElement).style.cursor = 'default';
+    }
+
+    btn?.addEventListener('click', playVideo);
+  });
+</script>

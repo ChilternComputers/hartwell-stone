@@ -1,0 +1,109 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { SITE } from '@/config';
+import DownloadForm from '@/components/DownloadForm.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import BragBar from '@/components/BragBar.astro';
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url },
+      { '@type': 'ListItem', position: 2, name: 'Extension Guide', item: `${SITE.url}/extension-guide/` },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'The Complete Guide to House Extensions in 2026',
+    description: 'Free downloadable guide covering planning permission, costs, timelines and choosing the right builder for your house extension project.',
+    publisher: {
+      '@type': 'Organization',
+      name: SITE.name,
+    },
+  },
+];
+
+const contents = [
+  { number: '01', title: 'Planning Permission vs Permitted Development', desc: 'When you need planning permission and when you can build under permitted development rights.' },
+  { number: '02', title: 'Cost Guide by Extension Type', desc: 'Realistic 2026 pricing for single-storey, double-storey, side-return and wrap-around extensions.' },
+  { number: '03', title: 'Timeline Expectations', desc: 'How long each phase takes — from initial design to final handover.' },
+  { number: '04', title: 'How to Choose a Builder', desc: 'The essential checklist: accreditations, insurance, references and red flags to avoid.' },
+  { number: '05', title: 'Common Mistakes to Avoid', desc: 'The pitfalls that cost homeowners time and money — and how to sidestep them.' },
+  { number: '06', title: 'VAT, Building Regs & Party Walls', desc: 'The legal and regulatory requirements you need to understand before breaking ground.' },
+  { number: '07', title: 'Maximising Return on Investment', desc: 'Which extensions add the most value — and which don\'t deliver what you\'d expect.' },
+  { number: '08', title: 'Living Through a Build', desc: 'Practical advice for staying sane while your home is a building site.' },
+];
+---
+
+<Layout
+  title={`Free Extension Guide | ${SITE.name}`}
+  description="Download our free guide to house extensions in 2026. Covers planning permission, costs, timelines, choosing a builder and common mistakes to avoid."
+  schema={schema}
+>
+  <!-- Hero -->
+  <section style="padding: 140px 0 64px; background: var(--color-charcoal);">
+    <div style="max-width: 900px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px); text-align: center;">
+      <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Extension Guide' }]} />
+
+      <span class="eyebrow eyebrow-light" style="display: block; margin-bottom: 12px;">Free Download</span>
+      <h1 class="font-heading" style="color: var(--color-text-light); margin-bottom: 16px;">
+        The Complete Guide to House Extensions in 2026
+      </h1>
+      <p style="font-size: 1rem; color: rgba(240,237,232,0.85); max-width: 600px; margin: 0 auto;">
+        Everything you need to know before extending your home — from planning and costs to choosing the right builder. Written by our team from {SITE.yearsExperience} years of experience.
+      </p>
+    </div>
+  </section>
+
+  <!-- Content + Form -->
+  <section style="padding: 80px 0; background: var(--color-warm-white);">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
+      <div class="grid grid-cols-1 lg:grid-cols-5" style="gap: 48px;">
+
+        <!-- Table of Contents (3 cols) -->
+        <div class="lg:col-span-3" data-reveal>
+          <span class="eyebrow" style="display: block; margin-bottom: 12px;">What's Inside</span>
+          <h2 class="font-heading" style="margin-bottom: 32px;">Eight Chapters of Expert Guidance</h2>
+
+          <div style="display: flex; flex-direction: column; gap: 20px;">
+            {contents.map((item) => (
+              <div style="display: flex; gap: 16px; align-items: flex-start; padding: 20px; background: var(--color-stone); border-left: 3px solid var(--color-brass);">
+                <span class="font-heading" style="font-size: 1.2rem; color: var(--color-brass-dark); flex-shrink: 0; min-width: 32px;">{item.number}</span>
+                <div>
+                  <h3 style="font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; color: var(--color-charcoal); margin-bottom: 4px;">{item.title}</h3>
+                  <p style="font-size: 0.85rem; color: var(--color-text-secondary); line-height: 1.6;">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Download Form (2 cols) -->
+        <div class="lg:col-span-2" data-reveal>
+          <div style="background: var(--color-stone); padding: 36px; position: sticky; top: 100px;">
+            <h3 class="font-heading" style="font-size: 1.3rem; margin-bottom: 8px; text-align: center;">Download Your Free Copy</h3>
+            <p style="font-size: 0.85rem; color: var(--color-text-muted); text-align: center; margin-bottom: 24px;">
+              Enter your details below and we'll give you instant access to the full PDF guide.
+            </p>
+            <DownloadForm />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust signals -->
+  <BragBar />
+
+  <!-- Direct download fallback -->
+  <section style="padding: 48px 0; background: var(--color-warm-white);">
+    <div style="max-width: 600px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px); text-align: center;">
+      <p style="font-size: 0.85rem; color: var(--color-text-muted); line-height: 1.7;">
+        Prefer not to share your details? <a href="/downloads/guide-to-house-extensions-2026.pdf" download style="color: var(--color-brass-dark); font-weight: 600;">Download the guide directly</a> — no form required.
+      </p>
+    </div>
+  </section>
+</Layout>

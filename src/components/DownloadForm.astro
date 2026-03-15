@@ -1,0 +1,144 @@
+---
+---
+
+<div id="download-form-wrapper">
+  <form id="download-form" novalidate>
+    <div style="display: flex; flex-direction: column; gap: 20px;">
+      <!-- Name -->
+      <div>
+        <label for="dl-name" style="font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-charcoal); display: block; margin-bottom: 6px;">
+          Your Name <span style="color: var(--color-error);">*</span>
+        </label>
+        <input
+          type="text"
+          id="dl-name"
+          name="name"
+          required
+          aria-required="true"
+          autocomplete="name"
+          style="width: 100%; padding: 14px 16px; border: 1px solid var(--color-border); background: var(--color-warm-white); font-size: 0.95rem; font-family: var(--font-body); color: var(--color-text-dark); transition: border-color 0.3s ease; min-height: 44px; box-sizing: border-box;"
+          placeholder="e.g. Sarah Blackwell"
+        />
+        <span id="dl-name-error" style="font-size: 0.78rem; color: var(--color-error); display: none; margin-top: 4px;" role="alert"></span>
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label for="dl-email" style="font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-charcoal); display: block; margin-bottom: 6px;">
+          Email Address <span style="color: var(--color-error);">*</span>
+        </label>
+        <input
+          type="email"
+          id="dl-email"
+          name="email"
+          required
+          aria-required="true"
+          autocomplete="email"
+          style="width: 100%; padding: 14px 16px; border: 1px solid var(--color-border); background: var(--color-warm-white); font-size: 0.95rem; font-family: var(--font-body); color: var(--color-text-dark); transition: border-color 0.3s ease; min-height: 44px; box-sizing: border-box;"
+          placeholder="e.g. sarah@example.com"
+        />
+        <span id="dl-email-error" style="font-size: 0.78rem; color: var(--color-error); display: none; margin-top: 4px;" role="alert"></span>
+      </div>
+
+      <!-- Honeypot -->
+      <div style="position: absolute; left: -9999px;" aria-hidden="true">
+        <label for="dl-website">Website</label>
+        <input type="text" id="dl-website" name="website" tabindex="-1" autocomplete="off" />
+      </div>
+
+      <button
+        type="submit"
+        class="btn-primary btn-fill"
+        style="padding: 16px 32px; width: 100%; cursor: pointer; font-family: var(--font-body);"
+      >
+        Download Free Guide
+      </button>
+
+      <p style="font-size: 0.72rem; color: var(--color-text-muted); text-align: center;">
+        We respect your privacy. Your details will not be shared with third parties.
+      </p>
+    </div>
+  </form>
+
+  <!-- Success State -->
+  <div id="download-success" style="display: none; text-align: center; padding: 32px 0;">
+    <div style="margin-bottom: 20px;">
+      <svg width="56" height="56" viewBox="0 0 56 56" fill="none" style="display: inline-block;" aria-hidden="true">
+        <circle cx="28" cy="28" r="27" stroke="var(--color-brass)" stroke-width="2"/>
+        <path d="M18 28l7 7 13-13" stroke="var(--color-brass)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h3 class="font-heading" style="font-size: 1.5rem; margin-bottom: 12px;">Your Guide Is Ready</h3>
+    <p style="font-size: 0.95rem; color: var(--color-text-secondary); margin-bottom: 24px;">
+      Click below to download your free guide to house extensions.
+    </p>
+    <a
+      href="/downloads/guide-to-house-extensions-2026.pdf"
+      download
+      class="btn-primary btn-fill"
+      style="padding: 16px 32px; display: inline-block;"
+    >
+      Download PDF Guide
+    </a>
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById('download-form') as HTMLFormElement;
+  const success = document.getElementById('download-success');
+  const nameInput = document.getElementById('dl-name') as HTMLInputElement;
+  const emailInput = document.getElementById('dl-email') as HTMLInputElement;
+  const honeypot = document.getElementById('dl-website') as HTMLInputElement;
+  const nameError = document.getElementById('dl-name-error');
+  const emailError = document.getElementById('dl-email-error');
+
+  function showError(el: HTMLElement | null, input: HTMLInputElement, msg: string) {
+    if (!el) return;
+    el.textContent = msg;
+    el.style.display = 'block';
+    input.setAttribute('aria-invalid', 'true');
+    input.setAttribute('aria-describedby', el.id);
+    input.style.borderColor = 'var(--color-error)';
+  }
+
+  function clearError(el: HTMLElement | null, input: HTMLInputElement) {
+    if (!el) return;
+    el.style.display = 'none';
+    input.removeAttribute('aria-invalid');
+    input.removeAttribute('aria-describedby');
+    input.style.borderColor = 'var(--color-border)';
+  }
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let valid = true;
+
+    // Honeypot check
+    if (honeypot?.value) return;
+
+    // Name validation
+    if (!nameInput.value.trim()) {
+      showError(nameError, nameInput, 'Please enter your name.');
+      valid = false;
+    } else {
+      clearError(nameError, nameInput);
+    }
+
+    // Email validation
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailInput.value.trim()) {
+      showError(emailError, emailInput, 'Please enter your email address.');
+      valid = false;
+    } else if (!emailPattern.test(emailInput.value.trim())) {
+      showError(emailError, emailInput, 'Please enter a valid email address.');
+      valid = false;
+    } else {
+      clearError(emailError, emailInput);
+    }
+
+    if (valid) {
+      form.style.display = 'none';
+      if (success) success.style.display = 'block';
+    }
+  });
+</script>

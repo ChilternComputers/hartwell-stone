@@ -4,6 +4,7 @@ import { SITE } from '@/config';
 import { projects } from '@/data/projects';
 import CTABanner from '@/components/CTABanner.astro';
 import Breadcrumb from '@/components/Breadcrumb.astro';
+import VideoPlayer from '@/components/VideoPlayer.astro';
 
 export function getStaticPaths() {
   return projects.map((project) => ({
@@ -56,7 +57,27 @@ const schema = [
         reviewRating: { '@type': 'Rating', ratingValue: 5, bestRating: 5 },
       },
     }),
+    ...(project.coordinates && {
+      locationCreated: {
+        '@type': 'Place',
+        address: project.location,
+        geo: {
+          '@type': 'GeoCoordinates',
+          latitude: project.coordinates.lat,
+          longitude: project.coordinates.lng,
+        },
+      },
+    }),
   },
+  ...(project.video ? [{
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name: `${project.title} — Project Video`,
+    description: project.description.slice(0, 200),
+    thumbnailUrl: `${SITE.url}${project.image}`,
+    contentUrl: `${SITE.url}${project.video}`,
+    uploadDate: '2025-01-01',
+  }] : []),
 ];
 ---
 
@@ -109,6 +130,23 @@ const schema = [
       </div>
     </div>
   </section>
+
+  <!-- Project Video -->
+  {project.video && (
+    <section style="padding: 80px 0; background: var(--color-charcoal);">
+      <div style="max-width: 900px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
+        <div style="text-align: center; margin-bottom: 32px;" data-reveal>
+          <span class="eyebrow eyebrow-light" style="display: block; margin-bottom: 12px;">Video</span>
+          <h2 class="font-heading" style="color: var(--color-text-light);">Watch the Build</h2>
+        </div>
+        <VideoPlayer
+          src={project.video}
+          poster={project.image}
+          title={project.title}
+        />
+      </div>
+    </section>
+  )}
 
   <!-- Description -->
   <section style="padding: 80px 0; background: var(--color-warm-white);">

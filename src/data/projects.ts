@@ -11,6 +11,8 @@ export interface Project {
   clientTestimonial?: string;
   challenges?: string;
   solutions?: string;
+  video?: string;
+  coordinates?: { lat: number; lng: number };
 }
 
 export const projects: Project[] = [
@@ -27,6 +29,8 @@ export const projects: Project[] = [
     clientTestimonial: 'They understood that this house deserved respect. Every detail was considered — from the lime mortar mix to matching the original crown mouldings. Absolutely faultless.',
     challenges: 'Extensive structural movement in the east gable wall, requiring underpinning beneath a protected boundary. Original lath-and-plaster ceilings needed consolidation without replacement.',
     solutions: 'Engineered mini-pile underpinning completed in 12 days with zero disruption to the neighbour. Heritage plasterers used traditional lime techniques to stabilise and restore original ceilings in situ.',
+    video: '/videos/the-willows-timelapse.mp4',
+    coordinates: { lat: 51.7356, lng: 0.4685 },
   },
   {
     title: 'Thornfield House — Contemporary New Build',
@@ -41,6 +45,8 @@ export const projects: Project[] = [
     clientTestimonial: 'From groundworks to final snag, nothing was ever too much trouble. The project management was genuinely exemplary — on budget and three weeks early.',
     challenges: 'Complex cantilevered structure required bespoke steelwork design. Site access limited to a single-track lane during a wet winter.',
     solutions: 'Collaborated with structural engineers to design a 6m cantilever using hollow-section steel. Installed temporary hardstanding and managed all deliveries via a bespoke logistics plan.',
+    video: '/videos/thornfield-house-walkthrough.mp4',
+    coordinates: { lat: 51.6671, lng: 0.3850 },
   },
   {
     title: 'The Old Maltings — Warehouse Conversion',
@@ -55,6 +61,8 @@ export const projects: Project[] = [
     clientTestimonial: 'What they\'ve done with this building is extraordinary. You can feel the history, but it lives like a brand-new home. Every apartment sold within a fortnight of completion.',
     challenges: 'The existing roof structure was partially collapsed and required section-by-section dismantling and reconstruction. Change-of-use planning required extensive heritage and bat surveys.',
     solutions: 'Temporary propping and phased roof reconstruction preserved 80% of original timbers. Bat mitigation strategy designed with an ecologist, including new roost provision on site.',
+    video: '/videos/old-maltings-timelapse.mp4',
+    coordinates: { lat: 51.7312, lng: 0.6761 },
   },
   {
     title: 'Montague Crescent — Double-Storey Extension',
@@ -69,6 +77,7 @@ export const projects: Project[] = [
     clientTestimonial: 'It doesn\'t feel like an extension — it feels like the house was always meant to be this way. The joiners matched the original Arts and Crafts detailing perfectly.',
     challenges: 'Matching the original 1920s clay roof tiles and decorative timber bargeboards. Steel beam installation through an occupied first floor.',
     solutions: 'Sourced reclaimed clay tiles from a specialist yard in Kent. Engineered a lifting sequence that allowed the 4.8m universal beam to be installed without decanting the family.',
+    coordinates: { lat: 51.6210, lng: 0.3050 },
   },
   {
     title: 'The Grain Store — Barn Conversion',
@@ -82,6 +91,7 @@ export const projects: Project[] = [
     clientTestimonial: 'We\'d been told by two other builders it couldn\'t be done within our budget. Hartwell & Stone found a way, and the result is beyond anything we dreamed of.',
     challenges: 'Timber frame showed evidence of historic beetle damage, requiring partial replacement while maintaining the Class Q conversion approval. No mains drainage on site.',
     solutions: 'Engaged a specialist timber framer to splice new green oak into the existing structure using traditional pegged mortise-and-tenon joints. Installed a reed bed sewage treatment system.',
+    coordinates: { lat: 51.7290, lng: 0.4290 },
   },
   {
     title: 'Riverside Walk — Luxury Apartments',
@@ -96,6 +106,7 @@ export const projects: Project[] = [
     clientTestimonial: 'The specification is outstanding — Bulthaup kitchens, Duravit bathrooms, engineered oak throughout. And the river views from every room are spectacular.',
     challenges: 'Flood zone 3 site required extensive Environment Agency negotiation. Limited site access between an existing building and the river wall.',
     solutions: 'Designed a reinforced concrete raft foundation with flood-resilient ground floor construction. All materials delivered via a single-lane access with just-in-time scheduling to avoid storage issues.',
+    coordinates: { lat: 51.7320, lng: 0.4720 },
   },
   {
     title: 'The Rectory — Period Renovation',
@@ -110,6 +121,7 @@ export const projects: Project[] = [
     clientTestimonial: 'Our friends can\'t believe it\'s the same house. Hartwell & Stone managed the entire project seamlessly — we barely had to make a decision without guidance.',
     challenges: 'Asbestos discovered during strip-out in the boiler room and around original pipework. The original staircase was structurally compromised and listed on the local heritage register.',
     solutions: 'Licensed asbestos removal completed before main works commenced. The staircase was dismantled, photographed, repaired off-site by a specialist joiner and reinstated to its original position.',
+    coordinates: { lat: 51.6280, lng: 0.4180 },
   },
   {
     title: 'Oakwood Studio — Garden Office',
@@ -124,6 +136,7 @@ export const projects: Project[] = [
     clientTestimonial: 'I wanted somewhere I\'d genuinely enjoy working every day, not a glorified shed. This is a proper building — warm, quiet, beautifully finished.',
     challenges: 'Rear garden sloped by 1.2m across the building footprint. Client required the studio to be fully operational within 10 weeks to meet a lease expiry on their rented office.',
     solutions: 'Engineered a split-level concrete pad foundation to follow the natural gradient. Fast-track programme delivered the completed studio in eight weeks.',
+    coordinates: { lat: 51.6310, lng: 0.3180 },
   },
   {
     title: 'Chapel Lane — Church Conversion',
@@ -138,5 +151,6 @@ export const projects: Project[] = [
     clientTestimonial: 'Living in a building with this much character is a privilege. The way they\'ve woven old and new together is genuinely artful.',
     challenges: 'The gothic windows were protected and could not be replaced or altered. Achieving Building Regulations thermal performance within the constraints of single-skin stone walls.',
     solutions: 'Internal insulated lime-render system applied to all walls, maintaining the external stone appearance. Bespoke secondary glazing designed to sit behind the gothic tracery without visual impact.',
+    coordinates: { lat: 51.5860, lng: 0.6050 },
   },
 ];

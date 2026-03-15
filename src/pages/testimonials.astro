@@ -5,6 +5,7 @@ import { testimonials } from '@/data/testimonials';
 import { projects } from '@/data/projects';
 import CTABanner from '@/components/CTABanner.astro';
 import PageHeader from '@/components/PageHeader.astro';
+import ReviewsSection from '@/components/ReviewsSection.astro';
 
 function stars(count: number) {
   return '★'.repeat(count) + '☆'.repeat(5 - count);
@@ -100,19 +101,10 @@ const schema = [
         ))}
       </div>
 
-      <!-- Review platform links -->
-      <div style="text-align: center; margin-top: 56px; padding: 32px; background: var(--color-stone);" data-reveal>
-        <p style="font-size: 0.95rem; color: var(--color-text-dark); margin-bottom: 20px;">
-          Read more reviews on these platforms:
-        </p>
-        <div style="display: flex; justify-content: center; gap: 24px; flex-wrap: wrap;">
-          <a href="https://www.google.com/maps" target="_blank" rel="noopener noreferrer" style="font-size: 0.85rem; font-weight: 600; color: var(--color-brass-dark); letter-spacing: 0.05em; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center;">Google Reviews</a>
-          <a href="https://www.checkatrade.com" target="_blank" rel="noopener noreferrer" style="font-size: 0.85rem; font-weight: 600; color: var(--color-brass-dark); letter-spacing: 0.05em; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center;">Checkatrade</a>
-          <a href="https://www.trustpilot.com" target="_blank" rel="noopener noreferrer" style="font-size: 0.85rem; font-weight: 600; color: var(--color-brass-dark); letter-spacing: 0.05em; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center;">Trustpilot</a>
-        </div>
-      </div>
     </div>
   </section>
+
+  <ReviewsSection />
 
   <CTABanner />
 </Layout>

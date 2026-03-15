@@ -1,0 +1,213 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { SITE } from '@/config';
+import { areas, getArea } from '@/data/areas';
+import { projects } from '@/data/projects';
+import { services } from '@/data/services';
+import CTABanner from '@/components/CTABanner.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+
+export function getStaticPaths() {
+  return areas.map((area) => ({
+    params: { slug: area.slug },
+    props: { area },
+  }));
+}
+
+const { area } = Astro.props;
+
+// Find projects in this area (match by location containing the area name)
+const areaProjects = projects.filter((p) =>
+  p.location.toLowerCase().includes(area.name.toLowerCase()) ||
+  p.location.toLowerCase().includes(area.slug.replace('-', ' '))
+);
+
+// Get nearby areas with full data
+const nearby = area.nearbyAreas
+  .map((slug) => getArea(slug))
+  .filter((a): a is NonNullable<typeof a> => a !== undefined);
+
+const paragraphs = area.description.split('\n\n');
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url },
+      { '@type': 'ListItem', position: 2, name: 'Service Areas', item: `${SITE.url}/areas/` },
+      { '@type': 'ListItem', position: 3, name: area.name, item: `${SITE.url}/areas/${area.slug}/` },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: SITE.name,
+    description: `Premium builders in ${area.name}, ${area.county}. Bespoke new builds, extensions, heritage restorations and renovations by Hartwell & Stone.`,
+    url: `${SITE.url}/areas/${area.slug}/`,
+    telephone: SITE.phone,
+    email: SITE.email,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: SITE.address.street,
+      addressLocality: SITE.address.area,
+      addressRegion: SITE.address.city,
+      postalCode: SITE.address.postcode,
+      addressCountry: SITE.address.country,
+    },
+    areaServed: {
+      '@type': 'AdministrativeArea',
+      name: `${area.name}, ${area.county}`,
+    },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: SITE.reviews.rating,
+      reviewCount: SITE.reviews.count,
+      bestRating: 5,
+    },
+  },
+];
+---
+
+<Layout
+  title={`Premium Builders in ${area.name} | ${SITE.name}`}
+  description={`Award-winning builders in ${area.name}, ${area.county}. Bespoke new builds, extensions, heritage restorations and renovations. ${SITE.reviews.rating}/5 from ${SITE.reviews.count} reviews. Free consultation.`}
+  schema={schema}
+>
+  <!-- Hero -->
+  <section style="padding: 140px 0 64px; background: var(--color-charcoal);">
+    <div style="max-width: 900px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px); text-align: center;">
+      <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Service Areas', href: '/areas/' }, { label: area.name }]} />
+
+      <span class="eyebrow eyebrow-light" style="display: block; margin-bottom: 12px;">{area.county}</span>
+      <h1 class="font-heading" style="color: var(--color-text-light); margin-bottom: 16px;">
+        Premium Builders in {area.name}
+      </h1>
+      <p style="font-size: 1rem; color: rgba(240,237,232,0.85); max-width: 600px; margin: 0 auto;">
+        Award-winning construction, heritage restoration and bespoke extensions across {area.name} and surrounding areas.
+      </p>
+    </div>
+  </section>
+
+  <!-- Hero Image -->
+  <section style="background: var(--color-stone);">
+    <div style="max-width: 1200px; margin: 0 auto;">
+      <div style="aspect-ratio: 21/9; overflow: hidden;">
+        <img
+          src={area.image}
+          alt={`Construction project by Hartwell & Stone in ${area.name}, ${area.county}`}
+          width="1200"
+          height="514"
+          loading="eager"
+          fetchpriority="high"
+          style="width: 100%; height: 100%; object-fit: cover;"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Area Description -->
+  <section style="padding: 80px 0; background: var(--color-warm-white);">
+    <div style="max-width: 800px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
+      <div data-reveal>
+        <span class="eyebrow" style="display: block; margin-bottom: 12px;">About This Area</span>
+        <h2 class="font-heading" style="margin-bottom: 24px;">Building in {area.name}</h2>
+        {paragraphs.map((p) => (
+          <p style="font-size: 1rem; color: var(--color-text-secondary); line-height: 1.9; margin-bottom: 16px;">
+            {p}
+          </p>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Available -->
+  <section style="padding: 80px 0; background: var(--color-stone);">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
+      <div style="text-align: center; margin-bottom: 48px;" data-reveal>
+        <span class="eyebrow" style="display: block; margin-bottom: 12px;">Our Services</span>
+        <h2 class="font-heading">What We Offer in {area.name}</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style="gap: 20px;" data-stagger-parent>
+        {services.map((service) => (
+          <a
+            href={`/services/#${service.id}`}
+            style="padding: 28px; background: var(--color-warm-white); border: 1px solid var(--color-border); text-decoration: none; color: inherit; transition: border-color 0.3s ease, box-shadow 0.3s ease; display: block;"
+            data-stagger-child
+          >
+            <h3 style="font-family: var(--font-body); font-size: 1rem; font-weight: 600; color: var(--color-charcoal); margin-bottom: 8px;">{service.title}</h3>
+            <p style="font-size: 0.85rem; color: var(--color-text-secondary); line-height: 1.7; margin-bottom: 12px;">
+              {service.description.slice(0, 120)}...
+            </p>
+            <span style="font-size: 0.78rem; color: var(--color-brass-dark); font-weight: 600;">
+              Learn more &rarr;
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Local Projects -->
+  {areaProjects.length > 0 && (
+    <section style="padding: 80px 0; background: var(--color-warm-white);">
+      <div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
+        <div style="text-align: center; margin-bottom: 48px;" data-reveal>
+          <span class="eyebrow" style="display: block; margin-bottom: 12px;">Local Work</span>
+          <h2 class="font-heading">Our Projects in {area.name}</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2" style="gap: 24px;" data-stagger-parent>
+          {areaProjects.map((project) => (
+            <a href={`/projects/${project.slug}/`} style="display: block; text-decoration: none; color: inherit; transition: transform 0.3s ease;" class="hover:scale-[1.02]" data-stagger-child>
+              <div style="overflow: hidden; aspect-ratio: 16/9; margin-bottom: 16px;">
+                <img
+                  src={project.image}
+                  alt={`${project.title} — ${project.type.toLowerCase()} in ${project.location}`}
+                  width="600"
+                  height="338"
+                  loading="lazy"
+                  style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;"
+                />
+              </div>
+              <span class="eyebrow" style="display: block; margin-bottom: 6px; font-size: 0.68rem;">{project.type} · {project.value}</span>
+              <h3 class="font-heading" style="font-size: 1.15rem; margin-bottom: 6px;">{project.title}</h3>
+              <p style="font-size: 0.85rem; color: var(--color-text-secondary); line-height: 1.6;">
+                {project.description.slice(0, 150)}...
+              </p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Nearby Areas -->
+  {nearby.length > 0 && (
+    <section style={`padding: 80px 0; background: ${areaProjects.length > 0 ? 'var(--color-stone)' : 'var(--color-warm-white)'};`}>
+      <div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
+        <div style="text-align: center; margin-bottom: 48px;" data-reveal>
+          <span class="eyebrow" style="display: block; margin-bottom: 12px;">Also Nearby</span>
+          <h2 class="font-heading">We Also Serve These Areas</h2>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;" data-stagger-parent>
+          {nearby.map((nearbyArea) => (
+            <a
+              href={`/areas/${nearbyArea.slug}/`}
+              style="padding: 14px 28px; background: var(--color-warm-white); border: 1px solid var(--color-border); font-size: 0.88rem; font-weight: 500; color: var(--color-text-dark); transition: all 0.3s ease; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center;"
+              data-stagger-child
+            >
+              {nearbyArea.name}
+            </a>
+          ))}
+        </div>
+        <div style="text-align: center; margin-top: 32px;">
+          <a href="/areas/" class="btn-primary btn-outline" style="padding: 12px 28px;">
+            View All Areas
+          </a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <CTABanner />
+</Layout>

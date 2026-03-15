@@ -1,15 +1,7 @@
 ---
-const regions = [
-  { name: 'Essex & East Anglia', areas: ['Chelmsford', 'Brentwood', 'Colchester', 'Maldon'] },
-  { name: 'London & South East', areas: ['East London', 'Home Counties', 'Kent', 'Surrey'] },
-  { name: 'Midlands & Beyond', areas: ['Nationwide by arrangement'] },
-];
+import { areas } from '@/data/areas';
 
-const featureAreas = [
-  'Chelmsford', 'Brentwood', 'Billericay', 'Ingatestone',
-  'Maldon', 'Colchester', 'Writtle', 'Shenfield',
-  'Rayleigh', 'Southend', 'Romford', 'East London',
-];
+const featureAreas = areas.slice(0, 12);
 ---
 
 <section style="padding: 96px 0; background: var(--color-stone);">
@@ -33,10 +25,10 @@ const featureAreas = [
         <div style="display: flex; flex-wrap: wrap; gap: 10px;">
           {featureAreas.map((area) => (
             <a
-              href="/areas/"
+              href={`/areas/${area.slug}/`}
               style="padding: 10px 20px; background: var(--color-warm-white); border: 1px solid var(--color-border); font-size: 0.85rem; font-weight: 500; color: var(--color-text-dark); transition: all 0.3s ease; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center;"
             >
-              {area}
+              {area.name}
             </a>
           ))}
         </div>

@@ -1,0 +1,99 @@
+---
+import { projects } from '@/data/projects';
+
+// Only show projects that have coordinates
+const mappedProjects = projects.filter((p) => p.coordinates);
+---
+
+<section style="padding: 80px 0; background: var(--color-stone);">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
+    <div style="text-align: center; margin-bottom: 48px;" data-reveal>
+      <span class="eyebrow" style="display: block; margin-bottom: 12px;">Project Locations</span>
+      <h2 class="font-heading">Where We've Built</h2>
+      <p style="font-size: 0.9rem; color: var(--color-text-muted); margin-top: 8px;">
+        Explore our completed projects across Essex and the South East.
+      </p>
+    </div>
+
+    <!-- SVG Map -->
+    <div style="position: relative; max-width: 800px; margin: 0 auto; background: var(--color-warm-white); border: 1px solid var(--color-border); padding: 32px;" data-reveal>
+      <svg
+        viewBox="0 0 600 500"
+        style="width: 100%; height: auto;"
+        role="img"
+        aria-label="Map showing Hartwell & Stone project locations across Essex and the South East"
+      >
+        <!-- Simplified Essex/SE England region outline -->
+        <path
+          d="M150,80 L250,60 L350,50 L450,70 L520,100 L550,160 L540,220 L520,280 L500,320 L470,360 L440,380 L400,400 L350,420 L300,430 L250,420 L200,400 L160,370 L130,330 L110,280 L100,220 L110,160 L130,120 Z"
+          fill="var(--color-stone)"
+          stroke="var(--color-border)"
+          stroke-width="1.5"
+        />
+
+        <!-- Thames estuary hint -->
+        <path
+          d="M100,220 L150,225 L200,215 L250,220 L300,210 L350,215 L400,208"
+          fill="none"
+          stroke="rgba(184,134,11,0.2)"
+          stroke-width="2"
+        />
+
+        <!-- Region labels -->
+        <text x="300" y="140" text-anchor="middle" style="font-family: var(--font-body); font-size: 11px; fill: var(--color-text-muted); letter-spacing: 0.15em; text-transform: uppercase;">Essex</text>
+        <text x="180" y="280" text-anchor="middle" style="font-family: var(--font-body); font-size: 10px; fill: var(--color-text-muted); letter-spacing: 0.12em; text-transform: uppercase;">London</text>
+        <text x="420" y="180" text-anchor="middle" style="font-family: var(--font-body); font-size: 10px; fill: var(--color-text-muted); letter-spacing: 0.12em; text-transform: uppercase;">Suffolk</text>
+
+        <!-- HQ marker (Chelmsford) -->
+        <g>
+          <circle cx="320" cy="170" r="8" fill="var(--color-brass)" stroke="var(--color-warm-white)" stroke-width="2"/>
+          <circle cx="320" cy="170" r="3" fill="var(--color-warm-white)"/>
+          <text x="320" y="155" text-anchor="middle" style="font-family: var(--font-body); font-size: 10px; fill: var(--color-charcoal); font-weight: 600;">HQ — Chelmsford</text>
+        </g>
+
+        <!-- Project markers -->
+        {mappedProjects.map((project) => {
+          // Convert lat/lng to SVG coordinates (approximate projection)
+          // Essex roughly: lat 51.5-52.1, lng -0.5-1.2
+          const x = 150 + ((project.coordinates!.lng + 0.5) / 1.7) * 400;
+          const y = 450 - ((project.coordinates!.lat - 51.3) / 0.9) * 400;
+
+          return (
+            <a href={`/projects/${project.slug}/`} aria-label={`${project.title} — ${project.type} in ${project.location}`}>
+              <circle
+                cx={x}
+                cy={y}
+                r="6"
+                fill="var(--color-brass-dark)"
+                stroke="var(--color-warm-white)"
+                stroke-width="1.5"
+                style="cursor: pointer; transition: r 0.2s ease;"
+                class="map-marker"
+              />
+              <title>{`${project.title}\n${project.type} · ${project.location}\n${project.value}`}</title>
+            </a>
+          );
+        })}
+      </svg>
+
+      <!-- Legend -->
+      <div style="display: flex; justify-content: center; gap: 24px; margin-top: 20px; flex-wrap: wrap;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <div style="width: 14px; height: 14px; border-radius: 50%; background: var(--color-brass); border: 2px solid var(--color-warm-white); box-shadow: 0 0 0 1px var(--color-border);"></div>
+          <span style="font-size: 0.78rem; color: var(--color-text-muted);">Head Office</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <div style="width: 12px; height: 12px; border-radius: 50%; background: var(--color-brass-dark); border: 1.5px solid var(--color-warm-white); box-shadow: 0 0 0 1px var(--color-border);"></div>
+          <span style="font-size: 0.78rem; color: var(--color-text-muted);">Completed Project</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .map-marker:hover {
+    r: 9;
+    fill: var(--color-brass);
+  }
+</style>

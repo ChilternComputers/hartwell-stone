@@ -5,6 +5,7 @@ import { services } from '@/data/services';
 import { faqs } from '@/data/faqs';
 import PageHeader from '@/components/PageHeader.astro';
 import CTABanner from '@/components/CTABanner.astro';
+import PriceLock from '@/components/PriceLock.astro';
 
 const schema = [
   {
@@ -115,6 +116,8 @@ const schema = [
       </div>
     </section>
   ))}
+
+  <PriceLock />
 
   <!-- FAQ Preview -->
   <section style="padding: 96px 0; background: var(--color-warm-white);">

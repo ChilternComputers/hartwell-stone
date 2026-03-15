@@ -3,6 +3,7 @@ import Layout from '@/layouts/Layout.astro';
 import { SITE } from '@/config';
 import QuoteForm from '@/components/QuoteForm.astro';
 import PageHeader from '@/components/PageHeader.astro';
+import PriceLock from '@/components/PriceLock.astro';
 
 const schema = [
   {
@@ -122,4 +123,6 @@ const schema = [
       </div>
     </div>
   </section>
+
+  <PriceLock />
 </Layout>

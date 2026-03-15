@@ -1,0 +1,38 @@
+---
+import { reviewPlatforms, totalReviewCount, averageRating } from '@/data/reviews';
+import { SITE } from '@/config';
+
+interface Props {
+  variant?: 'light' | 'dark';
+}
+
+const { variant = 'dark' } = Astro.props;
+const isLight = variant === 'light';
+---
+
+<div
+  style={`display: flex; align-items: center; justify-content: center; gap: 24px; flex-wrap: wrap; padding: 20px 28px; background: ${isLight ? 'var(--color-warm-white)' : 'rgba(26,29,35,0.6)'}; border: 1px solid ${isLight ? 'var(--color-border)' : 'rgba(240,237,232,0.1)'};`}
+>
+  <!-- Aggregate score -->
+  <div style="display: flex; align-items: center; gap: 10px;">
+    <span style="color: var(--color-brass-light); font-size: 1.2rem; letter-spacing: 2px;" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+    <span class="font-heading" style={`font-size: 1.4rem; color: ${isLight ? 'var(--color-charcoal)' : 'var(--color-text-light)'};`}>{SITE.reviews.rating}</span>
+    <span style={`font-size: 0.82rem; color: ${isLight ? 'var(--color-text-muted)' : 'rgba(240,237,232,0.7)'};`}>/5 from {SITE.reviews.count} reviews</span>
+  </div>
+
+  <!-- Platform links -->
+  <div style="display: flex; gap: 16px; align-items: center;">
+    {reviewPlatforms.map((platform) => (
+      <a
+        href={platform.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={`font-size: 0.75rem; font-weight: 600; color: ${isLight ? 'var(--color-brass-dark)' : 'var(--color-brass-light)'}; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; min-height: 44px; letter-spacing: 0.04em;`}
+        aria-label={`Read reviews on ${platform.name} — ${platform.rating}/${platform.ratingOutOf}`}
+      >
+        {platform.name}
+        <span style={`font-size: 0.68rem; color: ${isLight ? 'var(--color-text-muted)' : 'rgba(240,237,232,0.6)'};`}>({platform.rating})</span>
+      </a>
+    ))}
+  </div>
+</div>
