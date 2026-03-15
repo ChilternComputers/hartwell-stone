@@ -3,7 +3,7 @@
   id="cookie-consent"
   role="dialog"
   aria-label="Cookie consent"
-  style="display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 9999; background: var(--color-charcoal); border-top: 1px solid rgba(184, 134, 11, 0.3); padding: 20px 24px;"
+  style="position: fixed; bottom: 0; left: 0; right: 0; z-index: 9999; background: var(--color-charcoal); border-top: 1px solid rgba(184, 134, 11, 0.3); padding: 20px 24px; transform: translateY(100%); transition: transform 0.3s ease;"
 >
   <div style="max-width: 960px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
     <p class="font-body" style="font-size: 0.88rem; line-height: 1.7; color: var(--color-text-light); margin: 0; flex: 1; min-width: 260px;">
@@ -38,7 +38,8 @@
   if (!localStorage.getItem('cookie-consent')) {
     requestAnimationFrame(() => {
       if (banner) {
-        banner.style.display = 'block';
+        banner.style.transform = 'translateY(0)';
+        banner.dataset.visible = 'true';
         // Move focus into the dialog after page settles so keyboard users discover it
         setTimeout(() => {
           if (privacyLink) privacyLink.focus();
@@ -50,7 +51,8 @@
   function dismiss(value: string) {
     localStorage.setItem('cookie-consent', value);
     if (banner) {
-      banner.style.display = 'none';
+      banner.style.transform = 'translateY(100%)';
+      banner.dataset.visible = 'false';
     }
   }
 
@@ -59,7 +61,7 @@
 
   // Focus trap
   document.addEventListener('keydown', (e) => {
-    if (!banner || banner.style.display === 'none') return;
+    if (!banner || banner.dataset.visible !== 'true') return;
 
     if (e.key === 'Escape') {
       dismiss('declined');

@@ -32,7 +32,7 @@ import { SITE } from '@/config';
       Award-Winning Residential Construction
     </div>
 
-    <h1 class="font-heading hero-reveal" style="color: var(--color-text-light); margin-bottom: 20px; line-height: 1.1; opacity: 0;">
+    <h1 class="font-heading hero-title" style="color: var(--color-text-light); margin-bottom: 20px; line-height: 1.1;">
       Building Britain's Finest Homes Since 1987
     </h1>
 
@@ -103,7 +103,7 @@ import { SITE } from '@/config';
   }
 
   if (prefersReducedMotion) {
-    document.querySelectorAll('.hero-reveal').forEach((el) => {
+    document.querySelectorAll('.hero-reveal, .hero-title').forEach((el) => {
       (el as HTMLElement).style.opacity = '1';
     });
     if (heroVideo) heroVideo.pause();
@@ -114,7 +114,21 @@ import { SITE } from '@/config';
     ]).then(([{ gsap }, { ScrollTrigger }]) => {
       gsap.registerPlugin(ScrollTrigger);
 
-      // Staggered text reveal
+      // Subtle tween for H1 (starts near-invisible via JS so LCP is measured before JS runs)
+      const heroTitle = document.querySelector('.hero-title') as HTMLElement;
+      if (heroTitle) {
+        heroTitle.style.opacity = '0.01';
+        heroTitle.style.transform = 'translateY(10px)';
+        gsap.to(heroTitle, {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: 'power3.out',
+          delay: 0.3,
+        });
+      }
+
+      // Staggered text reveal for remaining elements
       const reveals = document.querySelectorAll('.hero-reveal');
       reveals.forEach((el) => {
         (el as HTMLElement).style.transform = 'translateY(20px)';
@@ -125,7 +139,7 @@ import { SITE } from '@/config';
         duration: 0.8,
         stagger: 0.2,
         ease: 'power3.out',
-        delay: 1.4,
+        delay: 0.3,
       });
 
       // Parallax background on scroll
