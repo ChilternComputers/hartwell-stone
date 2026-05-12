@@ -43,14 +43,14 @@ const navLinks = [
       <!-- Desktop Nav -->
       <ul
         class="hidden lg:flex"
-        style="list-style: none; margin: 0; padding: 0; gap: 36px; align-items: center;"
+        style="list-style: none; margin: 0; padding: 0; gap: 22px; align-items: center;"
       >
         {navLinks.map((link) => (
           <li>
             <a
               href={link.href}
               class="nav-link nav-link-light font-body"
-              style="font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500; color: var(--color-text-light); transition: color 0.5s ease;"
+              style="font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500; color: var(--color-text-light); transition: color 0.5s ease; white-space: nowrap;"
               aria-current={currentPath === link.href ? 'page' : undefined}
               data-nav-link
             >
@@ -65,7 +65,7 @@ const navLinks = [
         <a
           href={`tel:${SITE.phone.replace(/\s/g, '')}`}
           class="hidden lg:inline-flex btn-primary btn-outline-light"
-          style="padding: 10px 24px;"
+          style="padding: 10px 20px; white-space: nowrap; font-size: 0.78rem;"
           id="phone-btn"
           aria-label={`Call us on ${SITE.phone}`}
         >
