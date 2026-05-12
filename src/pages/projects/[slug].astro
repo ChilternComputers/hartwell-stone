@@ -148,6 +148,21 @@ const schema = [
     </section>
   )}
 
+  <!-- Virtual Tour Link -->
+  {project.tourImages && project.tourImages.length > 0 && (
+    <section style="padding: 32px 0; background: var(--color-stone);">
+      <div style="max-width: 800px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px); text-align: center;">
+        <a
+          href={`/virtual-tours/#${project.slug}`}
+          class="btn-primary btn-fill"
+          style="padding: 14px 32px; display: inline-block;"
+        >
+          View 360&deg; Virtual Tour
+        </a>
+      </div>
+    </section>
+  )}
+
   <!-- Description -->
   <section style="padding: 80px 0; background: var(--color-warm-white);">
     <div style="max-width: 800px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">

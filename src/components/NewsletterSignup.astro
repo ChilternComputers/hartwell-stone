@@ -1,0 +1,96 @@
+---
+interface Props {
+  variant?: 'light' | 'dark';
+}
+
+const { variant = 'light' } = Astro.props;
+
+const isDark = variant === 'dark';
+const headingColor = isDark ? 'var(--color-text-light)' : 'var(--color-charcoal)';
+const textColor = isDark ? 'rgba(240,237,232,0.85)' : 'var(--color-text-secondary)';
+const inputBg = isDark ? 'rgba(255,255,255,0.08)' : 'var(--color-warm-white)';
+const inputBorder = isDark ? 'rgba(240,237,232,0.2)' : 'var(--color-border)';
+const inputText = isDark ? 'var(--color-text-light)' : 'var(--color-text-dark)';
+const privacyColor = isDark ? 'rgba(240,237,232,0.5)' : 'var(--color-text-muted)';
+---
+
+<div class="newsletter-signup" data-newsletter>
+  <div style="text-align: center; margin-bottom: 20px;">
+    <h2 class="font-heading" style={`font-size: 1.3rem; color: ${headingColor}; margin-bottom: 6px;`}>Construction Insights</h2>
+    <p style={`font-size: 0.88rem; color: ${textColor};`}>Monthly tips on planning, budgets and building trends — straight to your inbox.</p>
+  </div>
+
+  <form class="newsletter-form" novalidate>
+    <div style="display: flex; gap: 12px; max-width: 520px; margin: 0 auto; flex-wrap: wrap; justify-content: center;">
+      <div style="flex: 1; min-width: 240px;">
+        <label for={`nl-email-${variant}`} class="sr-only">Email address</label>
+        <input
+          type="email"
+          id={`nl-email-${variant}`}
+          name="email"
+          required
+          aria-required="true"
+          autocomplete="email"
+          placeholder="your@email.co.uk"
+          style={`width: 100%; padding: 14px 16px; border: 1px solid ${inputBorder}; background: ${inputBg}; font-size: 0.95rem; font-family: var(--font-body); color: ${inputText}; min-height: 44px; box-sizing: border-box; transition: border-color 0.3s ease;`}
+        />
+        <span class="nl-error" style={`font-size: 0.78rem; color: var(--color-error); display: none; margin-top: 4px;`} role="alert"></span>
+      </div>
+      <button
+        type="submit"
+        class="btn-primary btn-fill"
+        style="padding: 14px 28px; white-space: nowrap; cursor: pointer; font-family: var(--font-body); min-height: 44px;"
+      >
+        Subscribe
+      </button>
+    </div>
+
+    <!-- Honeypot -->
+    <div style="position: absolute; left: -9999px;" aria-hidden="true">
+      <label for={`nl-hp-${variant}`}>Website</label>
+      <input type="text" id={`nl-hp-${variant}`} name="website" tabindex="-1" autocomplete="off" />
+    </div>
+
+    <p style={`font-size: 0.72rem; color: ${privacyColor}; text-align: center; margin-top: 10px;`}>
+      No spam. Unsubscribe at any time. We respect your privacy.
+    </p>
+  </form>
+
+  <div class="nl-success" style="display: none; text-align: center; padding: 12px 0;">
+    <p style={`font-size: 1rem; font-weight: 600; color: ${headingColor}; margin-bottom: 4px;`}>You're subscribed!</p>
+    <p style={`font-size: 0.88rem; color: ${textColor};`}>Look out for our monthly insights in your inbox.</p>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('[data-newsletter]').forEach((wrapper) => {
+    const form = wrapper.querySelector('.newsletter-form') as HTMLFormElement;
+    const emailInput = form?.querySelector('input[type="email"]') as HTMLInputElement;
+    const honeypot = form?.querySelector('input[name="website"]') as HTMLInputElement;
+    const errorEl = form?.querySelector('.nl-error') as HTMLElement;
+    const successEl = wrapper.querySelector('.nl-success') as HTMLElement;
+
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (honeypot?.value) return;
+
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const email = emailInput.value.trim();
+
+      if (!email || !emailPattern.test(email)) {
+        if (errorEl) {
+          errorEl.textContent = !email ? 'Please enter your email address.' : 'Please enter a valid email address.';
+          errorEl.style.display = 'block';
+        }
+        emailInput.setAttribute('aria-invalid', 'true');
+        emailInput.style.borderColor = 'var(--color-error)';
+        return;
+      }
+
+      if (errorEl) errorEl.style.display = 'none';
+      emailInput.removeAttribute('aria-invalid');
+      form.style.display = 'none';
+      if (successEl) successEl.style.display = 'block';
+    });
+  });
+</script>

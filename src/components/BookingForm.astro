@@ -1,0 +1,494 @@
+---
+---
+
+<div id="booking-form" style="max-width: 640px; margin: 0 auto;">
+  <!-- Step indicators -->
+  <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 40px;">
+    <div class="book-step-dot" data-book-step="1" style="width: 44px; height: 44px; border-radius: 50%; background: var(--color-brass); color: var(--color-warm-white); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 600;">1</div>
+    <div style="width: 40px; height: 2px; background: var(--color-border); align-self: center;" aria-hidden="true"></div>
+    <div class="book-step-dot" data-book-step="2" style="width: 44px; height: 44px; border-radius: 50%; background: var(--color-border); color: var(--color-text-dark); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 600;">2</div>
+    <div style="width: 40px; height: 2px; background: var(--color-border); align-self: center;" aria-hidden="true"></div>
+    <div class="book-step-dot" data-book-step="3" style="width: 44px; height: 44px; border-radius: 50%; background: var(--color-border); color: var(--color-text-dark); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 600;">3</div>
+  </div>
+
+  <form id="booking-multi-form" novalidate>
+    <!-- Step 1: Consultation Type -->
+    <fieldset id="book-step-1" style="border: none; padding: 0; margin: 0;">
+      <legend class="font-heading" style="font-size: 1.5rem; color: var(--color-charcoal); margin-bottom: 24px; display: block;">How would you like to meet?</legend>
+
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        {['Site Visit', 'Video Call', 'Office Meeting'].map((type) => (
+          <label style="display: flex; align-items: center; gap: 16px; padding: 20px; border: 2px solid var(--color-border); cursor: pointer; transition: all 0.3s ease; background: var(--color-warm-white);" class="booking-type-option">
+            <input type="radio" name="consultation-type" value={type} required style="accent-color: var(--color-brass); width: 20px; height: 20px; flex-shrink: 0;" />
+            <div>
+              <span style="font-size: 1rem; font-weight: 600; color: var(--color-text-dark); display: block;">{type}</span>
+              <span style="font-size: 0.82rem; color: var(--color-text-muted);">
+                {type === 'Site Visit' && 'We\'ll come to your property for a free assessment'}
+                {type === 'Video Call' && 'Discuss your project via Zoom or Teams'}
+                {type === 'Office Meeting' && 'Visit our Chelmsford office at 14 Duke Street'}
+              </span>
+            </div>
+          </label>
+        ))}
+      </div>
+
+      <div style="margin-top: 32px; text-align: right;">
+        <button type="button" class="btn-primary btn-fill" style="padding: 14px 32px;" data-book-next="2">
+          Choose Date & Time
+        </button>
+      </div>
+    </fieldset>
+
+    <!-- Step 2: Date & Time -->
+    <fieldset id="book-step-2" style="border: none; padding: 0; margin: 0; display: none;">
+      <legend class="font-heading" style="font-size: 1.5rem; color: var(--color-charcoal); margin-bottom: 24px; display: block;">Pick a date and time</legend>
+
+      <!-- Calendar -->
+      <div id="booking-calendar" style="margin-bottom: 32px;">
+        <!-- Calendar header -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <button type="button" id="cal-prev" aria-label="Previous month" style="background: none; border: 1px solid var(--color-border); width: 44px; height: 44px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--color-text-dark); transition: border-color 0.3s ease;">&#8249;</button>
+          <span id="cal-month-year" class="font-heading" style="font-size: 1.1rem;"></span>
+          <button type="button" id="cal-next" aria-label="Next month" style="background: none; border: 1px solid var(--color-border); width: 44px; height: 44px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--color-text-dark); transition: border-color 0.3s ease;">&#8250;</button>
+        </div>
+
+        <!-- Day headers -->
+        <div role="grid" aria-label="Calendar" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px;">
+          {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day) => (
+            <div role="columnheader" style="text-align: center; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-muted); padding: 8px 0;">{day}</div>
+          ))}
+          <!-- Calendar cells rendered by JS -->
+        </div>
+        <div id="cal-grid" role="grid" aria-label="Available dates" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px;"></div>
+      </div>
+
+      <!-- Time slots -->
+      <div id="time-slots-wrapper" style="display: none;">
+        <h3 style="font-family: var(--font-body); font-size: 0.88rem; font-weight: 600; color: var(--color-text-dark); margin-bottom: 12px;">Available times for <span id="selected-date-label"></span></h3>
+        <div id="time-slots" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;"></div>
+      </div>
+
+      <div style="margin-top: 32px; display: flex; justify-content: space-between;">
+        <button type="button" class="btn-primary btn-outline" style="padding: 14px 28px;" data-book-back="1">Back</button>
+        <button type="button" class="btn-primary btn-fill" style="padding: 14px 32px;" data-book-next="3" id="btn-to-step3" disabled>Your Details</button>
+      </div>
+    </fieldset>
+
+    <!-- Step 3: Contact Details -->
+    <fieldset id="book-step-3" style="border: none; padding: 0; margin: 0; display: none;">
+      <legend class="font-heading" style="font-size: 1.5rem; color: var(--color-charcoal); margin-bottom: 24px; display: block;">Your details</legend>
+
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        <div>
+          <label for="book-name" style="font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-charcoal); display: block; margin-bottom: 6px;">
+            Full Name <span style="color: var(--color-error);">*</span>
+          </label>
+          <input
+            type="text"
+            id="book-name"
+            name="name"
+            required
+            aria-required="true"
+            autocomplete="name"
+            style="width: 100%; padding: 14px 16px; border: 1px solid var(--color-border); background: var(--color-warm-white); font-size: 0.95rem; font-family: var(--font-body); color: var(--color-text-dark); transition: border-color 0.3s ease; min-height: 44px; box-sizing: border-box;"
+            placeholder="e.g. Sarah Blackwell"
+          />
+          <span id="book-name-error" style="font-size: 0.78rem; color: var(--color-error); display: none; margin-top: 4px;" role="alert"></span>
+        </div>
+
+        <div>
+          <label for="book-email" style="font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-charcoal); display: block; margin-bottom: 6px;">
+            Email <span style="color: var(--color-error);">*</span>
+          </label>
+          <input
+            type="email"
+            id="book-email"
+            name="email"
+            required
+            aria-required="true"
+            autocomplete="email"
+            style="width: 100%; padding: 14px 16px; border: 1px solid var(--color-border); background: var(--color-warm-white); font-size: 0.95rem; font-family: var(--font-body); color: var(--color-text-dark); transition: border-color 0.3s ease; min-height: 44px; box-sizing: border-box;"
+            placeholder="e.g. sarah@example.com"
+          />
+          <span id="book-email-error" style="font-size: 0.78rem; color: var(--color-error); display: none; margin-top: 4px;" role="alert"></span>
+        </div>
+
+        <div>
+          <label for="book-phone" style="font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-charcoal); display: block; margin-bottom: 6px;">
+            Phone <span style="color: var(--color-error);">*</span>
+          </label>
+          <input
+            type="tel"
+            id="book-phone"
+            name="phone"
+            required
+            aria-required="true"
+            autocomplete="tel"
+            style="width: 100%; padding: 14px 16px; border: 1px solid var(--color-border); background: var(--color-warm-white); font-size: 0.95rem; font-family: var(--font-body); color: var(--color-text-dark); transition: border-color 0.3s ease; min-height: 44px; box-sizing: border-box;"
+            placeholder="e.g. 07700 900 123"
+          />
+          <span id="book-phone-error" style="font-size: 0.78rem; color: var(--color-error); display: none; margin-top: 4px;" role="alert"></span>
+        </div>
+
+        <!-- Honeypot -->
+        <div style="position: absolute; left: -9999px;" aria-hidden="true">
+          <label for="book-website">Website</label>
+          <input type="text" id="book-website" name="website" tabindex="-1" autocomplete="off" />
+        </div>
+      </div>
+
+      <div style="margin-top: 32px; display: flex; justify-content: space-between;">
+        <button type="button" class="btn-primary btn-outline" style="padding: 14px 28px;" data-book-back="2">Back</button>
+        <button type="submit" class="btn-primary btn-fill" style="padding: 14px 32px; cursor: pointer;">Confirm Booking</button>
+      </div>
+    </fieldset>
+  </form>
+
+  <!-- Success State -->
+  <div id="booking-success" style="display: none; text-align: center; padding: 32px 0;">
+    <div style="margin-bottom: 20px;">
+      <svg width="56" height="56" viewBox="0 0 56 56" fill="none" style="display: inline-block;" aria-hidden="true">
+        <circle cx="28" cy="28" r="27" stroke="var(--color-brass)" stroke-width="2"/>
+        <path d="M18 28l7 7 13-13" stroke="var(--color-brass)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h3 class="font-heading" style="font-size: 1.5rem; margin-bottom: 12px;">Consultation Booked</h3>
+    <p id="booking-summary" style="font-size: 0.95rem; color: var(--color-text-secondary); margin-bottom: 24px;"></p>
+    <p style="font-size: 0.85rem; color: var(--color-text-muted);">We'll send a confirmation email shortly with all the details.</p>
+  </div>
+</div>
+
+<style>
+  .booking-type-option:has(input:checked) {
+    border-color: var(--color-brass) !important;
+    background: rgba(184, 134, 11, 0.04) !important;
+  }
+  .cal-cell {
+    width: 100%;
+    aspect-ratio: 1;
+    border: 1px solid var(--color-border);
+    background: var(--color-warm-white);
+    cursor: pointer;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--color-text-dark);
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+  }
+  .cal-cell:hover:not([disabled]) {
+    border-color: var(--color-brass);
+  }
+  .cal-cell[disabled] {
+    background: var(--color-stone);
+    color: var(--color-text-muted);
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  .cal-cell[aria-selected="true"] {
+    background: var(--color-brass) !important;
+    color: var(--color-warm-white) !important;
+    border-color: var(--color-brass) !important;
+  }
+  .cal-cell-empty {
+    border: none;
+    background: transparent;
+  }
+  .time-btn {
+    padding: 12px;
+    border: 1px solid var(--color-border);
+    background: var(--color-warm-white);
+    cursor: pointer;
+    font-size: 0.88rem;
+    font-family: var(--font-body);
+    color: var(--color-text-dark);
+    transition: all 0.2s ease;
+    min-height: 44px;
+    text-align: center;
+  }
+  .time-btn:hover:not([disabled]) {
+    border-color: var(--color-brass);
+  }
+  .time-btn[disabled] {
+    background: var(--color-stone);
+    color: var(--color-text-muted);
+    cursor: not-allowed;
+    text-decoration: line-through;
+    opacity: 0.5;
+  }
+  .time-btn[aria-selected="true"] {
+    background: var(--color-brass) !important;
+    color: var(--color-warm-white) !important;
+    border-color: var(--color-brass) !important;
+  }
+</style>
+
+<script>
+  const bookForm = document.getElementById('booking-multi-form') as HTMLFormElement;
+  const bookSuccess = document.getElementById('booking-success');
+  const bookSummary = document.getElementById('booking-summary');
+  const calGrid = document.getElementById('cal-grid');
+  const calMonthYear = document.getElementById('cal-month-year');
+  const timeSlotsWrapper = document.getElementById('time-slots-wrapper');
+  const timeSlotsEl = document.getElementById('time-slots');
+  const selectedDateLabel = document.getElementById('selected-date-label');
+  const btnToStep3 = document.getElementById('btn-to-step3') as HTMLButtonElement;
+
+  let currentMonth = new Date().getMonth();
+  let currentYear = new Date().getFullYear();
+  let selectedDate: string | null = null;
+  let selectedTime: string | null = null;
+  let selectedType: string | null = null;
+
+  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+  // Seeded pseudo-random for consistent "booked" slots
+  function seededRandom(seed: number): number {
+    const x = Math.sin(seed) * 10000;
+    return x - Math.floor(x);
+  }
+
+  function isBooked(dateStr: string, time: string): boolean {
+    const hash = dateStr.split('').reduce((a, c) => a + c.charCodeAt(0), 0) + time.split('').reduce((a, c) => a + c.charCodeAt(0), 0);
+    return seededRandom(hash) < 0.2;
+  }
+
+  function renderCalendar() {
+    if (!calGrid || !calMonthYear) return;
+    calMonthYear.textContent = `${months[currentMonth]} ${currentYear}`;
+    calGrid.innerHTML = '';
+
+    const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // Monday-based: convert Sunday (0) to 6, others subtract 1
+    const startOffset = firstDay === 0 ? 6 : firstDay - 1;
+
+    // Empty cells
+    for (let i = 0; i < startOffset; i++) {
+      const empty = document.createElement('div');
+      empty.className = 'cal-cell-empty';
+      empty.setAttribute('role', 'gridcell');
+      calGrid.appendChild(empty);
+    }
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      const date = new Date(currentYear, currentMonth, day);
+      const dayOfWeek = date.getDay(); // 0=Sun, 6=Sat
+      const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+      const isPast = date < today;
+      const isSunday = dayOfWeek === 0;
+      const isDisabled = isPast || isSunday;
+
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'cal-cell';
+      btn.textContent = String(day);
+      btn.setAttribute('role', 'gridcell');
+      btn.dataset.date = dateStr;
+
+      if (isDisabled) {
+        btn.disabled = true;
+        btn.setAttribute('aria-disabled', 'true');
+      } else {
+        btn.addEventListener('click', () => selectDate(dateStr, date));
+      }
+
+      if (selectedDate === dateStr) {
+        btn.setAttribute('aria-selected', 'true');
+      }
+
+      calGrid.appendChild(btn);
+    }
+  }
+
+  function selectDate(dateStr: string, date: Date) {
+    selectedDate = dateStr;
+    selectedTime = null;
+    if (btnToStep3) btnToStep3.disabled = true;
+
+    // Update calendar selection
+    calGrid?.querySelectorAll('.cal-cell').forEach((cell) => {
+      cell.setAttribute('aria-selected', cell.getAttribute('data-date') === dateStr ? 'true' : 'false');
+    });
+
+    // Show time slots
+    const dayOfWeek = date.getDay();
+    const isSaturday = dayOfWeek === 6;
+    const slots = isSaturday
+      ? ['08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30']
+      : ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00'];
+
+    if (timeSlotsWrapper) timeSlotsWrapper.style.display = 'block';
+    if (selectedDateLabel) {
+      const opts: Intl.DateTimeFormatOptions = { weekday: 'long', day: 'numeric', month: 'long' };
+      selectedDateLabel.textContent = date.toLocaleDateString('en-GB', opts);
+    }
+
+    if (timeSlotsEl) {
+      timeSlotsEl.innerHTML = '';
+      slots.forEach((time) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'time-btn';
+        btn.textContent = time;
+        const booked = isBooked(dateStr, time);
+        if (booked) {
+          btn.disabled = true;
+          btn.setAttribute('aria-disabled', 'true');
+          btn.title = 'This slot is already booked';
+        } else {
+          btn.addEventListener('click', () => selectTime(time));
+        }
+        timeSlotsEl.appendChild(btn);
+      });
+    }
+  }
+
+  function selectTime(time: string) {
+    selectedTime = time;
+    if (btnToStep3) btnToStep3.disabled = false;
+    timeSlotsEl?.querySelectorAll('.time-btn').forEach((btn) => {
+      btn.setAttribute('aria-selected', btn.textContent === time ? 'true' : 'false');
+    });
+  }
+
+  // Step navigation
+  function showBookStep(step: number) {
+    for (let i = 1; i <= 3; i++) {
+      const fieldset = document.getElementById(`book-step-${i}`);
+      if (fieldset) fieldset.style.display = i === step ? 'block' : 'none';
+      const dot = document.querySelector(`[data-book-step="${i}"]`) as HTMLElement;
+      if (dot) {
+        dot.style.background = i <= step ? 'var(--color-brass)' : 'var(--color-border)';
+        dot.style.color = i <= step ? 'var(--color-warm-white)' : 'var(--color-text-dark)';
+      }
+    }
+  }
+
+  document.querySelectorAll('[data-book-next]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const nextStep = parseInt(btn.getAttribute('data-book-next') || '1');
+      if (nextStep === 2) {
+        const checked = bookForm?.querySelector('input[name="consultation-type"]:checked') as HTMLInputElement;
+        if (!checked) return;
+        selectedType = checked.value;
+        renderCalendar();
+      }
+      showBookStep(nextStep);
+    });
+  });
+
+  document.querySelectorAll('[data-book-back]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const backStep = parseInt(btn.getAttribute('data-book-back') || '1');
+      showBookStep(backStep);
+    });
+  });
+
+  // Calendar navigation
+  document.getElementById('cal-prev')?.addEventListener('click', () => {
+    const now = new Date();
+    if (currentYear === now.getFullYear() && currentMonth === now.getMonth()) return;
+    currentMonth--;
+    if (currentMonth < 0) { currentMonth = 11; currentYear--; }
+    renderCalendar();
+  });
+
+  document.getElementById('cal-next')?.addEventListener('click', () => {
+    currentMonth++;
+    if (currentMonth > 11) { currentMonth = 0; currentYear++; }
+    renderCalendar();
+  });
+
+  // Arrow key navigation for calendar
+  calGrid?.addEventListener('keydown', (e) => {
+    const target = e.target as HTMLButtonElement;
+    if (!target.classList.contains('cal-cell')) return;
+    const cells = Array.from(calGrid.querySelectorAll('.cal-cell:not([disabled])')) as HTMLButtonElement[];
+    const idx = cells.indexOf(target);
+    if (idx === -1) return;
+
+    let nextIdx = idx;
+    if (e.key === 'ArrowRight') nextIdx = Math.min(idx + 1, cells.length - 1);
+    else if (e.key === 'ArrowLeft') nextIdx = Math.max(idx - 1, 0);
+    else if (e.key === 'ArrowDown') nextIdx = Math.min(idx + 7, cells.length - 1);
+    else if (e.key === 'ArrowUp') nextIdx = Math.max(idx - 7, 0);
+    else return;
+
+    e.preventDefault();
+    cells[nextIdx].focus();
+  });
+
+  // Form validation and submission
+  function showBookError(el: HTMLElement | null, input: HTMLInputElement, msg: string) {
+    if (!el) return;
+    el.textContent = msg;
+    el.style.display = 'block';
+    input.setAttribute('aria-invalid', 'true');
+    input.style.borderColor = 'var(--color-error)';
+  }
+
+  function clearBookError(el: HTMLElement | null, input: HTMLInputElement) {
+    if (!el) return;
+    el.style.display = 'none';
+    input.removeAttribute('aria-invalid');
+    input.style.borderColor = 'var(--color-border)';
+  }
+
+  bookForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const honeypot = document.getElementById('book-website') as HTMLInputElement;
+    if (honeypot?.value) return;
+
+    let valid = true;
+    const nameInput = document.getElementById('book-name') as HTMLInputElement;
+    const emailInput = document.getElementById('book-email') as HTMLInputElement;
+    const phoneInput = document.getElementById('book-phone') as HTMLInputElement;
+    const nameError = document.getElementById('book-name-error');
+    const emailError = document.getElementById('book-email-error');
+    const phoneError = document.getElementById('book-phone-error');
+
+    if (!nameInput.value.trim()) {
+      showBookError(nameError, nameInput, 'Please enter your name.');
+      valid = false;
+    } else { clearBookError(nameError, nameInput); }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailInput.value.trim()) {
+      showBookError(emailError, emailInput, 'Please enter your email address.');
+      valid = false;
+    } else if (!emailPattern.test(emailInput.value.trim())) {
+      showBookError(emailError, emailInput, 'Please enter a valid email address.');
+      valid = false;
+    } else { clearBookError(emailError, emailInput); }
+
+    const phonePattern = /^[\d\s+()-]{7,}$/;
+    if (!phoneInput.value.trim()) {
+      showBookError(phoneError, phoneInput, 'Please enter your phone number.');
+      valid = false;
+    } else if (!phonePattern.test(phoneInput.value.trim())) {
+      showBookError(phoneError, phoneInput, 'Please enter a valid phone number.');
+      valid = false;
+    } else { clearBookError(phoneError, phoneInput); }
+
+    if (valid && selectedDate && selectedTime) {
+      bookForm.style.display = 'none';
+      document.querySelector('.book-step-dot[data-book-step]')?.closest('div')?.parentElement;
+      // Hide step dots
+      const dotsContainer = document.querySelector('#booking-form > div:first-child') as HTMLElement;
+      if (dotsContainer) dotsContainer.style.display = 'none';
+
+      const dateObj = new Date(selectedDate + 'T00:00:00');
+      const dateFormatted = dateObj.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+      if (bookSummary) {
+        bookSummary.textContent = `Your ${selectedType?.toLowerCase()} has been booked for ${dateFormatted} at ${selectedTime}.`;
+      }
+      if (bookSuccess) bookSuccess.style.display = 'block';
+    }
+  });
+</script>

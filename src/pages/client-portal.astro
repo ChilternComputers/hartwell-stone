@@ -1,0 +1,219 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { SITE } from '@/config';
+---
+
+<Layout
+  title={`Client Portal Demo | ${SITE.name}`}
+  description="A demonstration of the Hartwell & Stone client portal — real-time project tracking, document access and direct communication with your project manager."
+  noindex={true}
+>
+  <!-- Header background (behind fixed transparent header) -->
+  <div style="height: 80px; background: var(--color-charcoal);" aria-hidden="true"></div>
+
+  <!-- Demo Banner -->
+  <div style="background: var(--color-brass); padding: 12px 0; text-align: center; position: relative; z-index: 10;">
+    <p style="font-size: 0.82rem; font-weight: 600; color: var(--color-warm-white); letter-spacing: 0.04em;">
+      This is a demonstration of our client portal. All data shown is fictional.
+    </p>
+  </div>
+
+  <!-- Portal Header -->
+  <div style="background: var(--color-charcoal); padding: 20px 0;">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px); display: flex; justify-content: space-between; align-items: center;">
+      <div style="display: flex; align-items: center; gap: 16px;">
+        <div style="width: 38px; height: 38px; border: 1.5px solid var(--color-brass-light); display: flex; align-items: center; justify-content: center;">
+          <span class="font-heading" style="font-size: 0.85rem; color: var(--color-brass-light); line-height: 1;">H&S</span>
+        </div>
+        <span class="font-heading" style="font-size: 1.2rem; color: var(--color-text-light);">Client Portal</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <span style="font-size: 0.88rem; color: rgba(240,237,232,0.85);">Welcome back, Sarah</span>
+        <div style="width: 36px; height: 36px; border-radius: 50%; background: var(--color-brass); display: flex; align-items: center; justify-content: center;">
+          <span style="font-size: 0.82rem; font-weight: 600; color: var(--color-warm-white);">SB</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <section style="padding: 48px 0; background: var(--color-stone); min-height: 80vh;">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
+
+      <!-- Project Title -->
+      <div style="margin-bottom: 32px;">
+        <span style="font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brass-dark);">Active Project</span>
+        <h1 class="font-heading" style="font-size: 1.8rem; margin-top: 4px;">Thornfield House Extension</h1>
+        <p style="font-size: 0.88rem; color: var(--color-text-muted);">Contract ref: HS-2025-0847 · Started 14 October 2025</p>
+      </div>
+
+      <!-- Dashboard Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style="gap: 20px;">
+
+        <!-- Project Progress -->
+        <div style="background: var(--color-warm-white); padding: 28px; border: 1px solid var(--color-border); grid-column: span 1;">
+          <h2 style="font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brass-dark); margin-bottom: 16px;">Project Progress</h2>
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px;">
+            <span class="font-heading" style="font-size: 2rem;">67%</span>
+            <span style="font-size: 0.82rem; color: var(--color-text-muted);">On schedule</span>
+          </div>
+          <div style="height: 8px; background: var(--color-stone); border-radius: 4px; overflow: hidden;">
+            <div style="height: 100%; width: 67%; background: var(--color-brass); border-radius: 4px; transition: width 1s ease;"></div>
+          </div>
+          <p style="font-size: 0.82rem; color: var(--color-text-secondary); margin-top: 12px;">
+            Current phase: <strong>Second Fix</strong>
+          </p>
+          <p style="font-size: 0.78rem; color: var(--color-text-muted); margin-top: 4px;">
+            Estimated completion: 28 March 2026
+          </p>
+        </div>
+
+        <!-- Budget Overview -->
+        <div style="background: var(--color-warm-white); padding: 28px; border: 1px solid var(--color-border);">
+          <h2 style="font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brass-dark); margin-bottom: 16px;">Budget Overview</h2>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 16px;">
+            <div>
+              <span style="font-size: 0.72rem; color: var(--color-text-muted); display: block;">Contract Value</span>
+              <span class="font-heading" style="font-size: 1.3rem;">&pound;285,000</span>
+            </div>
+            <div style="text-align: right;">
+              <span style="font-size: 0.72rem; color: var(--color-text-muted); display: block;">Remaining</span>
+              <span class="font-heading" style="font-size: 1.3rem; color: var(--color-brass-dark);">&pound;94,000</span>
+            </div>
+          </div>
+          <div style="height: 8px; background: var(--color-stone); border-radius: 4px; overflow: hidden;">
+            <div style="height: 100%; width: 67%; background: var(--color-charcoal); border-radius: 4px;"></div>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-top: 8px;">
+            <span style="font-size: 0.72rem; color: var(--color-text-muted);">&pound;191,000 invoiced</span>
+            <span style="font-size: 0.72rem; color: var(--color-text-muted);">No variations</span>
+          </div>
+        </div>
+
+        <!-- Timeline -->
+        <div style="background: var(--color-warm-white); padding: 28px; border: 1px solid var(--color-border);">
+          <h2 style="font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brass-dark); margin-bottom: 16px;">Project Timeline</h2>
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            {[
+              { phase: 'Foundations', status: 'complete', pct: '100%' },
+              { phase: 'Structural Shell', status: 'complete', pct: '100%' },
+              { phase: 'First Fix', status: 'complete', pct: '100%' },
+              { phase: 'Second Fix', status: 'active', pct: '40%' },
+              { phase: 'Finishing', status: 'pending', pct: '0%' },
+              { phase: 'Snagging', status: 'pending', pct: '0%' },
+            ].map((item) => (
+              <div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                  <span style={`font-size: 0.78rem; font-weight: ${item.status === 'active' ? '600' : '400'}; color: ${item.status === 'pending' ? 'var(--color-text-muted)' : 'var(--color-text-dark)'};`}>{item.phase}</span>
+                  <span style={`font-size: 0.72rem; color: ${item.status === 'complete' ? 'var(--color-brass-dark)' : 'var(--color-text-muted)'};`}>
+                    {item.status === 'complete' ? '✓' : item.status === 'active' ? 'In progress' : '—'}
+                  </span>
+                </div>
+                <div style="height: 4px; background: var(--color-stone); border-radius: 2px; overflow: hidden;">
+                  <div style={`height: 100%; width: ${item.pct}; background: ${item.status === 'active' ? 'var(--color-brass)' : item.status === 'complete' ? 'var(--color-charcoal)' : 'transparent'}; border-radius: 2px;`}></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Documents -->
+        <div style="background: var(--color-warm-white); padding: 28px; border: 1px solid var(--color-border);">
+          <h2 style="font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brass-dark); margin-bottom: 16px;">Documents</h2>
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            {[
+              { name: 'Building Contract', date: '14 Oct 2025', type: 'PDF' },
+              { name: 'Project Schedule', date: '14 Oct 2025', type: 'PDF' },
+              { name: 'Planning Approval', date: '28 Aug 2025', type: 'PDF' },
+              { name: 'Invoice #HS-0847-04', date: '01 Mar 2026', type: 'PDF' },
+              { name: 'Insurance Certificate', date: '01 Jan 2026', type: 'PDF' },
+            ].map((doc) => (
+              <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--color-border);">
+                <div>
+                  <span style="font-size: 0.85rem; color: var(--color-text-dark); font-weight: 500; display: block;">{doc.name}</span>
+                  <span style="font-size: 0.72rem; color: var(--color-text-muted);">{doc.date} · {doc.type}</span>
+                </div>
+                <span style="font-size: 0.78rem; color: var(--color-brass-dark); font-weight: 600; cursor: default;">Download</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Messages -->
+        <div style="background: var(--color-warm-white); padding: 28px; border: 1px solid var(--color-border);">
+          <h2 style="font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brass-dark); margin-bottom: 16px;">Messages</h2>
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div style="padding: 16px; background: var(--color-stone); border-left: 3px solid var(--color-brass);">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                <span style="font-size: 0.78rem; font-weight: 600; color: var(--color-text-dark);">James Hartwell</span>
+                <span style="font-size: 0.68rem; color: var(--color-text-muted);">Today, 09:14</span>
+              </div>
+              <p style="font-size: 0.82rem; color: var(--color-text-secondary); line-height: 1.6;">
+                Morning Sarah — the electricians have finished the second fix wiring. We're on track to start the bathroom tiling tomorrow. I'll send photos once the underfloor heating mats are down.
+              </p>
+            </div>
+            <div style="padding: 16px; background: var(--color-stone); border-left: 3px solid var(--color-brass);">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                <span style="font-size: 0.78rem; font-weight: 600; color: var(--color-text-dark);">James Hartwell</span>
+                <span style="font-size: 0.68rem; color: var(--color-text-muted);">Yesterday, 16:32</span>
+              </div>
+              <p style="font-size: 0.82rem; color: var(--color-text-secondary); line-height: 1.6;">
+                Quick update: the Porcelanosa tiles you selected have arrived and they look fantastic. The Italian marble for the en-suite is due Thursday.
+              </p>
+            </div>
+            <div style="padding: 16px; background: var(--color-stone); border-left: 3px solid var(--color-border);">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                <span style="font-size: 0.78rem; font-weight: 600; color: var(--color-text-dark);">Sarah Blackwell</span>
+                <span style="font-size: 0.68rem; color: var(--color-text-muted);">Yesterday, 17:05</span>
+              </div>
+              <p style="font-size: 0.82rem; color: var(--color-text-secondary); line-height: 1.6;">
+                That's wonderful news James. Looking forward to seeing the photos. Could we also discuss the garden lighting when you have a moment?
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Photo Updates -->
+        <div style="background: var(--color-warm-white); padding: 28px; border: 1px solid var(--color-border);">
+          <h2 style="font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brass-dark); margin-bottom: 16px;">Photo Updates</h2>
+          <div class="grid grid-cols-2" style="gap: 8px;">
+            {[
+              { src: '/images/projects/project-4.webp', date: '12 Mar' },
+              { src: '/images/projects/project-2.webp', date: '08 Mar' },
+              { src: '/images/projects/project-1.webp', date: '01 Mar' },
+              { src: '/images/projects/project-6.webp', date: '22 Feb' },
+            ].map((photo) => (
+              <div style="position: relative;">
+                <div style="aspect-ratio: 4/3; overflow: hidden;">
+                  <img
+                    src={photo.src}
+                    alt="Project progress photo"
+                    width="300"
+                    height="225"
+                    loading="lazy"
+                    style="width: 100%; height: 100%; object-fit: cover;"
+                  />
+                </div>
+                <span style="position: absolute; bottom: 4px; right: 4px; font-size: 0.65rem; background: rgba(0,0,0,0.7); color: white; padding: 2px 6px; border-radius: 2px;">{photo.date}</span>
+              </div>
+            ))}
+          </div>
+          <p style="font-size: 0.72rem; color: var(--color-text-muted); text-align: center; margin-top: 12px;">
+            48 photos in project album
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Back link -->
+      <div style="text-align: center; margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--color-border);">
+        <p style="font-size: 0.95rem; color: var(--color-text-secondary); margin-bottom: 16px;">
+          Every Hartwell & Stone client receives a dedicated project portal with real-time updates, document access and direct communication with their project manager.
+        </p>
+        <a href="/contact/" class="btn-primary btn-fill" style="padding: 14px 32px; display: inline-block;">
+          Start Your Project
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

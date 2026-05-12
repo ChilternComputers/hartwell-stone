@@ -1,5 +1,6 @@
 ---
 import { SITE } from '@/config';
+import NewsletterSignup from '@/components/NewsletterSignup.astro';
 ---
 
 <footer role="contentinfo" style="background: var(--color-charcoal);">
@@ -16,12 +17,17 @@ import { SITE } from '@/config';
       <div class="line-accent" style="margin: 24px auto 0;" aria-hidden="true"></div>
     </div>
 
+    <!-- Newsletter -->
+    <div style="margin-bottom: 48px; padding-bottom: 40px; border-bottom: 1px solid rgba(240,237,232,0.08);">
+      <NewsletterSignup variant="dark" />
+    </div>
+
     <!-- 3-column minimal layout -->
     <div class="grid grid-cols-1 md:grid-cols-3" style="gap: 40px; margin-bottom: 56px;">
 
       <!-- Navigation -->
       <div style="text-align: center;">
-        <h3 style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(240,237,232,0.85); margin-bottom: 20px; font-family: var(--font-body);">Navigate</h3>
+        <h2 style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(240,237,232,0.85); margin-bottom: 20px; font-family: var(--font-body); line-height: 1.4;">Navigate</h2>
         <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px;">
           <li><a href="/services/" style="font-size: 0.88rem; color: rgba(240,237,232,0.85); transition: color 0.3s ease; display: inline-flex; align-items: center; padding: 6px 0; min-height: 44px;" class="hover:text-text-light">Services</a></li>
           <li><a href="/projects/" style="font-size: 0.88rem; color: rgba(240,237,232,0.85); transition: color 0.3s ease; display: inline-flex; align-items: center; padding: 6px 0; min-height: 44px;" class="hover:text-text-light">Projects</a></li>
@@ -32,13 +38,15 @@ import { SITE } from '@/config';
           <li><a href="/insights/" style="font-size: 0.88rem; color: rgba(240,237,232,0.85); transition: color 0.3s ease; display: inline-flex; align-items: center; padding: 6px 0; min-height: 44px;" class="hover:text-text-light">Insights</a></li>
           <li><a href="/faq/" style="font-size: 0.88rem; color: rgba(240,237,232,0.85); transition: color 0.3s ease; display: inline-flex; align-items: center; padding: 6px 0; min-height: 44px;" class="hover:text-text-light">FAQ</a></li>
           <li><a href="/contact/" style="font-size: 0.88rem; color: rgba(240,237,232,0.85); transition: color 0.3s ease; display: inline-flex; align-items: center; padding: 6px 0; min-height: 44px;" class="hover:text-text-light">Contact</a></li>
+          <li><a href="/book/" style="font-size: 0.88rem; color: rgba(240,237,232,0.85); transition: color 0.3s ease; display: inline-flex; align-items: center; padding: 6px 0; min-height: 44px;" class="hover:text-text-light">Book a Consultation</a></li>
+          <li><a href="/virtual-tours/" style="font-size: 0.88rem; color: rgba(240,237,232,0.85); transition: color 0.3s ease; display: inline-flex; align-items: center; padding: 6px 0; min-height: 44px;" class="hover:text-text-light">Virtual Tours</a></li>
           <li><a href="/extension-guide/" style="font-size: 0.88rem; color: var(--color-brass-light); transition: color 0.3s ease; display: inline-flex; align-items: center; padding: 6px 0; min-height: 44px;">Free Extension Guide</a></li>
         </ul>
       </div>
 
       <!-- Contact -->
       <div style="text-align: center;">
-        <h3 style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(240,237,232,0.85); margin-bottom: 20px; font-family: var(--font-body);">Contact</h3>
+        <h2 style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(240,237,232,0.85); margin-bottom: 20px; font-family: var(--font-body); line-height: 1.4;">Contact</h2>
         <div style="display: flex; flex-direction: column; gap: 10px;">
           <a href={`tel:${SITE.phone.replace(/\s/g, '')}`} style="font-size: 0.95rem; color: var(--color-brass-light); font-weight: 500; display: inline-flex; align-items: center; min-height: 44px;">
             {SITE.phone}
@@ -55,7 +63,7 @@ import { SITE } from '@/config';
 
       <!-- Social -->
       <div style="text-align: center;">
-        <h3 style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(240,237,232,0.85); margin-bottom: 20px; font-family: var(--font-body);">Connect</h3>
+        <h2 style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(240,237,232,0.85); margin-bottom: 20px; font-family: var(--font-body); line-height: 1.4;">Connect</h2>
         <div style="display: flex; flex-direction: column; gap: 10px;">
           <a href={SITE.social.facebook} target="_blank" rel="noopener noreferrer" style="font-size: 0.88rem; color: rgba(240,237,232,0.85); transition: color 0.3s ease; display: inline-flex; align-items: center; min-height: 44px;" class="hover:text-text-light">
             Facebook

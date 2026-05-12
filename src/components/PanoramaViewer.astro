@@ -1,0 +1,142 @@
+---
+interface Scene {
+  id: string;
+  title: string;
+  image: string;
+  pitch?: number;
+  yaw?: number;
+}
+
+interface Props {
+  scenes: Scene[];
+}
+
+const { scenes } = Astro.props;
+const viewerId = `pano-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<div class="panorama-viewer" data-panorama={viewerId}>
+  <!-- Scene selector (if multiple scenes) -->
+  {scenes.length > 1 && (
+    <div style="display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; justify-content: center;">
+      {scenes.map((scene, i) => (
+        <button
+          type="button"
+          class="pano-scene-btn"
+          data-scene-id={scene.id}
+          style={`padding: 10px 20px; border: 1px solid var(--color-border); background: ${i === 0 ? 'var(--color-brass)' : 'var(--color-warm-white)'}; color: ${i === 0 ? 'var(--color-warm-white)' : 'var(--color-text-dark)'}; font-size: 0.82rem; font-weight: 500; font-family: var(--font-body); cursor: pointer; transition: all 0.3s ease; min-height: 44px;`}
+        >
+          {scene.title}
+        </button>
+      ))}
+    </div>
+  )}
+
+  <!-- Panorama container -->
+  <div
+    id={viewerId}
+    role="application"
+    aria-label="360 degree virtual tour"
+    style="width: 100%; aspect-ratio: 16/9; background: var(--color-charcoal); position: relative;"
+  >
+    <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: rgba(240,237,232,0.6); font-size: 0.88rem;">
+      Loading 360&deg; tour&hellip;
+    </div>
+  </div>
+
+  <p style="font-size: 0.72rem; color: var(--color-text-muted); text-align: center; margin-top: 8px;">
+    Click and drag to look around. Use scroll wheel to zoom.
+  </p>
+</div>
+
+<script type="application/json" class="pano-config" data-for={viewerId} set:html={JSON.stringify(scenes)} />
+
+<script>
+  // Lazy-load Pannellum and initialise viewers
+  let pannellumLoaded = false;
+  let pannellumLoading = false;
+  const pendingInits: (() => void)[] = [];
+
+  function loadPannellum(callback: () => void) {
+    if (pannellumLoaded) { callback(); return; }
+    pendingInits.push(callback);
+    if (pannellumLoading) return;
+    pannellumLoading = true;
+
+    // Load CSS
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = '/lib/pannellum/pannellum.css';
+    document.head.appendChild(link);
+
+    // Load JS
+    const script = document.createElement('script');
+    script.src = '/lib/pannellum/pannellum.js';
+    script.onload = () => {
+      pannellumLoaded = true;
+      pendingInits.forEach((fn) => fn());
+      pendingInits.length = 0;
+    };
+    document.head.appendChild(script);
+  }
+
+  function initViewer(wrapper: Element) {
+    const configEl = document.querySelector(`.pano-config[data-for="${wrapper.getAttribute('data-panorama')}"]`);
+    if (!configEl) return;
+    const scenes = JSON.parse(configEl.textContent || '[]');
+    if (!scenes.length) return;
+
+    const viewerId = wrapper.getAttribute('data-panorama')!;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const pannellumScenes: Record<string, any> = {};
+    scenes.forEach((scene: any) => {
+      pannellumScenes[scene.id] = {
+        panorama: scene.image,
+        pitch: scene.pitch || 0,
+        yaw: scene.yaw || 0,
+        type: 'equirectangular',
+        autoLoad: true,
+        autoRotate: reducedMotion ? 0 : 2,
+        showControls: true,
+        compass: false,
+      };
+    });
+
+    const viewer = (window as any).pannellum.viewer(viewerId, {
+      default: {
+        firstScene: scenes[0].id,
+        autoLoad: true,
+        autoRotate: reducedMotion ? 0 : 2,
+        showControls: true,
+        compass: false,
+      },
+      scenes: pannellumScenes,
+    });
+
+    // Scene selector buttons
+    wrapper.querySelectorAll('.pano-scene-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const sceneId = btn.getAttribute('data-scene-id');
+        if (sceneId) viewer.loadScene(sceneId);
+        wrapper.querySelectorAll('.pano-scene-btn').forEach((b) => {
+          const isActive = b === btn;
+          (b as HTMLElement).style.background = isActive ? 'var(--color-brass)' : 'var(--color-warm-white)';
+          (b as HTMLElement).style.color = isActive ? 'var(--color-warm-white)' : 'var(--color-text-dark)';
+        });
+      });
+    });
+  }
+
+  // IntersectionObserver for lazy loading
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        loadPannellum(() => initViewer(entry.target));
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { rootMargin: '200px' });
+
+  document.querySelectorAll('[data-panorama]').forEach((el) => observer.observe(el));
+</script>

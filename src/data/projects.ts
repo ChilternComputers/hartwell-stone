@@ -8,6 +8,7 @@ export interface Project {
   value: string;
   duration: string;
   gallery?: string[];
+  tourImages?: string[];
   clientTestimonial?: string;
   challenges?: string;
   solutions?: string;
@@ -23,6 +24,7 @@ export const projects: Project[] = [
     location: 'Chelmsford, Essex',
     image: '/images/projects/project-1.webp',
     gallery: ['/images/projects/gallery/project-1-2.webp', '/images/projects/gallery/project-1-3.webp'],
+    tourImages: ['/images/tours/the-willows-kitchen.webp'],
     description: 'A meticulous restoration of a Grade II listed Georgian townhouse, returning the property to its former glory whilst introducing contemporary living standards. Works included lime plaster reinstatement, sash window restoration, structural underpinning and a sensitive rear extension approved by the conservation officer. The original cornicing, ceiling roses and wide-plank oak floors were painstakingly restored by our heritage joinery team.',
     value: '£1.2M',
     duration: '14 months',
@@ -39,6 +41,7 @@ export const projects: Project[] = [
     location: 'Ingatestone, Essex',
     image: '/images/projects/project-2.webp',
     gallery: ['/images/projects/gallery/project-2-2.webp', '/images/projects/gallery/project-2-3.webp'],
+    tourImages: ['/images/tours/thornfield-house-living.webp'],
     description: 'A striking five-bedroom detached residence set within two acres of Essex countryside. Designed in collaboration with Michaelis Boyd Associates, the house features floor-to-ceiling Vitrocsa glazing, a cantilevered first floor over the entrance courtyard, polished concrete floors throughout and an integrated home automation system. The landscaping includes a natural swimming pond, outdoor kitchen and a 200m tree-lined driveway.',
     value: '£2.4M',
     duration: '18 months',
@@ -55,6 +58,7 @@ export const projects: Project[] = [
     location: 'Maldon, Essex',
     image: '/images/projects/project-3.webp',
     gallery: ['/images/projects/gallery/project-3-2.webp', '/images/projects/gallery/project-3-3.webp'],
+    tourImages: ['/images/tours/old-maltings-loft.webp'],
     description: 'Transformation of a derelict Victorian maltings building into six luxury apartments. Original red brick arches, cast-iron columns and timber king-post trusses were retained as architectural features, while new mezzanine floors, Crittall-style glazing and underfloor heating created contemporary living within the historic shell. Each apartment was designed to celebrate the building\'s industrial heritage.',
     value: '£1.8M',
     duration: '16 months',

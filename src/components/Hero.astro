@@ -114,13 +114,11 @@ import { SITE } from '@/config';
     ]).then(([{ gsap }, { ScrollTrigger }]) => {
       gsap.registerPlugin(ScrollTrigger);
 
-      // Subtle tween for H1 (starts near-invisible via JS so LCP is measured before JS runs)
+      // Subtle tween for H1 — only transform, no opacity change (preserves LCP)
       const heroTitle = document.querySelector('.hero-title') as HTMLElement;
       if (heroTitle) {
-        heroTitle.style.opacity = '0.01';
         heroTitle.style.transform = 'translateY(10px)';
         gsap.to(heroTitle, {
-          opacity: 1,
           y: 0,
           duration: 0.6,
           ease: 'power3.out',

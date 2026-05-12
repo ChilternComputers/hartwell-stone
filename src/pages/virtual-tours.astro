@@ -1,0 +1,67 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { SITE } from '@/config';
+import { projects } from '@/data/projects';
+import PanoramaViewer from '@/components/PanoramaViewer.astro';
+import PageHeader from '@/components/PageHeader.astro';
+import CTABanner from '@/components/CTABanner.astro';
+
+const tourProjects = projects.filter((p) => p.tourImages && p.tourImages.length > 0);
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url },
+    { '@type': 'ListItem', position: 2, name: 'Virtual Tours', item: `${SITE.url}/virtual-tours/` },
+  ],
+};
+---
+
+<Layout
+  title={`360° Virtual Tours | ${SITE.name}`}
+  description="Explore our completed projects in immersive 360° virtual tours. Walk through award-winning extensions, new builds and heritage restorations from your device."
+  schema={schema}
+>
+  <PageHeader
+    breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Virtual Tours' }]}
+    eyebrow="Immersive"
+    title="360° Virtual Tours"
+    description="Step inside our completed projects. Explore award-winning extensions, new builds and heritage restorations in immersive 360° — from any device."
+  />
+
+  {tourProjects.map((project, i) => (
+    <section style={`padding: 80px 0; background: ${i % 2 === 0 ? 'var(--color-warm-white)' : 'var(--color-stone)'};`}>
+      <div style="max-width: 1000px; margin: 0 auto; padding: 0 clamp(24px, 4vw, 48px);">
+        <div style="margin-bottom: 32px;" data-reveal>
+          <span class="eyebrow" style="display: block; margin-bottom: 12px;">{project.type} · {project.location}</span>
+          <h2 class="font-heading" style="font-size: 1.6rem; margin-bottom: 8px;">{project.title}</h2>
+          <p style="font-size: 0.92rem; color: var(--color-text-secondary); line-height: 1.7; max-width: 700px;">
+            {project.description.slice(0, 200)}...
+          </p>
+        </div>
+
+        <PanoramaViewer
+          scenes={project.tourImages!.map((img, idx) => ({
+            id: `${project.slug}-${idx}`,
+            title: idx === 0 ? 'Main View' : `View ${idx + 1}`,
+            image: img,
+            pitch: 0,
+            yaw: 0,
+          }))}
+        />
+
+        <div style="margin-top: 20px; text-align: center;">
+          <a
+            href={`/projects/${project.slug}/`}
+            style="font-size: 0.85rem; color: var(--color-brass-dark); font-weight: 600; text-decoration: none; transition: color 0.3s ease;"
+          >
+            View Full Project Details &rarr;
+          </a>
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <CTABanner />
+</Layout>
